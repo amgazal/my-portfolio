@@ -4,25 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Abdallah Gazal | Frontend & Full-Stack Developer</title>
+    <title>Abdallah Gazal | Frontend & Product Engineering</title>
     <meta
       name="description"
-      content="Abdallah Gazal is a Cornell Information Science student building frontend and full-stack products with React, JavaScript, TypeScript, Python, and PostgreSQL."
+      content="Abdallah Gazal is a Cornell Information Science student building frontend and full-stack products with React, JavaScript, TypeScript, Python, PostgreSQL, and thoughtful product design."
     />
     <link rel="canonical" href="https://amgazal.github.io/my-portfolio/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://amgazal.github.io/my-portfolio/" />
-    <meta property="og:title" content="Abdallah Gazal | Frontend & Full-Stack Developer" />
+    <meta property="og:title" content="Abdallah Gazal | Frontend & Product Engineering" />
     <meta
       property="og:description"
-      content="Cornell Information Science student building thoughtful web products from interface to backend."
+      content="Cornell Information Science student building web products from interface to backend."
     />
-    <meta property="og:image" content="https://amgazal.github.io/my-portfolio/future.png" />
+    <meta property="og:image" content="https://amgazal.github.io/my-portfolio/layer.png" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#0a0a0c" />
+    <meta name="theme-color" content="#09090b" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,9 +36,7 @@
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-
-    <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
-    <div class="pointer-light" id="pointerLight" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
 
     <div class="cinema-curtain" id="cinemaCurtain">
       <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
@@ -54,7 +52,7 @@
       <div class="container nav">
         <a class="brand" href="#home" aria-label="Abdallah Gazal, home">
           <span class="brand-name">Abdallah Gazal</span>
-          <span class="brand-role">Frontend + Full-stack</span>
+          <span class="brand-role">Frontend · Product · Full-stack</span>
         </a>
 
         <button
@@ -85,12 +83,11 @@
             <div class="cinema-hero-copy">
               <p class="cinema-overline">Cornell University · Information Science · 2028</p>
               <h1 id="introTitle">Abdallah Gazal</h1>
-              <p class="cinema-role">Frontend engineer with full-stack range</p>
+              <p class="cinema-role">Frontend-focused. Comfortable across the stack.</p>
               <p class="cinema-lede">
-                I build web products end to end, with most of my attention on the interface:
-                responsive experiences, real data, and the engineering underneath that makes
-                them reliable. Recent work includes Layer and Cornell’s Future Civilizations
-                Conference website.
+                I like building things properly, not just getting them to work once. I’m
+                most at home in the frontend, but I care about the API calls, data, tests,
+                deployment, and small details that decide whether a product actually feels good to use.
               </p>
 
               <div class="cinema-actions">
@@ -111,21 +108,21 @@
                 <span>01</span>
                 <div>
                   <small>Focus</small>
-                  <strong>Frontend · Full-stack · Product engineering</strong>
+                  <strong>Frontend · Product engineering · Full-stack</strong>
                 </div>
               </div>
               <div class="cinema-rail-row">
                 <span>02</span>
                 <div>
-                  <small>Current stack</small>
-                  <strong>React · JavaScript · TypeScript · Python · PostgreSQL</strong>
+                  <small>Current role</small>
+                  <strong>IT Support Consultant · Cornell University</strong>
                 </div>
               </div>
               <div class="cinema-rail-row">
                 <span>03</span>
                 <div>
-                  <small>Available</small>
-                  <strong>Summer 2027 frontend / product engineering internships</strong>
+                  <small>Looking for</small>
+                  <strong>Summer 2027 frontend / software engineering internships</strong>
                 </div>
               </div>
             </aside>
@@ -139,7 +136,6 @@
               <span>Git</span>
             </div>
           </div>
-
         </div>
       </section>
 
@@ -147,11 +143,12 @@
         <div class="section-head">
           <div>
             <p class="eyebrow"><span>01</span> Selected work</p>
-            <h2>Projects I can walk you through.</h2>
+            <h2>Projects I know inside out.</h2>
           </div>
           <p>
-            Two are live products; the rest are technical projects that show how I approach
-            state, data, testing, and implementation.
+            I’d rather show a smaller set of work I can explain clearly than a long list
+            of things I barely touched. These are the projects where I made decisions,
+            debugged the problems, and learned the most.
           </p>
         </div>
 
@@ -166,11 +163,6 @@
                 <span>Layer</span>
                 <small>Project preview</small>
               </div>
-              <div class="feature-notes" aria-hidden="true">
-                <span>Personalized comfort</span>
-                <span>Outfit recommendation</span>
-                <span>Outing context</span>
-              </div>
             </div>
 
             <div class="project-text">
@@ -181,20 +173,20 @@
 
               <h3>Layer</h3>
               <p class="project-summary">
-                A personalized weather app that turns a forecast into a clothing
-                recommendation and adapts from user feedback.
+                Layer started from a problem I kept running into after moving to Ithaca:
+                the forecast told me the temperature, but not what that temperature meant for me.
               </p>
               <p>
-                I built the React interface and the backend around PostgreSQL and Supabase.
-                The app works locally without an account; signing in enables cloud sync
-                across devices.
+                I turned that idea into a full-stack weather app that recommends what to wear,
+                adjusts for the outing, and learns from feedback. I built the React interface,
+                PostgreSQL data model, sync behavior, authentication flow, and deployment pipeline.
               </p>
 
               <ul class="project-points">
-                <li>Designed the database schema and Row-Level Security rules for user data.</li>
-                <li>Built offline-first sync with queued writes and idempotency protection.</li>
-                <li>Separated the calibration logic from the UI and covered it with 40 unit tests.</li>
-                <li>Added a GitHub Actions pipeline for tests, regression checks, and builds.</li>
+                <li>Designed a PostgreSQL schema and Row-Level Security rules for profiles, calibration state, and feedback.</li>
+                <li>Built local-first behavior with queued writes and idempotency protection so a weak connection does not break the experience.</li>
+                <li>Kept the personalization logic separate from the UI and covered it with 40 unit tests.</li>
+                <li>Added GitHub Actions checks so tests, regression checks, and builds run before deployment.</li>
               </ul>
 
               <div class="tag-row" aria-label="Layer technologies">
@@ -202,9 +194,8 @@
                 <span>Supabase</span><span>Vitest</span><span>GitHub Actions</span>
               </div>
 
-              <div class="project-links project-links--featured">
+              <div class="project-links">
                 <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noreferrer">Live app ↗</a>
-                <span class="project-proof">Public deployment · responsive web app</span>
               </div>
             </div>
           </article>
@@ -229,22 +220,79 @@
               </div>
               <h3>Future Civilizations Conference</h3>
               <p class="project-summary">
-                The official website for Cornell’s Future Civilizations Conference,
-                designed to stay clear as speakers, panels, and event details changed.
+                I started with a blank page and a moving target: the conference was new,
+                and the website had to keep changing with it.
+              </p>
+              <p>
+                I designed the structure, built the frontend, and kept shipping updates as
+                speakers, panels, and event details came together.
               </p>
               <ul class="project-points">
                 <li>Planned the information architecture and navigation from scratch.</li>
                 <li>Built responsive layouts for speakers, panels, and programming.</li>
-                <li>Maintained iterative releases through Git as conference details evolved.</li>
+                <li>Maintained iterative releases through Git as conference requirements changed.</li>
               </ul>
               <div class="tag-row">
-                <span>JavaScript</span><span>HTML/CSS</span><span>Responsive Design</span>
+                <span>JavaScript</span><span>HTML/CSS</span><span>Responsive Design</span><span>Git</span>
               </div>
               <div class="project-links">
                 <a href="https://futurecivilizations.com" target="_blank" rel="noreferrer">Visit site ↗</a>
               </div>
             </div>
           </article>
+
+          <article class="project-card project-card--ai">
+            <div class="project-visual ai-preview" aria-label="AI Tweet Detection Streamlit interface preview">
+              <div class="ai-preview-top">
+                <span>AI Tweet Detection</span>
+                <small>Streamlit</small>
+              </div>
+              <div class="ai-preview-grid">
+                <div class="ai-input-panel">
+                  <span class="ui-kicker">Enter a tweet</span>
+                  <div class="fake-input">Paste or type a tweet to classify...</div>
+                  <div class="fake-button">Predict</div>
+                </div>
+                <div class="ai-result-panel">
+                  <span class="ui-kicker">Prediction</span>
+                  <strong>AI-generated</strong>
+                  <div class="ai-result-row"><span>Selected model</span><b>BERT</b></div>
+                  <div class="ai-result-row"><span>Confidence</span><b>77.5%</b></div>
+                  <div class="agreement-line"><span>BERT</span><span>Random Forest</span><span>Logistic Regression</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-text">
+              <div class="project-meta">
+                <span class="project-status">AI4ALL · Team project</span>
+                <span>2026</span>
+              </div>
+              <h3>AI Tweet Detection</h3>
+              <p class="project-summary">
+                My AI4ALL team built a classifier to tell whether a tweet was written by a
+                person or generated by AI, then put the models behind a Streamlit interface.
+              </p>
+              <p>
+                We merged two research datasets instead of depending on one source and compared
+                different model families so the app could show more than a single prediction.
+              </p>
+              <ul class="project-points">
+                <li>Cleaned and standardized 35K+ tweets from TweepFake and ElectAI while keeping source and generator labels traceable.</li>
+                <li>Compared BERT, Random Forest, and Logistic Regression for human-vs-AI classification.</li>
+                <li>Built a Streamlit experience that shows prediction, confidence, AI probability, and model agreement.</li>
+              </ul>
+              <div class="tag-row">
+                <span>Python</span><span>BERT</span><span>scikit-learn</span><span>pandas</span><span>Streamlit</span><span>NLP</span>
+              </div>
+              <!-- Add the live Streamlit URL here once you want it public on the portfolio. -->
+            </div>
+          </article>
+
+          <div class="project-divider" aria-hidden="true">
+            <span>Technical foundations</span>
+            <div></div>
+          </div>
 
           <article class="project-card">
             <div class="project-visual dual-image">
@@ -273,8 +321,8 @@
               </div>
               <h3>Color Model Converter</h3>
               <p class="project-summary">
-                An interactive converter that keeps RGB, CMYK, and HSV representations
-                synchronized and supports live contrast adjustment.
+                One of the projects that made me slow down and pay attention to edge cases.
+                I wrote the conversion math myself and kept RGB, CMYK, and HSV synchronized.
               </p>
 
               <div class="demo" data-demo="color" aria-label="Interactive color conversion demo">
@@ -310,7 +358,7 @@
 
               <ul class="project-points">
                 <li>Implemented RGB ↔ CMYK and RGB ↔ HSV conversions without color libraries.</li>
-                <li>Built helper functions for contrast, complementary colors, and formatting.</li>
+                <li>Built helpers for contrast, complementary colors, and fixed-width formatting.</li>
                 <li>Tested conversion behavior and formatting edge cases.</li>
               </ul>
               <div class="tag-row">
@@ -339,13 +387,14 @@
               </div>
               <h3>Froggit</h3>
               <p class="project-summary">
-                A Frogger-style game with moving terrain, collisions, lives, exits, and
-                progression across JSON-defined levels.
+                The project where object-oriented design and state machines stopped feeling
+                abstract. It is a Frogger-style game with moving terrain, collisions, lives,
+                exits, and level progression.
               </p>
               <ul class="project-points">
                 <li>Implemented gameplay states for loading, active play, pause, death, and completion.</li>
                 <li>Built object-oriented models for the frog, pads, hedges, exits, and moving lanes.</li>
-                <li>Supported multiple levels and reset/progression logic.</li>
+                <li>Handled multiple JSON-defined levels, resets, wrapping, and progression logic.</li>
               </ul>
               <div class="tag-row">
                 <span>Python</span><span>OOP</span><span>State Machines</span><span>JSON</span>
@@ -373,12 +422,12 @@
               </div>
               <h3>Interactive Image Filter Editor</h3>
               <p class="project-summary">
-                A pixel-level image editor with filters including grayscale, sepia,
-                reflection, vignette, jail bars, and pixelation.
+                A pixel-level editor that taught me how much precision matters when a tiny
+                mistake in indexing or arithmetic changes the whole output.
               </p>
               <ul class="project-points">
                 <li>Implemented pixel access, copying, swapping, and image transformations.</li>
-                <li>Built filters as modular operations inside a package-based GUI.</li>
+                <li>Built grayscale, sepia, reflection, vignette, jail-bar, and pixelation filters as modular operations.</li>
                 <li>Validated filter behavior against an integrated test suite.</li>
               </ul>
               <div class="tag-row">
@@ -393,12 +442,12 @@
         <div class="section-head">
           <div>
             <p class="eyebrow"><span>02</span> Experience</p>
-            <h2>Building, teaching, and leading teams.</h2>
+            <h2>The work that taught me how to be useful on a team.</h2>
           </div>
           <p>
-            My experience spans software development, web ownership, teaching, and
-            student leadership. Each has made me better at communicating clearly and
-            working through changing requirements.
+            I’ve worked in software, IT support, web ownership, teaching, and operations.
+            Different jobs, but the standard is the same: understand the problem, communicate
+            clearly, and follow through.
           </p>
         </div>
 
@@ -411,12 +460,31 @@
             <div class="timeline-copy">
               <h3>Software Engineer Intern <span>· Donyma Steel Complex</span></h3>
               <p>
-                Worked on a production React dashboard in weekly sprints and pull-request review.
+                Worked on a production React dashboard in weekly sprints, learning how to make changes
+                inside an existing codebase without breaking what already worked.
               </p>
               <ul>
                 <li>Redesigned dashboard and navigation, reducing page-load time by about 20% in product analytics.</li>
                 <li>Built 15+ reusable UI components across 10+ screens to reduce duplicated interface code.</li>
-                <li>Integrated REST APIs, normalized responses, and fixed interface and data-flow issues.</li>
+                <li>Integrated REST APIs, fixed interface and data-flow issues, and worked through code review and testing.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <p>Jan 2026 — Present</p>
+              <span>Ithaca, NY</span>
+            </div>
+            <div class="timeline-copy">
+              <h3>IT Support Consultant <span>· Cornell University</span></h3>
+              <p>
+                Handle the everyday technical problems that can stop someone from getting their work done.
+              </p>
+              <ul>
+                <li>Resolve 10–15 hardware, software, connectivity, and account support requests on a typical day.</li>
+                <li>Configure and deploy new workstations so users have the hardware and software they need from day one.</li>
+                <li>Manage the loaner-laptop program, including inventory, allocation, and equipment turnaround.</li>
               </ul>
             </div>
           </article>
@@ -428,11 +496,13 @@
             </div>
             <div class="timeline-copy">
               <h3>Web Lead & Financial Coordinator <span>· Future Civilisations Society</span></h3>
-              <p>Own the conference website while also supporting the event’s operational planning.</p>
+              <p>
+                Own the conference website while helping the team turn changing plans into something people can actually use.
+              </p>
               <ul>
                 <li>Design, deploy, and maintain the official conference website.</li>
-                <li>Ship iterative updates through Git as speakers, panels, and requirements change.</li>
-                <li>Use site engagement patterns to improve navigation and content structure.</li>
+                <li>Ship updates through Git as speakers, panels, logistics, and requirements change.</li>
+                <li>Work across programming, logistics, marketing, and budgeting instead of treating the website as a separate task.</li>
               </ul>
             </div>
           </article>
@@ -444,11 +514,13 @@
             </div>
             <div class="timeline-copy">
               <h3>Programming Instructor <span>· Intro to Computer Programming</span></h3>
-              <p>Taught web development fundamentals to high-school students online.</p>
+              <p>
+                Taught web development fundamentals to high-school students online and learned quickly when an explanation was not clear enough.
+              </p>
               <ul>
                 <li>Taught HTML, CSS, and JavaScript to 50+ students.</li>
-                <li>Created lesson plans, live demos, and programming exercises.</li>
-                <li>Worked one-on-one with students to debug assignments and explain concepts.</li>
+                <li>Created lesson plans, live demos, and programming exercises from scratch.</li>
+                <li>Worked one-on-one with students to debug assignments and explain concepts in different ways.</li>
               </ul>
             </div>
           </article>
@@ -460,10 +532,12 @@
             </div>
             <div class="timeline-copy">
               <h3>Student Manager <span>· Cornell Dining</span></h3>
-              <p>Promoted from associate to help run high-volume student dining operations.</p>
+              <p>
+                Promoted from associate. I help keep busy shifts organized, support the team, and step in when something is going wrong.
+              </p>
               <ul>
-                <li>Supervise student staff and coordinate work during busy shifts.</li>
-                <li>Support scheduling, onboarding, and day-to-day team communication.</li>
+                <li>Supervise student staff and coordinate work during high-volume service periods.</li>
+                <li>Support staffing, onboarding, shift coverage, and day-to-day team communication.</li>
               </ul>
             </div>
           </article>
@@ -474,33 +548,32 @@
         <div class="section-head">
           <div>
             <p class="eyebrow"><span>03</span> About</p>
-            <h2>I care about what the interface helps someone do.</h2>
+            <h2>I don’t like doing things halfway.</h2>
           </div>
           <p>
-            Moving from Kumasi to Ithaca made me notice how often software can be
-            technically correct without being useful enough. That idea eventually became
-            Layer, and it still shapes how I approach frontend work.
+            I’m still learning, but I care a lot about doing the work properly. If I build
+            something, I want to know why it works, where it breaks, and what I would improve next.
           </p>
         </div>
 
         <div class="about-grid">
           <article class="panel">
             <span class="panel-number">01</span>
-            <h3>Start with the decision</h3>
+            <h3>Finish the details</h3>
             <p>
-              I like interfaces that make the next step obvious. Before adding another
-              component or screen, I try to understand what the user is actually deciding
-              or trying to finish.
+              Getting a feature onto the screen is not the finish line for me. I pay attention
+              to edge cases, responsiveness, loading states, tests, wording, and the little things
+              that make the second use feel as solid as the first.
             </p>
           </article>
 
           <article class="panel">
             <span class="panel-number">02</span>
-            <h3>Keep the engineering close</h3>
+            <h3>Understand more than my part</h3>
             <p>
-              Frontend is the part I enjoy most, but I want to understand the data,
-              backend, tests, and deployment behind the screen too. That makes me more
-              useful when a problem crosses boundaries.
+              Frontend is what I enjoy most, but I do not want to be the person who only knows the
+              component in front of me. I like understanding the data, backend, deployment, and the
+              people using the product too.
             </p>
           </article>
         </div>
@@ -510,7 +583,7 @@
         <div class="section-head section-head--compact">
           <div>
             <p class="eyebrow"><span>04</span> Skills</p>
-            <h2>Tools I’ve used in projects and real work.</h2>
+            <h2>What I’m comfortable being asked about.</h2>
           </div>
         </div>
 
@@ -524,6 +597,10 @@
             <p>Python · PostgreSQL · Supabase · SQL · REST APIs · pandas · NumPy</p>
           </div>
           <div class="skill-group">
+            <h3>ML & Prototyping</h3>
+            <p>BERT · scikit-learn · Streamlit · NLP · Model Evaluation</p>
+          </div>
+          <div class="skill-group">
             <h3>Engineering</h3>
             <p>Git · GitHub · GitHub Actions · Vitest · Unit Testing · Code Review · Agile Sprints</p>
           </div>
@@ -534,11 +611,11 @@
         <div class="contact-card">
           <div>
             <p class="eyebrow"><span>05</span> Contact</p>
-            <h2>Let’s talk.</h2>
+            <h2>If the work is a fit, I’d like to talk.</h2>
             <p>
-              I’m looking for Summer 2027 frontend, full-stack, and product engineering
-              internships. If something here is relevant to your team, I’d be glad to
-              walk through the work.
+              I’m looking for a Summer 2027 team where I can contribute, be pushed technically,
+              and keep improving. If something here lines up with what your team is building,
+              I’d be happy to walk through the work.
             </p>
           </div>
 
@@ -553,8 +630,7 @@
     </main>
 
     <footer class="footer container">
-      <p>Designed and built by Abdallah Gazal <span id="footerYear"></span>.</p>
-      <span class="footer-end" aria-hidden="true">End / Portfolio</span>
+      <p>Designed, built, and refined by Abdallah Gazal <span id="footerYear"></span>.</p>
     </footer>
 
     <script src="script.js"></script>

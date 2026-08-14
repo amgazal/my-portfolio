@@ -3,10 +3,7 @@
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Cinematic intro ---------------------------------------------------------
-     The opening curtain is intentionally progressive enhancement: if JavaScript
-     is unavailable, the portfolio simply starts with the hero content. With JS,
-     the first short scroll lifts a dark stage curtain and reveals the hero. */
+  /* Cinematic intro ------------------------------------------------------- */
   var cinemaIntro = document.querySelector(".cinema-intro");
   var cinemaCurtain = document.getElementById("cinemaCurtain");
   var curtainSkip = document.getElementById("curtainSkip");
@@ -21,21 +18,23 @@
       return Math.min(Math.max(value, min), max);
     }
 
-    function renderCinemaIntro() {
-      cinemaFrame = null;
-
-      var scrollRange = Math.max(
+    function getCinemaRange() {
+      return Math.max(
         cinemaIntro.offsetHeight - window.innerHeight,
         window.innerHeight * 0.52
       );
-      var progress = clamp(window.scrollY / scrollRange, 0, 1);
+    }
+
+    function renderCinemaIntro() {
+      cinemaFrame = null;
+      var progress = clamp(window.scrollY / getCinemaRange(), 0, 1);
       var curtainY = -102 * progress;
 
       cinemaCurtain.style.transform =
         "translate3d(0, " + curtainY.toFixed(2) + "%, 0)";
 
       if (cinemaStageInner) {
-        var stageOffset = 18 - progress * 18;
+        var stageOffset = 16 - progress * 16;
         cinemaStageInner.style.transform =
           "translate3d(0, " + stageOffset.toFixed(1) + "px, 0)";
       }
@@ -53,11 +52,7 @@
 
     if (curtainSkip) {
       curtainSkip.addEventListener("click", function () {
-        var scrollRange = Math.max(
-          cinemaIntro.offsetHeight - window.innerHeight,
-          window.innerHeight * 0.52
-        );
-        window.scrollTo({ top: scrollRange + 2, behavior: "smooth" });
+        window.scrollTo({ top: getCinemaRange() + 2, behavior: "smooth" });
       });
     }
 
@@ -66,9 +61,32 @@
     document.documentElement.classList.add("cinema-open");
   }
 
-  /* Reveal sections only when JS and IntersectionObserver are available.
-     The page remains fully visible if scripting is disabled. */
+  /* Scroll progress ------------------------------------------------------- */
+  var scrollProgress = document.getElementById("scrollProgress");
+  var progressFrame = null;
+
+  function renderProgress() {
+    progressFrame = null;
+    if (!scrollProgress) return;
+
+    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+    progress = Math.min(Math.max(progress, 0), 1);
+    scrollProgress.style.width = (progress * 100).toFixed(2) + "%";
+  }
+
+  function requestProgressRender() {
+    if (progressFrame !== null) return;
+    progressFrame = window.requestAnimationFrame(renderProgress);
+  }
+
+  window.addEventListener("scroll", requestProgressRender, { passive: true });
+  window.addEventListener("resize", requestProgressRender);
+  renderProgress();
+
+  /* Section reveal -------------------------------------------------------- */
   var revealTargets = document.querySelectorAll(".reveal");
+
   if (!reducedMotion && "IntersectionObserver" in window) {
     document.documentElement.classList.add("js-reveal");
 
@@ -89,7 +107,7 @@
     });
   }
 
-  /* Mobile navigation */
+  /* Mobile navigation ----------------------------------------------------- */
   var menuToggle = document.getElementById("menuToggle");
   var navLinks = document.getElementById("navLinks");
 
@@ -127,19 +145,7 @@
     });
   }
 
-  /* Headshot placeholder */
-  var headshot = document.getElementById("headshot");
-  if (headshot) {
-    var hideMissingHeadshot = function () {
-      headshot.classList.add("is-missing");
-    };
-
-    headshot.addEventListener("error", hideMissingHeadshot);
-    if (headshot.complete && headshot.naturalWidth === 0) hideMissingHeadshot();
-  }
-
-  /* Keep missing project assets looking intentional while placeholders are
-     still being filled in. */
+  /* Missing image fallbacks ---------------------------------------------- */
   document.querySelectorAll(".project-visual img").forEach(function (img) {
     var markMissing = function () {
       var holder = img.closest(".project-visual");
@@ -150,7 +156,7 @@
     if (img.complete && img.naturalWidth === 0) markMissing();
   });
 
-  /* Highlight the current section in the desktop navigation. */
+  /* Active section in navigation ----------------------------------------- */
   var navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
   var sections = navAnchors
     .map(function (anchor) {
@@ -177,7 +183,7 @@
     });
   }
 
-  /* Interactive version of the Color Model Converter math. */
+  /* Interactive Color Model Converter ------------------------------------ */
   function rgbToHsv(r, g, b) {
     var rn = r / 255;
     var gn = g / 255;
@@ -221,6 +227,7 @@
   }
 
   var demo = document.querySelector('[data-demo="color"]');
+
   if (demo) {
     var inputs = {
       r: document.getElementById("demoR"),
@@ -262,53 +269,6 @@
     });
 
     renderColorDemo();
-  }
-
-  /* Premium, low-noise interaction layer ----------------------------------- */
-  var pageProgressBar = document.getElementById("pageProgressBar");
-  var progressFrame = null;
-
-  function renderPageProgress() {
-    progressFrame = null;
-    if (!pageProgressBar) return;
-    var maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-    var ratio = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-    pageProgressBar.style.transform = "scaleX(" + ratio.toFixed(4) + ")";
-  }
-
-  function requestProgressRender() {
-    if (progressFrame !== null) return;
-    progressFrame = window.requestAnimationFrame(renderPageProgress);
-  }
-
-  if (pageProgressBar) {
-    window.addEventListener("scroll", requestProgressRender, { passive: true });
-    window.addEventListener("resize", requestProgressRender);
-    renderPageProgress();
-  }
-
-  var precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (precisePointer && !reducedMotion) {
-    var pointerFrame = null;
-    var pointerX = window.innerWidth / 2;
-    var pointerY = window.innerHeight / 3;
-
-    function renderPointerLight() {
-      pointerFrame = null;
-      document.documentElement.style.setProperty("--pointer-x", pointerX + "px");
-      document.documentElement.style.setProperty("--pointer-y", pointerY + "px");
-    }
-
-    window.addEventListener("pointermove", function (event) {
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      document.body.classList.add("pointer-active");
-      if (pointerFrame === null) pointerFrame = window.requestAnimationFrame(renderPointerLight);
-    }, { passive: true });
-
-    document.documentElement.addEventListener("mouseleave", function () {
-      document.body.classList.remove("pointer-active");
-    });
   }
 
   var footerYear = document.getElementById("footerYear");
