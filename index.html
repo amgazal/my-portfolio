@@ -37,6 +37,9 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
+    <div class="pointer-light" id="pointerLight" aria-hidden="true"></div>
+
     <div class="cinema-curtain" id="cinemaCurtain">
       <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
       <div class="curtain-brand" aria-hidden="true">
@@ -82,10 +85,11 @@
             <div class="cinema-hero-copy">
               <p class="cinema-overline">Cornell University · Information Science · 2028</p>
               <h1 id="introTitle">Abdallah Gazal</h1>
-              <p class="cinema-role">Frontend + full-stack developer</p>
+              <p class="cinema-role">Frontend engineer with full-stack range</p>
               <p class="cinema-lede">
-                I build web products from the interface through the data layer. Recent work
-                includes Layer, a personalized weather app, and the Future Civilizations
+                I build web products end to end, with most of my attention on the interface:
+                responsive experiences, real data, and the engineering underneath that makes
+                them reliable. Recent work includes Layer and Cornell’s Future Civilizations
                 Conference website.
               </p>
 
@@ -120,8 +124,8 @@
               <div class="cinema-rail-row">
                 <span>03</span>
                 <div>
-                  <small>Based in</small>
-                  <strong>Ithaca, New York</strong>
+                  <small>Available</small>
+                  <strong>Summer 2027 frontend / product engineering internships</strong>
                 </div>
               </div>
             </aside>
@@ -142,12 +146,12 @@
       <section id="work" class="container reveal">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Selected work</p>
+            <p class="eyebrow"><span>01</span> Selected work</p>
             <h2>Projects I can walk you through.</h2>
           </div>
           <p>
-            A mix of independent work, live products, and coursework. The emphasis here
-            is on what I built, the engineering decisions behind it, and the result.
+            Two are live products; the rest are technical projects that show how I approach
+            state, data, testing, and implementation.
           </p>
         </div>
 
@@ -161,6 +165,11 @@
               <div class="visual-placeholder" aria-hidden="true">
                 <span>Layer</span>
                 <small>Project preview</small>
+              </div>
+              <div class="feature-notes" aria-hidden="true">
+                <span>Personalized comfort</span>
+                <span>Outfit recommendation</span>
+                <span>Outing context</span>
               </div>
             </div>
 
@@ -193,8 +202,9 @@
                 <span>Supabase</span><span>Vitest</span><span>GitHub Actions</span>
               </div>
 
-              <div class="project-links">
+              <div class="project-links project-links--featured">
                 <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noreferrer">Live app ↗</a>
+                <span class="project-proof">Public deployment · responsive web app</span>
               </div>
             </div>
           </article>
@@ -382,7 +392,7 @@
       <section id="experience" class="container reveal">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Experience</p>
+            <p class="eyebrow"><span>02</span> Experience</p>
             <h2>Building, teaching, and leading teams.</h2>
           </div>
           <p>
@@ -463,7 +473,7 @@
       <section id="about" class="container reveal">
         <div class="section-head">
           <div>
-            <p class="eyebrow">About</p>
+            <p class="eyebrow"><span>03</span> About</p>
             <h2>I care about what the interface helps someone do.</h2>
           </div>
           <p>
@@ -499,7 +509,7 @@
       <section id="skills" class="container reveal">
         <div class="section-head section-head--compact">
           <div>
-            <p class="eyebrow">Skills</p>
+            <p class="eyebrow"><span>04</span> Skills</p>
             <h2>Tools I’ve used in projects and real work.</h2>
           </div>
         </div>
@@ -523,7 +533,7 @@
       <section id="contact" class="container reveal">
         <div class="contact-card">
           <div>
-            <p class="eyebrow">Contact</p>
+            <p class="eyebrow"><span>05</span> Contact</p>
             <h2>Let’s talk.</h2>
             <p>
               I’m looking for Summer 2027 frontend, full-stack, and product engineering
@@ -544,6 +554,7 @@
 
     <footer class="footer container">
       <p>Designed and built by Abdallah Gazal <span id="footerYear"></span>.</p>
+      <span class="footer-end" aria-hidden="true">End / Portfolio</span>
     </footer>
 
     <script src="script.js"></script>

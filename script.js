@@ -264,6 +264,53 @@
     renderColorDemo();
   }
 
+  /* Premium, low-noise interaction layer ----------------------------------- */
+  var pageProgressBar = document.getElementById("pageProgressBar");
+  var progressFrame = null;
+
+  function renderPageProgress() {
+    progressFrame = null;
+    if (!pageProgressBar) return;
+    var maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+    var ratio = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+    pageProgressBar.style.transform = "scaleX(" + ratio.toFixed(4) + ")";
+  }
+
+  function requestProgressRender() {
+    if (progressFrame !== null) return;
+    progressFrame = window.requestAnimationFrame(renderPageProgress);
+  }
+
+  if (pageProgressBar) {
+    window.addEventListener("scroll", requestProgressRender, { passive: true });
+    window.addEventListener("resize", requestProgressRender);
+    renderPageProgress();
+  }
+
+  var precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (precisePointer && !reducedMotion) {
+    var pointerFrame = null;
+    var pointerX = window.innerWidth / 2;
+    var pointerY = window.innerHeight / 3;
+
+    function renderPointerLight() {
+      pointerFrame = null;
+      document.documentElement.style.setProperty("--pointer-x", pointerX + "px");
+      document.documentElement.style.setProperty("--pointer-y", pointerY + "px");
+    }
+
+    window.addEventListener("pointermove", function (event) {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      document.body.classList.add("pointer-active");
+      if (pointerFrame === null) pointerFrame = window.requestAnimationFrame(renderPointerLight);
+    }, { passive: true });
+
+    document.documentElement.addEventListener("mouseleave", function () {
+      document.body.classList.remove("pointer-active");
+    });
+  }
+
   var footerYear = document.getElementById("footerYear");
   if (footerYear) footerYear.textContent = "· " + new Date().getFullYear();
 })();
