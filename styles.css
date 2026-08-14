@@ -199,6 +199,318 @@ main > section + section {
   font-size: 0.74rem;
 }
 
+/* Cinematic opening ---------------------------------------------------------
+   A dark stage curtain, not a literal red theatre curtain. The short first
+   scroll lifts it upward and reveals the portfolio hero underneath. The
+   effect only exists when JS adds .cinema-enabled, so the site remains fully
+   usable if scripting or motion is unavailable. */
+
+.cinema-curtain {
+  display: none;
+}
+
+.cinema-enabled .cinema-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: block;
+  overflow: hidden;
+  touch-action: pan-y;
+  will-change: transform;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(239, 170, 97, 0.09), transparent 30rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 30%),
+    repeating-linear-gradient(
+      90deg,
+      #080a0f 0%,
+      #10141c 7%,
+      #171b24 11%,
+      #0b0e14 17%,
+      #080a0f 22%
+    );
+  box-shadow:
+    inset 0 -70px 90px rgba(0, 0, 0, 0.68),
+    inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.cinema-enabled .cinema-curtain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 12%, transparent 88%, rgba(0, 0, 0, 0.28)),
+    radial-gradient(ellipse at 50% 100%, rgba(239, 170, 97, 0.06), transparent 42%);
+  mix-blend-mode: screen;
+  opacity: 0.72;
+}
+
+.curtain-brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  width: min(92vw, 520px);
+  transform: translate(-50%, -48%);
+  text-align: center;
+}
+
+.curtain-index,
+.curtain-prompt {
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+
+.curtain-index {
+  color: var(--accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.curtain-mark {
+  font-size: clamp(4.6rem, 10vw, 8rem);
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -0.075em;
+  color: rgba(242, 244, 248, 0.92);
+  text-shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
+}
+
+.curtain-prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+  color: rgba(242, 244, 248, 0.55);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+}
+
+.curtain-prompt::after {
+  content: "↓";
+  color: var(--accent);
+  font-size: 0.78rem;
+  animation: curtainCue 1.6s ease-in-out infinite;
+}
+
+.curtain-skip {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.4rem;
+  z-index: 2;
+  border: 0;
+  padding: 0.45rem 0.55rem;
+  background: transparent;
+  color: rgba(242, 244, 248, 0.55);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.curtain-skip:hover,
+.curtain-skip:focus-visible {
+  color: var(--text);
+}
+
+.curtain-hem {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 18%, var(--accent) 82%, transparent 100%);
+  box-shadow: 0 0 26px rgba(239, 170, 97, 0.36);
+}
+
+.cinema-open .cinema-curtain {
+  pointer-events: none;
+}
+
+@keyframes curtainCue {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
+.cinema-intro {
+  position: relative;
+  padding: 0 !important;
+  min-height: calc(100svh - 74px);
+}
+
+.cinema-enabled .cinema-intro {
+  height: 165svh;
+  min-height: 0;
+}
+
+.cinema-stage {
+  position: relative;
+  min-height: calc(100svh - 74px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 74% 28%, rgba(90, 125, 196, 0.13), transparent 34rem),
+    radial-gradient(circle at 15% 80%, rgba(239, 170, 97, 0.08), transparent 30rem),
+    linear-gradient(180deg, #0b0d12 0%, #0c1017 68%, #0b0d12 100%);
+}
+
+.cinema-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 7%, rgba(255,255,255,0.025) 7% 7.08%, transparent 7.08% 93%, rgba(255,255,255,0.025) 93% 93.08%, transparent 93.08%),
+    linear-gradient(180deg, transparent 72%, rgba(255,255,255,0.035) 72% 72.08%, transparent 72.08%);
+}
+
+.cinema-stage::after {
+  content: "";
+  position: absolute;
+  width: 38rem;
+  height: 38rem;
+  right: -10rem;
+  top: -18rem;
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 6rem rgba(255,255,255,0.008),
+    0 0 0 12rem rgba(255,255,255,0.005);
+  pointer-events: none;
+}
+
+.cinema-enabled .cinema-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 0;
+  margin-top: -74px;
+  padding-top: 74px;
+}
+
+.cinema-stage-inner {
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr);
+  grid-template-rows: 1fr auto;
+  gap: 2.8rem 5rem;
+  align-items: end;
+  padding-top: clamp(7rem, 16vh, 10rem);
+  padding-bottom: clamp(2.2rem, 6vh, 4rem);
+  will-change: transform;
+}
+
+.cinema-overline {
+  margin-bottom: 1.15rem;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cinema-hero-copy h1 {
+  max-width: 10ch;
+  margin-bottom: 0.8rem;
+  font-size: clamp(4.15rem, 9vw, 8.4rem);
+  line-height: 0.86;
+  letter-spacing: -0.075em;
+  font-weight: 600;
+}
+
+.cinema-role {
+  margin-bottom: 1.25rem;
+  color: var(--text);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  letter-spacing: -0.025em;
+}
+
+.cinema-lede {
+  max-width: 44rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.55vw, 1.1rem);
+}
+
+.cinema-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.85rem;
+}
+
+.cinema-rail {
+  align-self: end;
+  border-left: 1px solid var(--line);
+}
+
+.cinema-rail-row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 0.9rem;
+  padding: 1rem 0 1rem 1.15rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+.cinema-rail-row:first-child {
+  border-top: 0;
+}
+
+.cinema-rail-row > span,
+.cinema-rail-row small {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cinema-rail-row > span {
+  color: var(--accent);
+}
+
+.cinema-rail-row small {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: var(--subtle);
+}
+
+.cinema-rail-row strong {
+  display: block;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.cinema-skill-strip {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.cinema-skill-strip span {
+  display: inline-flex;
+  align-items: center;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cinema-skill-strip span + span::before {
+  content: "/";
+  margin: 0 0.75rem;
+  color: rgba(239, 170, 97, 0.52);
+}
+
 /* Shared type -------------------------------------------------------------- */
 
 .eyebrow {
@@ -1115,6 +1427,164 @@ main > section + section {
 
   .contact-links a span {
     text-align: left;
+  }
+}
+
+@media (max-width: 1020px) {
+  .cinema-stage-inner {
+    grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
+    gap: 2.2rem 3rem;
+  }
+
+  .cinema-hero-copy h1 {
+    font-size: clamp(3.9rem, 8.5vw, 6.8rem);
+  }
+}
+
+@media (max-width: 820px) {
+  .cinema-enabled .cinema-intro {
+    height: 158svh;
+  }
+
+  .cinema-stage-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    align-content: end;
+    gap: 1.35rem;
+    padding-top: 7rem;
+    padding-bottom: 2rem;
+  }
+
+  .cinema-hero-copy h1 {
+    max-width: none;
+    font-size: clamp(3.7rem, 13vw, 6.2rem);
+  }
+
+  .cinema-lede {
+    max-width: 39rem;
+  }
+
+  .cinema-rail {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .cinema-rail-row {
+    grid-template-columns: 24px minmax(0, 1fr);
+    padding: 0.85rem 0.8rem 0.8rem 0;
+    border-top: 0;
+    border-right: 1px solid var(--line-soft);
+  }
+
+  .cinema-rail-row:last-child {
+    border-right: 0;
+    padding-left: 0.8rem;
+  }
+
+  .cinema-rail-row:nth-child(2) {
+    padding-left: 0.8rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .cinema-enabled .cinema-intro {
+    height: 150svh;
+  }
+
+  .cinema-stage-inner {
+    gap: 1.2rem;
+    padding-top: 6.4rem;
+    padding-bottom: 1.6rem;
+  }
+
+  .cinema-overline {
+    margin-bottom: 0.8rem;
+    font-size: 0.61rem;
+  }
+
+  .cinema-hero-copy h1 {
+    margin-bottom: 0.65rem;
+    font-size: clamp(3.15rem, 16vw, 4.8rem);
+    line-height: 0.9;
+  }
+
+  .cinema-role {
+    margin-bottom: 0.9rem;
+    font-size: 1.05rem;
+  }
+
+  .cinema-lede {
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .cinema-actions {
+    margin-top: 1.25rem;
+  }
+
+  .cinema-actions .button {
+    width: auto;
+  }
+
+  .cinema-rail {
+    display: none;
+  }
+
+  .cinema-skill-strip {
+    padding-top: 0.85rem;
+  }
+
+  .cinema-skill-strip span {
+    font-size: 0.58rem;
+  }
+
+  .cinema-skill-strip span + span::before {
+    margin: 0 0.5rem;
+  }
+
+  .curtain-mark {
+    font-size: clamp(4rem, 24vw, 6rem);
+  }
+
+  .curtain-skip {
+    top: 0.85rem;
+    right: 0.8rem;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 541px) {
+  .cinema-stage-inner {
+    gap: 1.1rem 3rem;
+    padding-top: 6rem;
+    padding-bottom: 1.4rem;
+  }
+
+  .cinema-overline {
+    margin-bottom: 0.7rem;
+  }
+
+  .cinema-hero-copy h1 {
+    margin-bottom: 0.55rem;
+    font-size: clamp(3.5rem, 8vw, 5.7rem);
+  }
+
+  .cinema-role {
+    margin-bottom: 0.75rem;
+  }
+
+  .cinema-actions {
+    margin-top: 1rem;
+  }
+
+  .cinema-rail-row {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+
+  .cinema-skill-strip {
+    padding-top: 0.65rem;
   }
 }
 

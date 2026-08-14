@@ -3,6 +3,69 @@
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* Cinematic intro ---------------------------------------------------------
+     The opening curtain is intentionally progressive enhancement: if JavaScript
+     is unavailable, the portfolio simply starts with the hero content. With JS,
+     the first short scroll lifts a dark stage curtain and reveals the hero. */
+  var cinemaIntro = document.querySelector(".cinema-intro");
+  var cinemaCurtain = document.getElementById("cinemaCurtain");
+  var curtainSkip = document.getElementById("curtainSkip");
+  var cinemaStageInner = document.querySelector(".cinema-stage-inner");
+
+  if (cinemaIntro && cinemaCurtain && !reducedMotion) {
+    document.documentElement.classList.add("cinema-enabled");
+
+    var cinemaFrame = null;
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function renderCinemaIntro() {
+      cinemaFrame = null;
+
+      var scrollRange = Math.max(
+        cinemaIntro.offsetHeight - window.innerHeight,
+        window.innerHeight * 0.52
+      );
+      var progress = clamp(window.scrollY / scrollRange, 0, 1);
+      var curtainY = -102 * progress;
+
+      cinemaCurtain.style.transform =
+        "translate3d(0, " + curtainY.toFixed(2) + "%, 0)";
+
+      if (cinemaStageInner) {
+        var stageOffset = 18 - progress * 18;
+        cinemaStageInner.style.transform =
+          "translate3d(0, " + stageOffset.toFixed(1) + "px, 0)";
+      }
+
+      document.documentElement.classList.toggle("cinema-open", progress > 0.96);
+    }
+
+    function requestCinemaRender() {
+      if (cinemaFrame !== null) return;
+      cinemaFrame = window.requestAnimationFrame(renderCinemaIntro);
+    }
+
+    window.addEventListener("scroll", requestCinemaRender, { passive: true });
+    window.addEventListener("resize", requestCinemaRender);
+
+    if (curtainSkip) {
+      curtainSkip.addEventListener("click", function () {
+        var scrollRange = Math.max(
+          cinemaIntro.offsetHeight - window.innerHeight,
+          window.innerHeight * 0.52
+        );
+        window.scrollTo({ top: scrollRange + 2, behavior: "smooth" });
+      });
+    }
+
+    renderCinemaIntro();
+  } else {
+    document.documentElement.classList.add("cinema-open");
+  }
+
   /* Reveal sections only when JS and IntersectionObserver are available.
      The page remains fully visible if scripting is disabled. */
   var revealTargets = document.querySelectorAll(".reveal");

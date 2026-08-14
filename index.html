@@ -36,6 +36,16 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <div class="cinema-curtain" id="cinemaCurtain">
+      <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
+      <div class="curtain-brand" aria-hidden="true">
+        <span class="curtain-index">Portfolio / 2027</span>
+        <span class="curtain-mark">AG</span>
+        <span class="curtain-prompt">Scroll to reveal</span>
+      </div>
+      <div class="curtain-hem" aria-hidden="true"></div>
+    </div>
+
     <header class="topbar">
       <div class="container nav">
         <a class="brand" href="#home" aria-label="Abdallah Gazal, home">
@@ -65,66 +75,66 @@
     </header>
 
     <main id="main">
-      <section class="hero container reveal" id="home">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">Cornell University · Information Science · 2028</p>
-            <h1>I build thoughtful web interfaces and the systems behind them.</h1>
-            <p class="hero-lede">
-              I’m Abdallah, an Information Science student at Cornell. My recent work
-              includes <a class="inline-link" href="#layer">Layer</a>, a personalized
-              weather app I built end to end, and the website for Cornell’s Future
-              Civilizations Conference. I enjoy turning rough requirements into products
-              that are clear, responsive, and dependable.
-            </p>
+      <section class="cinema-intro" id="home" aria-labelledby="introTitle">
+        <div class="cinema-stage">
+          <div class="container cinema-stage-inner">
+            <div class="cinema-hero-copy">
+              <p class="cinema-overline">Cornell University · Information Science · 2028</p>
+              <h1 id="introTitle">Abdallah Gazal</h1>
+              <p class="cinema-role">Frontend + full-stack developer</p>
+              <p class="cinema-lede">
+                I build web products from the interface through the data layer. Recent work
+                includes Layer, a personalized weather app, and the Future Civilizations
+                Conference website.
+              </p>
 
-            <div class="hero-actions">
-              <a class="button button-primary" href="#work">View selected work</a>
-              <a
-                class="button button-secondary"
-                href="Abdallah_Gazal_Resume.pdf"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Resume
-              </a>
+              <div class="cinema-actions">
+                <a class="button button-primary" href="#work">View selected work</a>
+                <a
+                  class="button button-secondary"
+                  href="Abdallah_Gazal_Resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Resume
+                </a>
+              </div>
             </div>
 
-            <p class="availability">
-              <span class="availability-dot" aria-hidden="true"></span>
-              Seeking Summer 2027 frontend and software engineering internships
-            </p>
+            <aside class="cinema-rail" aria-label="Quick profile">
+              <div class="cinema-rail-row">
+                <span>01</span>
+                <div>
+                  <small>Focus</small>
+                  <strong>Frontend · Full-stack · Product engineering</strong>
+                </div>
+              </div>
+              <div class="cinema-rail-row">
+                <span>02</span>
+                <div>
+                  <small>Current stack</small>
+                  <strong>React · JavaScript · TypeScript · Python · PostgreSQL</strong>
+                </div>
+              </div>
+              <div class="cinema-rail-row">
+                <span>03</span>
+                <div>
+                  <small>Based in</small>
+                  <strong>Ithaca, New York</strong>
+                </div>
+              </div>
+            </aside>
+
+            <div class="cinema-skill-strip" aria-label="Core skills">
+              <span>React</span>
+              <span>JavaScript</span>
+              <span>TypeScript</span>
+              <span>Python</span>
+              <span>PostgreSQL</span>
+              <span>Git</span>
+            </div>
           </div>
 
-          <aside class="profile-card" aria-label="Profile summary">
-            <!-- HEADSHOT PLACEHOLDER
-                 Add a square image named headshot.jpg to the repo root.
-                 The initials remain visible until the image is available. -->
-            <div class="portrait">
-              <span class="portrait-monogram" aria-hidden="true">AG</span>
-              <img
-                id="headshot"
-                class="portrait-photo"
-                src="headshot.jpg"
-                alt="Portrait of Abdallah Gazal"
-              />
-            </div>
-
-            <div class="profile-details">
-              <div class="profile-row">
-                <span>Focus</span>
-                <strong>Frontend · Full-stack · Product engineering</strong>
-              </div>
-              <div class="profile-row">
-                <span>Working with</span>
-                <strong>React, JavaScript, TypeScript, Python, PostgreSQL</strong>
-              </div>
-              <div class="profile-row">
-                <span>Based in</span>
-                <strong>Ithaca, New York</strong>
-              </div>
-            </div>
-          </aside>
         </div>
       </section>
 
