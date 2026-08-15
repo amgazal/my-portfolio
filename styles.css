@@ -20,7 +20,7 @@
 
   --text: #f1eee7;
   --muted: #aaa69d;
-  --subtle: #77746d;
+  --subtle: #868379;
 
   --accent: #dd7a52;
   --accent-2: #e79a78;
@@ -51,6 +51,27 @@ body {
   letter-spacing: 0.003em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Dates, counts, and metrics line up in columns instead of wobbling. */
+.timeline-side,
+.project-meta,
+.cinema-rail-row,
+.demo,
+.stat-strip dd {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Long project and role names break sensibly instead of overflowing. */
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 img {
@@ -118,12 +139,15 @@ main > section + section {
   background: transparent;
 }
 
+/* Scaled rather than resized: width animation would relayout on every frame. */
 .scroll-progress span {
   display: block;
-  width: 0;
+  width: 100%;
   height: 100%;
   background: var(--accent);
+  transform: scaleX(0);
   transform-origin: left center;
+  will-change: transform;
 }
 
 /* Header ----------------------------------------------------------------- */
@@ -133,7 +157,7 @@ main > section + section {
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid transparent;
-  background: rgba(9, 9, 11, 0.96);
+  background: var(--bg);
   transition: border-color 0.25s ease;
 }
 
@@ -276,7 +300,7 @@ main > section + section {
   padding: 0.5rem 0.7rem;
   border-radius: 7px;
   background: transparent;
-  color: #77746d;
+  color: var(--subtle);
   cursor: pointer;
   font-family: var(--mono);
   font-size: 0.61rem;
@@ -357,7 +381,7 @@ main > section + section {
   left: 50%;
   top: calc(100% + 0.72rem);
   transform: translateX(-50%);
-  color: #77746d;
+  color: var(--subtle);
   font-family: var(--mono);
   font-size: clamp(0.42rem, 0.68vw, 0.58rem);
   font-weight: 400;
@@ -529,23 +553,28 @@ main > section + section {
   background: var(--accent);
 }
 
+/* The curtain has just finished assembling the name at full width, so the hero
+   leads with the name at a calmer scale and lets the positioning line carry the
+   weight instead of repeating the same display size twice in a row. */
 .cinema-hero-copy h1 {
   max-width: 11ch;
-  margin-bottom: 1.05rem;
+  margin-bottom: 0.75rem;
   font-family: var(--display);
-  font-size: clamp(4rem, 9.5vw, 8.8rem);
+  font-size: clamp(3.3rem, 7.2vw, 6.4rem);
   line-height: 0.9;
   letter-spacing: -0.047em;
   font-weight: 800;
 }
 
 .cinema-role {
-  margin-bottom: 1.35rem;
+  max-width: 20ch;
+  margin-bottom: 1.4rem;
   color: var(--text);
   font-family: var(--display);
   font-weight: 600;
-  font-size: clamp(1.18rem, 2.1vw, 1.62rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(1.45rem, 2.7vw, 2.15rem);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
 }
 
 .cinema-role::after {
@@ -714,12 +743,9 @@ main > section + section {
   font-size: 0.91rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
-.button:hover {
-  transform: translateY(-2px);
-}
 
 .button-primary {
   background: var(--accent);
@@ -759,6 +785,7 @@ main > section + section {
 }
 
 .project-card {
+  position: relative;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -766,21 +793,49 @@ main > section + section {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
-  transition: transform 0.24s cubic-bezier(0.2, 0, 0.1, 1), border-color 0.24s ease;
+  transition: border-color 0.2s ease;
 }
 
-.project-card:hover {
-  transform: translateY(-2px);
+/* A restrained hairline marks focus/hover without moving or glowing the card. */
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.42s cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+.project-card:hover,
+.project-card:focus-within {
   border-color: #3b3c44;
+}
+
+.project-card:hover::before,
+.project-card:focus-within::before {
+  transform: scaleX(1);
 }
 
 .project-card--featured {
   grid-column: 1 / -1;
+  scroll-margin-top: 7rem;
 }
 
+/* The flagship keeps a full-width 16:9 hero image. A side-by-side split would
+   force a landscape product screenshot into a portrait column and crop the
+   interface down to its middle third. */
+
+/* Every standard card shares one image proportion so the grid reads as a system
+   instead of three different crops sitting next to each other. */
 .project-visual {
   position: relative;
-  height: 245px;
+  height: auto;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background: var(--bg-deep);
@@ -794,7 +849,7 @@ main > section + section {
 
 .project-visual--comparison {
   height: auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
 }
 
 .project-visual--comparison img {
@@ -809,12 +864,9 @@ main > section + section {
   display: block;
   object-fit: cover;
   object-position: center top;
-  transition: transform 0.42s cubic-bezier(0.2, 0, 0.1, 1), opacity 0.22s ease;
+  transition: opacity 0.22s ease;
 }
 
-.project-card:not(.project-card--featured):hover .project-visual > img:not(.secondary-image) {
-  transform: scale(1.018);
-}
 
 .visual-placeholder {
   position: absolute;
@@ -829,7 +881,7 @@ main > section + section {
 
 .visual-placeholder span {
   font-family: var(--display);
-  color: #5d5d64;
+  color: #808089;
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -948,6 +1000,43 @@ main > section + section {
   border-color: var(--hair);
 }
 
+/* Scannable proof row. Recruiters read numbers before they read prose. */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.2rem;
+  margin: 0.15rem 0 0.1rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stat-strip > div {
+  padding: 0.8rem 0.9rem 0.85rem 0;
+}
+
+.stat-strip > div + div {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--line-soft);
+}
+
+.stat-strip dt {
+  margin-bottom: 0.3rem;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stat-strip dd {
+  color: var(--text);
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
 .project-links {
   margin-top: auto;
   padding-top: 0.35rem;
@@ -1008,7 +1097,8 @@ main > section + section {
 /* AI4ALL project visual --------------------------------------------------- */
 
 .ai-preview {
-  height: 245px;
+  height: auto;
+  aspect-ratio: 16 / 10;
   padding: 1rem;
   background: #0d0e11;
 }
@@ -1064,7 +1154,7 @@ main > section + section {
   border: 1px solid var(--line);
   border-radius: 7px;
   background: #0e0f12;
-  color: #6f6e73;
+  color: #86858a;
   font-size: 0.68rem;
   line-height: 1.4;
 }
@@ -1361,12 +1451,11 @@ main > section + section {
   border-radius: var(--radius-lg);
   background: var(--surface);
   overflow: hidden;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 .panel:hover {
   border-color: var(--hair);
-  transform: translateY(-2px);
 }
 
 .panel-number {
@@ -1465,12 +1554,60 @@ main > section + section {
 
 .footer {
   padding: 3rem 0 3.4rem;
+  border-top: 1px solid var(--line-soft);
   color: var(--subtle);
-  text-align: center;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.colophon {
+  max-width: 46ch;
+}
+
+.colophon p {
   font-family: var(--mono);
   font-size: 0.66rem;
+  line-height: 1.75;
   letter-spacing: 0.04em;
 }
+
+.colophon-lead {
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+}
+
+.footer-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.footer-top i {
+  font-style: normal;
+  color: var(--accent);
+  transition: transform 0.22s ease;
+}
+
+.footer-top:hover {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
 
 /* Reveal ----------------------------------------------------------------- */
 
@@ -1643,6 +1780,7 @@ main > section + section {
 
   .project-visual {
     height: 230px;
+    aspect-ratio: auto;
   }
 
   .project-visual--featured {
@@ -1674,6 +1812,7 @@ main > section + section {
 
   .ai-preview {
     height: 260px;
+    aspect-ratio: auto;
   }
 }
 
@@ -1731,7 +1870,8 @@ main > section + section {
   }
 
   .cinema-role {
-    font-size: 1.14rem;
+    max-width: none;
+    font-size: 1.34rem;
   }
 
   .cinema-lede {
@@ -1755,6 +1895,7 @@ main > section + section {
   .project-visual,
   .ai-preview {
     height: 210px;
+    aspect-ratio: auto;
   }
 
   .project-visual--featured {
@@ -1764,6 +1905,28 @@ main > section + section {
   .ai-preview-grid {
     grid-template-columns: 0.88fr 1.12fr;
     gap: 0.45rem;
+  }
+
+  .stat-strip > div {
+    padding: 0.65rem 0.5rem 0.7rem 0;
+  }
+
+  .stat-strip > div + div {
+    padding-left: 0.6rem;
+  }
+
+  .stat-strip dt {
+    font-size: 0.52rem;
+    letter-spacing: 0.09em;
+  }
+
+  .stat-strip dd {
+    font-size: 0.94rem;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    gap: 1.4rem;
   }
 
   .ai-input-panel,
@@ -1808,6 +1971,717 @@ main > section + section {
   }
 }
 
+
+/* Premium refinement pass -------------------------------------------------
+   The visual system stays deliberately quiet: no glow, no floating cards,
+   no image zooms, and only two type families. Interaction is communicated by
+   contrast, underlines, and focus states rather than decorative motion. */
+
+:root {
+  --bg: #0a0a0c;
+  --bg-deep: #070709;
+  --surface: #111216;
+  --surface-2: #15161a;
+  --surface-3: #191a1f;
+  --line: #2a2b31;
+  --line-soft: #1e1f24;
+  --hair: #3a3b42;
+  --text: #f3f0e9;
+  --muted: #b2aea5;
+  --subtle: #858179;
+  --accent: #dc7952;
+  --accent-2: #e59a79;
+  --mono: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --container: 1200px;
+  --radius-lg: 10px;
+  --radius-md: 7px;
+  --section: 6.35rem;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+.container {
+  width: min(var(--container), calc(100% - 3rem));
+}
+
+/* Remove decorative background effects that compete with the work. */
+.cinema-enabled .cinema-curtain {
+  background: #070709;
+}
+
+.cinema-enabled .cinema-curtain::before,
+.cinema-stage::after {
+  display: none;
+}
+
+.name-rig-letter::after {
+  display: none;
+}
+
+.name-rig-line {
+  stroke: rgba(243, 240, 233, 0.14);
+}
+
+.name-rig-ground {
+  left: 4vw;
+  right: 4vw;
+  bottom: 12vh;
+  background: #2a2b31;
+}
+
+.curtain-prompt,
+.curtain-meta,
+.curtain-skip,
+.brand-role,
+.cinema-overline,
+.cinema-rail-row > span,
+.cinema-rail-row small,
+.cinema-skill-strip span,
+.eyebrow,
+.project-meta,
+.tag-row span,
+.stat-strip dt,
+.project-divider span,
+.timeline-side,
+.skill-group h3,
+.colophon p,
+.footer-top {
+  font-family: var(--body);
+}
+
+.curtain-meta,
+.curtain-skip,
+.curtain-prompt,
+.brand-role,
+.cinema-overline,
+.cinema-rail-row > span,
+.cinema-rail-row small,
+.cinema-skill-strip span,
+.eyebrow,
+.project-meta,
+.stat-strip dt,
+.project-divider span,
+.skill-group h3,
+.footer-top {
+  font-weight: 600;
+}
+
+.topbar {
+  background: #0a0a0c;
+}
+
+.nav {
+  height: 72px;
+}
+
+.brand-name {
+  font-size: 1.02rem;
+}
+
+.brand-role {
+  margin-top: 0.28rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+}
+
+.nav-links {
+  gap: 1.65rem;
+}
+
+.nav-links a {
+  font-size: 0.88rem;
+}
+
+.nav-links a::after {
+  height: 1px;
+  bottom: -0.42rem;
+}
+
+.cinema-intro {
+  min-height: calc(100svh - 72px);
+}
+
+.cinema-enabled .cinema-stage {
+  margin-top: -72px;
+  padding-top: 72px;
+}
+
+.cinema-stage-inner {
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr);
+  gap: 2.4rem 4.5rem;
+  padding-top: clamp(6.5rem, 14vh, 9rem);
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+.cinema-overline {
+  margin-bottom: 1.2rem;
+  font-size: 0.63rem;
+  letter-spacing: 0.16em;
+}
+
+.cinema-hero-copy h1 {
+  max-width: 10.5ch;
+  margin-bottom: 0.72rem;
+  font-size: clamp(3.4rem, 6.8vw, 6.1rem);
+  line-height: 0.91;
+  letter-spacing: -0.052em;
+}
+
+.cinema-role {
+  max-width: 23ch;
+  margin-bottom: 1.2rem;
+  font-size: clamp(1.42rem, 2.45vw, 2.02rem);
+  line-height: 1.15;
+}
+
+.cinema-role::after {
+  width: 2.8rem;
+  height: 2px;
+  margin-top: 0.95rem;
+}
+
+.cinema-lede {
+  max-width: 45rem;
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  line-height: 1.66;
+}
+
+.cinema-actions {
+  margin-top: 1.75rem;
+}
+
+.cinema-rail-row {
+  padding: 0.88rem 0 0.88rem 1.05rem;
+}
+
+.cinema-rail-row strong {
+  font-size: 0.84rem;
+}
+
+.cinema-skill-strip {
+  padding-top: 0.95rem;
+}
+
+.cinema-skill-strip span {
+  font-size: 0.62rem;
+}
+
+.section-head {
+  gap: 3rem;
+  margin-bottom: 2.8rem;
+}
+
+.section-head--compact {
+  margin-bottom: 2rem;
+}
+
+.section-head h2,
+.contact-card h2 {
+  font-size: clamp(2.05rem, 3.8vw, 3.15rem);
+  letter-spacing: -0.04em;
+}
+
+.section-head > p,
+.contact-card > div > p:last-child {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* Buttons stay planted. */
+.button {
+  min-height: 46px;
+  border-radius: 7px;
+  padding: 0.76rem 1.18rem;
+  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.button:hover {
+  transform: none;
+}
+
+.button-primary::after,
+.button-primary:hover::after {
+  transform: none;
+}
+
+/* Cards are framed, not floating. */
+.projects-grid {
+  gap: 1.35rem;
+}
+
+.project-card {
+  border-color: var(--line);
+  transition: border-color 0.16s ease;
+}
+
+.project-card::before {
+  display: none;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  transform: none;
+  border-color: var(--hair);
+}
+
+.project-visual img {
+  transition: opacity 0.2s ease;
+}
+
+.project-card:not(.project-card--featured):hover .project-visual > img:not(.secondary-image) {
+  transform: none;
+}
+
+.project-text,
+.project-card--featured .project-text {
+  gap: 0.82rem;
+}
+
+.project-text {
+  padding: 1.55rem;
+}
+
+.project-card--featured .project-text {
+  padding: 1.85rem;
+}
+
+.project-meta {
+  font-size: 0.61rem;
+  letter-spacing: 0.1em;
+}
+
+.project-text h3 {
+  font-size: clamp(1.35rem, 1.85vw, 1.65rem);
+}
+
+.project-text > p {
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+
+.project-summary {
+  font-size: 0.98rem !important;
+}
+
+.project-points {
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.tag-row span {
+  padding: 0.3rem 0.52rem;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 0.6rem;
+  transition: none;
+}
+
+.project-card:hover .tag-row span {
+  border-color: var(--line);
+}
+
+.project-links a {
+  font-size: 0.86rem;
+}
+
+.project-links a:hover {
+  color: var(--text);
+}
+
+/* Layer preview: an in-page product mock instead of a missing screenshot. */
+.layer-preview {
+  padding: clamp(1.1rem, 2.8vw, 2rem);
+  background: #0c131b;
+}
+
+.layer-preview-shell {
+  width: min(100%, 1040px);
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #26313d;
+  border-radius: 8px;
+  background: #121a23;
+  overflow: hidden;
+}
+
+.layer-preview-topline {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1.1rem;
+  border-bottom: 1px solid #26313d;
+}
+
+.layer-preview-topline span {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.layer-preview-topline small,
+.layer-preview-weather > p,
+.layer-preview-temp small,
+.layer-preview-card > small {
+  color: #93a1b0;
+  font-family: var(--body);
+  font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.layer-preview-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: center;
+  padding: clamp(1.25rem, 4vw, 3.25rem);
+}
+
+.layer-preview-weather > strong {
+  display: block;
+  margin: 0.28rem 0 0.1rem;
+  color: #f4f6f8;
+  font-family: var(--display);
+  font-size: clamp(2.35rem, 5.8vw, 5.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.layer-preview-weather > span {
+  color: #d8dee5;
+  font-size: clamp(0.85rem, 1.4vw, 1.08rem);
+}
+
+.layer-preview-temp {
+  display: flex;
+  align-items: end;
+  gap: clamp(0.85rem, 2vw, 1.5rem);
+  margin-top: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.layer-preview-temp div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.layer-preview-temp b {
+  color: #f4f6f8;
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 3.7vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.layer-preview-temp div:last-child b {
+  color: #e8ae4c;
+}
+
+.layer-preview-temp i {
+  padding-bottom: 0.2rem;
+  color: #8794a3;
+  font-style: normal;
+  font-size: 1.25rem;
+}
+
+.layer-preview-card {
+  padding: clamp(0.95rem, 2vw, 1.35rem);
+  border: 1px solid #d8dde2;
+  border-radius: 8px;
+  background: #eef0f2;
+  color: #142033;
+}
+
+.layer-preview-card > small {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: #59687a;
+}
+
+.layer-preview-card > div {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.68rem 0;
+  border-top: 1px solid #d6dbe0;
+}
+
+.layer-preview-card > div span {
+  color: #bf7a17;
+  font-size: 0.67rem;
+  font-weight: 700;
+}
+
+.layer-preview-card > div b {
+  font-size: clamp(0.73rem, 1.1vw, 0.9rem);
+  font-weight: 650;
+}
+
+/* Interactive coursework demo: same visual language as the rest of the page. */
+.ai-preview,
+.demo,
+.ai-input-panel,
+.ai-result-panel,
+.fake-input {
+  border-radius: 7px;
+}
+
+/* Experience and about sections stay editorial, not animated cards. */
+.timeline-item {
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 2.6rem;
+  padding: 1.9rem 0;
+}
+
+.timeline-item::before {
+  display: none;
+}
+
+.timeline-copy > p,
+.timeline-copy ul {
+  font-size: 0.9rem;
+}
+
+.panel {
+  min-height: 220px;
+  padding: 1.75rem;
+  transition: border-color 0.16s ease;
+}
+
+.panel:hover {
+  transform: none;
+  border-color: var(--hair);
+}
+
+.panel-number {
+  margin-bottom: 2.2rem;
+}
+
+.skill-group {
+  grid-template-columns: 190px minmax(0, 1fr);
+  padding: 1.35rem 0;
+}
+
+.contact-card {
+  gap: 4rem;
+  border-top-width: 1px;
+  padding: clamp(1.6rem, 3.3vw, 2.8rem);
+}
+
+.footer {
+  padding-top: 1.2rem;
+}
+
+.footer-top:hover i {
+  transform: none;
+}
+
+/* Reveals should not make content float up from nowhere. */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: none;
+  transition: opacity 0.38s ease;
+}
+
+.js-reveal .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 1020px) {
+  :root { --section: 5.6rem; }
+
+  .cinema-stage-inner {
+    gap: 1.9rem;
+    padding-top: 6.6rem;
+  }
+
+  .layer-preview-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  }
+}
+
+@media (max-width: 820px) {
+  :root { --section: 4.8rem; }
+
+  .container {
+    width: calc(100% - 2rem);
+  }
+
+  .nav {
+    height: 68px;
+  }
+
+  .nav-links {
+    top: 68px;
+    right: 1rem;
+  }
+
+  .cinema-intro {
+    min-height: calc(100svh - 68px);
+  }
+
+  .cinema-enabled .cinema-stage {
+    margin-top: -68px;
+    padding-top: 68px;
+  }
+
+  .cinema-stage-inner {
+    padding-top: 5.6rem;
+  }
+
+  .cinema-hero-copy h1 {
+    font-size: clamp(3.45rem, 16vw, 5.8rem);
+  }
+
+  .project-visual {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .project-visual--featured,
+  .layer-preview {
+    aspect-ratio: 16 / 11;
+  }
+
+  .layer-preview {
+    padding: 0.8rem;
+  }
+
+  .layer-preview-grid {
+    grid-template-columns: 1fr 0.9fr;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .layer-preview-card > div {
+    padding: 0.5rem 0;
+  }
+
+  .timeline-item {
+    gap: 0.55rem;
+  }
+}
+
+@media (max-width: 560px) {
+  :root { --section: 4.1rem; }
+
+  .container {
+    width: calc(100% - 1.5rem);
+  }
+
+  .cinema-enabled .cinema-intro {
+    height: 166svh;
+  }
+
+  .name-rig-ground {
+    bottom: 11vh;
+  }
+
+  .cinema-stage-inner {
+    padding-top: 5.15rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .cinema-overline {
+    line-height: 1.55;
+  }
+
+  .cinema-role {
+    font-size: 1.28rem;
+  }
+
+  .cinema-lede {
+    font-size: 0.96rem;
+  }
+
+  .button {
+    min-height: 44px;
+  }
+
+  .section-head h2,
+  .contact-card h2 {
+    font-size: clamp(1.95rem, 9vw, 2.5rem);
+  }
+
+  .project-text,
+  .project-card--featured .project-text {
+    padding: 1.25rem;
+  }
+
+  .project-visual--featured,
+  .layer-preview {
+    min-height: 350px;
+    aspect-ratio: auto;
+  }
+
+  .layer-preview-shell {
+    min-height: 330px;
+  }
+
+  .layer-preview-topline {
+    min-height: 44px;
+    padding: 0 0.8rem;
+  }
+
+  .layer-preview-topline small {
+    max-width: 17ch;
+    text-align: right;
+    line-height: 1.25;
+  }
+
+  .layer-preview-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    align-content: center;
+    padding: 1rem;
+  }
+
+  .layer-preview-weather > strong {
+    font-size: clamp(2.55rem, 13vw, 3.6rem);
+  }
+
+  .layer-preview-card {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .layer-preview-card > div:nth-of-type(3) {
+    display: none;
+  }
+
+  .stat-strip dd {
+    font-size: 0.9rem;
+  }
+
+  .about-grid {
+    gap: 0.9rem;
+  }
+
+  .panel {
+    min-height: 0;
+    padding: 1.35rem;
+  }
+
+  .panel-number {
+    margin-bottom: 1.4rem;
+  }
+
+  .contact-card {
+    padding: 1.25rem;
+  }
+}
+
 /* Reduced motion ---------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1845,5 +2719,159 @@ main > section + section {
   .js-reveal .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Print ------------------------------------------------------------------- */
+/* Recruiters do save pages as PDF. This turns the site into a readable
+   document instead of a dark rectangle with a curtain over the top. */
+
+@page {
+  margin: 14mm 13mm;
+}
+
+@media print {
+  .cinema-curtain,
+  .scroll-progress,
+  .topbar,
+  .curtain-prompt,
+  .curtain-skip,
+  .menu-toggle,
+  .skip-link,
+  .footer-top,
+  .demo {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .cinema-intro,
+  .cinema-enabled .cinema-intro {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .cinema-enabled .cinema-stage {
+    position: static !important;
+    height: auto !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .cinema-stage,
+  .cinema-stage-inner {
+    min-height: 0 !important;
+    transform: none !important;
+    background: none !important;
+  }
+
+  .cinema-stage-inner {
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  main > section {
+    padding: 1.4rem 0 !important;
+    border: 0 !important;
+  }
+
+  .container {
+    width: 100% !important;
+  }
+
+  .js-reveal .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .project-card,
+  .panel,
+  .contact-card,
+  .stat-strip,
+  .tag-row span {
+    border-color: #ccc !important;
+    background: none !important;
+    color: #111 !important;
+  }
+
+  .project-card,
+  .timeline-item,
+  .panel {
+    break-inside: avoid;
+  }
+
+  .project-visual {
+    max-height: 2.6in;
+  }
+
+  h1, h2, h3,
+  .cinema-role,
+  .project-summary,
+  .stat-strip dd,
+  .colophon-lead,
+  .timeline-side p {
+    color: #111 !important;
+  }
+
+  .cinema-role::after {
+    background: #8a4a2c !important;
+  }
+
+  /* Buttons are not clickable on paper, so they print as plain labelled links. */
+  .button {
+    min-height: 0;
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    color: #8a4a2c !important;
+    font-weight: 700;
+  }
+
+  .cinema-actions {
+    gap: 1.6rem;
+  }
+
+  .button::after {
+    content: " (" attr(href) ")";
+    font-size: 0.72em;
+    font-weight: 400;
+    color: #555;
+    transform: none !important;
+    word-break: break-all;
+  }
+
+  .cinema-lede,
+  .project-text > p,
+  .project-points,
+  .timeline-copy ul,
+  .timeline-copy > p,
+  .panel p,
+  .skill-group p,
+  .section-head > p,
+  .colophon p {
+    color: #333 !important;
+  }
+
+  .eyebrow,
+  .cinema-overline,
+  .project-status--live,
+  .skill-group h3,
+  .stat-strip dt,
+  .cinema-rail-row > span {
+    color: #8a4a2c !important;
+  }
+
+  /* Print the destination of every outbound link so the PDF stays useful. */
+  .project-links a::after,
+  .contact-links a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.7em;
+    font-weight: 400;
+    color: #555;
+    word-break: break-all;
   }
 }

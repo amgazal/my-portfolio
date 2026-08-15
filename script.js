@@ -41,16 +41,20 @@
     var words = ["ABDALLAH", "GAZAL"];
     var index = 0;
 
-    words.forEach(function (word) {
+    words.forEach(function (word, wordIndex) {
       var wordEl = document.createElement("span");
       wordEl.className = "name-rig-word";
 
-      word.split("").forEach(function (character) {
+      word.split("").forEach(function (character, positionInWord) {
         var letter = document.createElement("span");
         letter.className = "name-rig-letter";
         letter.textContent = character;
-        letter.setAttribute("data-code", "char[" + String(index).padStart(2, "0") + "]");
         letter.dataset.rigIndex = String(index);
+        // Narrow screens stack the two words, so the scatter needs to know which
+        // word a letter belongs to in order to keep the rows from overlapping.
+        letter.dataset.rigWord = String(wordIndex);
+        letter.dataset.rigPos = String(positionInWord);
+        letter.dataset.rigLen = String(word.length);
         wordEl.appendChild(letter);
         rigLetters.push(letter);
 
@@ -84,9 +88,11 @@
 
       var width = window.innerWidth;
       var height = window.innerHeight;
-      var maxScatterX = Math.min(width * 0.34, 430);
-      var codeOpacity = clamp(1 - assembly * 1.35, 0, 1);
-      var stringOpacity = clamp(1 - Math.max(0, assembly - 0.72) / 0.28, 0, 1);
+      // Below this width the two words stack, so the scatter has to work
+      // per-word or the rows land on top of each other.
+      var compact = width < 620;
+      var maxScatterX = Math.min(width * (compact ? 0.08 : 0.16), compact ? 54 : 220);
+      var stringOpacity = clamp(1 - Math.max(0, assembly - 0.76) / 0.24, 0, 1);
       var finalOpacity = smoothstep(clamp((assembly - 0.78) / 0.22, 0, 1));
 
       if (nameRigFinal) nameRigFinal.style.opacity = finalOpacity.toFixed(3);
@@ -95,9 +101,31 @@
       nameRigLines.style.opacity = String(stringOpacity);
 
       rigLetters.forEach(function (letter, index) {
-        var scatterX = (seededUnit(index, 1) * 2 - 1) * maxScatterX;
-        var scatterY = height * (0.34 + seededUnit(index, 2) * 0.14);
-        var scatterRotation = (seededUnit(index, 3) * 2 - 1) * 24;
+        var spread;
+        var jitterScale;
+
+        if (compact) {
+          // The words stack on phones. Each row spreads independently so the
+          // letters read like loose type resting near the floor before lifting.
+          var positionInWord = Number(letter.dataset.rigPos);
+          var wordLength = Number(letter.dataset.rigLen);
+          spread = wordLength > 1 ? positionInWord / (wordLength - 1) - 0.5 : 0;
+          jitterScale = 0.06;
+        } else {
+          // Desktop keeps the letters in reading order while spreading them
+          // across the floor. Nothing crosses or shuffles during assembly.
+          spread = rigLetters.length > 1 ? index / (rigLetters.length - 1) - 0.5 : 0;
+          jitterScale = 0.08;
+        }
+
+        var jitter = (seededUnit(index, 1) * 2 - 1) * jitterScale;
+        var scatterX = (spread * 2 + jitter) * maxScatterX;
+        var groundOffset = compact
+          ? (letter.dataset.rigWord === "0" ? 0.29 : 0.34)
+          : 0.31;
+        var scatterY = height * (groundOffset + seededUnit(index, 2) * 0.025);
+
+        var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 9 : 12);
         var remaining = 1 - assembly;
 
         var x = scatterX * remaining;
@@ -108,7 +136,6 @@
         letter.style.transform =
           "translate3d(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
           "rotate(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
-        letter.style.setProperty("--code-opacity", codeOpacity.toFixed(3));
         letter.style.opacity = (1 - finalOpacity).toFixed(3);
 
         var rect = letter.getBoundingClientRect();
@@ -183,7 +210,7 @@
     var scrollable = document.documentElement.scrollHeight - window.innerHeight;
     var progress = scrollable > 0 ? window.scrollY / scrollable : 0;
     progress = Math.min(Math.max(progress, 0), 1);
-    scrollProgress.style.width = (progress * 100).toFixed(2) + "%";
+    scrollProgress.style.transform = "scaleX(" + progress.toFixed(4) + ")";
   }
 
   function requestProgressRender() {
@@ -380,6 +407,22 @@
     });
 
     renderColorDemo();
+  }
+
+  /* Optional resume asset ------------------------------------------------- */
+  var resumeLinks = Array.from(document.querySelectorAll("[data-resume-link]"));
+  if (resumeLinks.length && window.location.protocol !== "file:") {
+    fetch("Abdallah_Gazal_Resume.pdf", { method: "HEAD", cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) {
+          resumeLinks.forEach(function (link) {
+            link.hidden = true;
+          });
+        }
+      })
+      .catch(function () {
+        // A network failure should not hide a resume that may still exist.
+      });
   }
 
   var footerYear = document.getElementById("footerYear");
