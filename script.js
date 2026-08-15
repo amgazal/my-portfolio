@@ -105,25 +105,25 @@
 
       var scatterRank = rigScatterRanks[index] || 0;
       var spread = rigLetters.length > 1 ? scatterRank / (rigLetters.length - 1) : 0.5;
-      var initialX = width * (compact ? (0.08 + spread * 0.84) : (0.07 + spread * 0.86));
+      var initialX = width * (compact ? (0.04 + spread * 0.92) : (0.03 + spread * 0.94));
       var rowNoise = seededUnit(index, 5);
       var rowLift = 0;
       if (compact) {
-        rowLift = rowNoise < 0.34 ? -Math.min(92, height * 0.11) : rowNoise < 0.68 ? -Math.min(38, height * 0.05) : 0;
+        rowLift = rowNoise < 0.25 ? -Math.min(126, height * 0.15) : rowNoise < 0.5 ? -Math.min(72, height * 0.09) : rowNoise < 0.75 ? -Math.min(28, height * 0.035) : Math.min(12, height * 0.02);
       } else {
-        rowLift = rowNoise < 0.33 ? -Math.min(84, height * 0.10) : rowNoise < 0.66 ? -Math.min(34, height * 0.04) : 0;
+        rowLift = rowNoise < 0.25 ? -Math.min(116, height * 0.14) : rowNoise < 0.5 ? -Math.min(62, height * 0.075) : rowNoise < 0.75 ? -Math.min(24, height * 0.03) : Math.min(10, height * 0.018);
       }
 
-      var scatterX = initialX - target.x + (seededUnit(index, 1) * 2 - 1) * (compact ? 22 : 44);
-      var baselineJitter = (seededUnit(index, 4) * 2 - 1) * (compact ? 9 : 15);
+      var scatterX = initialX - target.x + (seededUnit(index, 1) * 2 - 1) * (compact ? 36 : 64);
+      var baselineJitter = (seededUnit(index, 4) * 2 - 1) * (compact ? 16 : 24);
       var scatterY = groundY + rowLift - target.y - target.height * 0.48 + baselineJitter;
-      var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 18 : 26);
+      var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 26 : 34);
 
       var x = scatterX * remaining;
       var y = scatterY * remaining;
       var rotation = scatterRotation * remaining;
-      var scale = 0.72 + eased * 0.28;
-      var opacity = clamp(0.22 + eased * 0.78, 0, 1);
+      var scale = 0.62 + eased * 0.38;
+      var opacity = clamp(0.12 + eased * 0.88, 0, 1);
 
       letter.style.opacity = opacity.toFixed(3);
       letter.style.transform =

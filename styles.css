@@ -345,12 +345,12 @@ main > section + section {
   position: absolute;
   left: 50%;
   top: 48%;
-  width: min(92vw, 1120px);
+  width: min(94vw, 1180px);
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(1.2rem, 3.2vw, 3.2rem);
+  gap: clamp(1.6rem, 3.8vw, 3.8rem);
   pointer-events: none;
 }
 
@@ -1538,6 +1538,8 @@ main > section + section {
 
 .colophon {
   max-width: 46ch;
+  display: flex;
+  align-items: center;
 }
 
 .colophon p {
