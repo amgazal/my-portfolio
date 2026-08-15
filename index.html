@@ -39,11 +39,19 @@
     <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
 
     <div class="cinema-curtain" id="cinemaCurtain">
+      <div class="curtain-meta" aria-hidden="true">Portfolio / 2027</div>
       <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
-      <div class="curtain-brand" aria-hidden="true">
-        <span class="curtain-index">Portfolio / 2027</span>
-        <span class="curtain-mark">AG</span>
-        <span class="curtain-prompt">Scroll to reveal</span>
+
+      <div class="name-rig" id="nameRig" aria-hidden="true">
+        <svg class="name-rig-lines" id="nameRigLines" preserveAspectRatio="none"></svg>
+        <div class="name-rig-letters" id="nameRigLetters"></div>
+        <div class="name-rig-final" id="nameRigFinal"><span>ABDALLAH</span><span>GAZAL</span></div>
+        <div class="name-rig-ground"></div>
+      </div>
+
+      <div class="curtain-prompt" id="curtainPrompt" aria-hidden="true">
+        <span>Scroll to assemble</span>
+        <i>↓</i>
       </div>
       <div class="curtain-hem" aria-hidden="true"></div>
     </div>
@@ -83,11 +91,11 @@
             <div class="cinema-hero-copy">
               <p class="cinema-overline">Cornell University · Information Science · 2028</p>
               <h1 id="introTitle">Abdallah Gazal</h1>
-              <p class="cinema-role">Frontend-focused. Comfortable across the stack.</p>
+              <p class="cinema-role">Frontend-focused software engineer.</p>
               <p class="cinema-lede">
-                I like building things properly, not just getting them to work once. I’m
-                most at home in the frontend, but I care about the API calls, data, tests,
-                deployment, and small details that decide whether a product actually feels good to use.
+                I enjoy frontend work because it is where engineering decisions become something
+                people can actually use. I build responsive interfaces, then follow the problem into
+                APIs, data, testing, and deployment when the product needs it.
               </p>
 
               <div class="cinema-actions">
@@ -140,16 +148,11 @@
       </section>
 
       <section id="work" class="container reveal">
-        <div class="section-head">
+        <div class="section-head section-head--compact">
           <div>
             <p class="eyebrow"><span>01</span> Selected work</p>
-            <h2>Projects I know inside out.</h2>
+            <h2>Work I can walk you through.</h2>
           </div>
-          <p>
-            I’d rather show a smaller set of work I can explain clearly than a long list
-            of things I barely touched. These are the projects where I made decisions,
-            debugged the problems, and learned the most.
-          </p>
         </div>
 
         <div class="projects-grid">
@@ -173,13 +176,12 @@
 
               <h3>Layer</h3>
               <p class="project-summary">
-                Layer started from a problem I kept running into after moving to Ithaca:
-                the forecast told me the temperature, but not what that temperature meant for me.
+                Layer turns a weather forecast into a clothing recommendation calibrated to the person using it.
               </p>
               <p>
-                I turned that idea into a full-stack weather app that recommends what to wear,
-                adjusts for the outing, and learns from feedback. I built the React interface,
-                PostgreSQL data model, sync behavior, authentication flow, and deployment pipeline.
+                I started it after moving from Kumasi to Ithaca and realizing that a forecast could be
+                accurate without being useful to me. I designed the React interface and the system behind it:
+                PostgreSQL/Supabase, local-first sync, authentication, feedback, and automated tests.
               </p>
 
               <ul class="project-points">
@@ -220,12 +222,12 @@
               </div>
               <h3>Future Civilizations Conference</h3>
               <p class="project-summary">
-                I started with a blank page and a moving target: the conference was new,
-                and the website had to keep changing with it.
+                The public-facing site for Cornell’s Future Civilizations Conference, built from the ground up for a new event.
               </p>
               <p>
-                I designed the structure, built the frontend, and kept shipping updates as
-                speakers, panels, and event details came together.
+                I own the site structure and frontend, and I keep it current as speakers, panels,
+                schedules, and event details change. The challenge has been making those updates without
+                letting the information architecture become messy.
               </p>
               <ul class="project-points">
                 <li>Planned the information architecture and navigation from scratch.</li>
@@ -270,12 +272,12 @@
               </div>
               <h3>AI Tweet Detection</h3>
               <p class="project-summary">
-                My AI4ALL team built a classifier to tell whether a tweet was written by a
-                person or generated by AI, then put the models behind a Streamlit interface.
+                An AI4ALL team project that classifies tweets as human-written or AI-generated and exposes the result in Streamlit.
               </p>
               <p>
-                We merged two research datasets instead of depending on one source and compared
-                different model families so the app could show more than a single prediction.
+                We combined TweepFake and ElectAI, cleaned the data into one training pipeline, and
+                compared BERT with classical baselines so we could look at confidence and model agreement,
+                not just a single label.
               </p>
               <ul class="project-points">
                 <li>Cleaned and standardized 35K+ tweets from TweepFake and ElectAI while keeping source and generator labels traceable.</li>
@@ -321,8 +323,7 @@
               </div>
               <h3>Color Model Converter</h3>
               <p class="project-summary">
-                One of the projects that made me slow down and pay attention to edge cases.
-                I wrote the conversion math myself and kept RGB, CMYK, and HSV synchronized.
+                A Python color-conversion tool where I implemented the RGB, CMYK, and HSV math directly and kept each representation synchronized.
               </p>
 
               <div class="demo" data-demo="color" aria-label="Interactive color conversion demo">
@@ -387,9 +388,7 @@
               </div>
               <h3>Froggit</h3>
               <p class="project-summary">
-                The project where object-oriented design and state machines stopped feeling
-                abstract. It is a Frogger-style game with moving terrain, collisions, lives,
-                exits, and level progression.
+                A Frogger-style game with moving terrain, collisions, lives, exits, and JSON-defined levels. This was where state machines and OOP really clicked for me.
               </p>
               <ul class="project-points">
                 <li>Implemented gameplay states for loading, active play, pause, death, and completion.</li>
@@ -422,8 +421,7 @@
               </div>
               <h3>Interactive Image Filter Editor</h3>
               <p class="project-summary">
-                A pixel-level editor that taught me how much precision matters when a tiny
-                mistake in indexing or arithmetic changes the whole output.
+                A pixel-level image editor with cumulative filters, custom image operations, and tests for the details that are easy to get wrong.
               </p>
               <ul class="project-points">
                 <li>Implemented pixel access, copying, swapping, and image transformations.</li>
@@ -442,12 +440,11 @@
         <div class="section-head">
           <div>
             <p class="eyebrow"><span>02</span> Experience</p>
-            <h2>The work that taught me how to be useful on a team.</h2>
+            <h2>Experience that made me better at owning problems.</h2>
           </div>
           <p>
-            I’ve worked in software, IT support, web ownership, teaching, and operations.
-            Different jobs, but the standard is the same: understand the problem, communicate
-            clearly, and follow through.
+            Software, IT support, web ownership, teaching, and operations have all pushed me to
+            communicate clearly, work through ambiguity, and finish what I take responsibility for.
           </p>
         </div>
 
@@ -460,8 +457,8 @@
             <div class="timeline-copy">
               <h3>Software Engineer Intern <span>· Donyma Steel Complex</span></h3>
               <p>
-                Worked on a production React dashboard in weekly sprints, learning how to make changes
-                inside an existing codebase without breaking what already worked.
+                Worked on a production React dashboard in weekly sprints, contributing features inside an
+                existing codebase and learning to balance interface changes with performance and reliability.
               </p>
               <ul>
                 <li>Redesigned dashboard and navigation, reducing page-load time by about 20% in product analytics.</li>
@@ -479,7 +476,7 @@
             <div class="timeline-copy">
               <h3>IT Support Consultant <span>· Cornell University</span></h3>
               <p>
-                Handle the everyday technical problems that can stop someone from getting their work done.
+                Support Cornell users across hardware, software, connectivity, and account issues where the priority is simple: diagnose the problem and get them working again.
               </p>
               <ul>
                 <li>Resolve 10–15 hardware, software, connectivity, and account support requests on a typical day.</li>
@@ -497,7 +494,7 @@
             <div class="timeline-copy">
               <h3>Web Lead & Financial Coordinator <span>· Future Civilisations Society</span></h3>
               <p>
-                Own the conference website while helping the team turn changing plans into something people can actually use.
+                Own the conference website and help turn changing event plans into a clear, reliable experience for attendees.
               </p>
               <ul>
                 <li>Design, deploy, and maintain the official conference website.</li>
@@ -515,7 +512,7 @@
             <div class="timeline-copy">
               <h3>Programming Instructor <span>· Intro to Computer Programming</span></h3>
               <p>
-                Taught web development fundamentals to high-school students online and learned quickly when an explanation was not clear enough.
+                Taught web development fundamentals online to high-school students, writing lessons and debugging with students until the concepts made sense.
               </p>
               <ul>
                 <li>Taught HTML, CSS, and JavaScript to 50+ students.</li>
@@ -533,7 +530,7 @@
             <div class="timeline-copy">
               <h3>Student Manager <span>· Cornell Dining</span></h3>
               <p>
-                Promoted from associate. I help keep busy shifts organized, support the team, and step in when something is going wrong.
+                Promoted from associate to a role that requires coordinating people, priorities, and service standards during high-volume shifts.
               </p>
               <ul>
                 <li>Supervise student staff and coordinate work during high-volume service periods.</li>
@@ -548,32 +545,30 @@
         <div class="section-head">
           <div>
             <p class="eyebrow"><span>03</span> About</p>
-            <h2>I don’t like doing things halfway.</h2>
+            <h2>I care about the finish.</h2>
           </div>
           <p>
-            I’m still learning, but I care a lot about doing the work properly. If I build
-            something, I want to know why it works, where it breaks, and what I would improve next.
+            I’m still early in my career, but I take ownership seriously. I want what I ship to be
+            clear, responsive, reliable, and better than the first version I got working.
           </p>
         </div>
 
         <div class="about-grid">
           <article class="panel">
             <span class="panel-number">01</span>
-            <h3>Finish the details</h3>
+            <h3>Build past the happy path</h3>
             <p>
-              Getting a feature onto the screen is not the finish line for me. I pay attention
-              to edge cases, responsiveness, loading states, tests, wording, and the little things
-              that make the second use feel as solid as the first.
+              A feature is not finished because the ideal demo works. I pay attention to responsive
+              behavior, loading and error states, edge cases, wording, and tests where they protect the parts most likely to break.
             </p>
           </article>
 
           <article class="panel">
             <span class="panel-number">02</span>
-            <h3>Understand more than my part</h3>
+            <h3>Understand the whole flow</h3>
             <p>
-              Frontend is what I enjoy most, but I do not want to be the person who only knows the
-              component in front of me. I like understanding the data, backend, deployment, and the
-              people using the product too.
+              Frontend is my strongest area, but I like following data from the browser through the API
+              and into persistence, then understanding how the product is tested, deployed, and used in practice.
             </p>
           </article>
         </div>
@@ -583,7 +578,7 @@
         <div class="section-head section-head--compact">
           <div>
             <p class="eyebrow"><span>04</span> Skills</p>
-            <h2>What I’m comfortable being asked about.</h2>
+            <h2>Tools I’ve used to build and ship.</h2>
           </div>
         </div>
 
@@ -611,11 +606,10 @@
         <div class="contact-card">
           <div>
             <p class="eyebrow"><span>05</span> Contact</p>
-            <h2>If the work is a fit, I’d like to talk.</h2>
+            <h2>Open to Summer 2027.</h2>
             <p>
-              I’m looking for a Summer 2027 team where I can contribute, be pushed technically,
-              and keep improving. If something here lines up with what your team is building,
-              I’d be happy to walk through the work.
+              I’m looking for frontend and software engineering internships where I can contribute to
+              real product work, learn from strong engineers, and take ownership of what I ship. I’d be glad to walk through any project here.
             </p>
           </div>
 

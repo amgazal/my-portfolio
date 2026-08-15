@@ -7,39 +7,150 @@
   var cinemaIntro = document.querySelector(".cinema-intro");
   var cinemaCurtain = document.getElementById("cinemaCurtain");
   var curtainSkip = document.getElementById("curtainSkip");
+  var curtainPrompt = document.getElementById("curtainPrompt");
   var cinemaStageInner = document.querySelector(".cinema-stage-inner");
+  var nameRigLetters = document.getElementById("nameRigLetters");
+  var nameRigLines = document.getElementById("nameRigLines");
+  var nameRigFinal = document.getElementById("nameRigFinal");
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function smoothstep(value) {
+    value = clamp(value, 0, 1);
+    return value * value * (3 - 2 * value);
+  }
+
+  function seededUnit(index, salt) {
+    var raw = Math.sin((index + 1) * 12.9898 + salt * 78.233) * 43758.5453;
+    return raw - Math.floor(raw);
+  }
+
+  var rigLetters = [];
+  var rigLines = [];
+
+  function buildNameRig() {
+    if (!nameRigLetters || !nameRigLines) return;
+
+    nameRigLetters.innerHTML = "";
+    nameRigLines.innerHTML = "";
+    rigLetters = [];
+    rigLines = [];
+
+    var words = ["ABDALLAH", "GAZAL"];
+    var index = 0;
+
+    words.forEach(function (word) {
+      var wordEl = document.createElement("span");
+      wordEl.className = "name-rig-word";
+
+      word.split("").forEach(function (character) {
+        var letter = document.createElement("span");
+        letter.className = "name-rig-letter";
+        letter.textContent = character;
+        letter.setAttribute("data-code", "char[" + String(index).padStart(2, "0") + "]");
+        letter.dataset.rigIndex = String(index);
+        wordEl.appendChild(letter);
+        rigLetters.push(letter);
+
+        var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("class", "name-rig-line");
+        nameRigLines.appendChild(line);
+        rigLines.push(line);
+
+        index += 1;
+      });
+
+      nameRigLetters.appendChild(wordEl);
+    });
+  }
 
   if (cinemaIntro && cinemaCurtain && !reducedMotion) {
     document.documentElement.classList.add("cinema-enabled");
+    buildNameRig();
 
     var cinemaFrame = null;
-
-    function clamp(value, min, max) {
-      return Math.min(Math.max(value, min), max);
-    }
 
     function getCinemaRange() {
       return Math.max(
         cinemaIntro.offsetHeight - window.innerHeight,
-        window.innerHeight * 0.52
+        window.innerHeight * 0.78
       );
+    }
+
+    function renderNameRig(assembly) {
+      if (!rigLetters.length || !nameRigLines) return;
+
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+      var maxScatterX = Math.min(width * 0.34, 430);
+      var codeOpacity = clamp(1 - assembly * 1.35, 0, 1);
+      var stringOpacity = clamp(1 - Math.max(0, assembly - 0.72) / 0.28, 0, 1);
+      var finalOpacity = smoothstep(clamp((assembly - 0.78) / 0.22, 0, 1));
+
+      if (nameRigFinal) nameRigFinal.style.opacity = finalOpacity.toFixed(3);
+
+      nameRigLines.setAttribute("viewBox", "0 0 " + width + " " + height);
+      nameRigLines.style.opacity = String(stringOpacity);
+
+      rigLetters.forEach(function (letter, index) {
+        var scatterX = (seededUnit(index, 1) * 2 - 1) * maxScatterX;
+        var scatterY = height * (0.34 + seededUnit(index, 2) * 0.14);
+        var scatterRotation = (seededUnit(index, 3) * 2 - 1) * 24;
+        var remaining = 1 - assembly;
+
+        var x = scatterX * remaining;
+        var y = scatterY * remaining;
+        var rotation = scatterRotation * remaining;
+        var scale = 0.72 + assembly * 0.28;
+
+        letter.style.transform =
+          "translate3d(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
+          "rotate(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
+        letter.style.setProperty("--code-opacity", codeOpacity.toFixed(3));
+        letter.style.opacity = (1 - finalOpacity).toFixed(3);
+
+        var rect = letter.getBoundingClientRect();
+        var x2 = rect.left + rect.width / 2;
+        var y2 = rect.top + Math.max(2, rect.height * 0.08);
+        var anchorSpread = rigLetters.length > 1 ? index / (rigLetters.length - 1) : 0.5;
+        var x1 = width * (0.14 + anchorSpread * 0.72);
+        var line = rigLines[index];
+
+        line.setAttribute("x1", x1.toFixed(1));
+        line.setAttribute("y1", "0");
+        line.setAttribute("x2", x2.toFixed(1));
+        line.setAttribute("y2", y2.toFixed(1));
+      });
     }
 
     function renderCinemaIntro() {
       cinemaFrame = null;
       var progress = clamp(window.scrollY / getCinemaRange(), 0, 1);
-      var curtainY = -102 * progress;
+
+      // The first part of the scroll assembles the name. Only then does the
+      // curtain lift, so the interaction reads as one deliberate sequence.
+      var assembly = smoothstep(clamp(progress / 0.58, 0, 1));
+      var curtainProgress = smoothstep(clamp((progress - 0.58) / 0.42, 0, 1));
+      var curtainY = -102 * curtainProgress;
+
+      renderNameRig(assembly);
 
       cinemaCurtain.style.transform =
         "translate3d(0, " + curtainY.toFixed(2) + "%, 0)";
 
+      if (curtainPrompt) {
+        curtainPrompt.style.opacity = String(clamp(1 - progress * 5, 0, 1));
+      }
+
       if (cinemaStageInner) {
-        var stageOffset = 16 - progress * 16;
+        var stageOffset = 18 * (1 - curtainProgress);
         cinemaStageInner.style.transform =
           "translate3d(0, " + stageOffset.toFixed(1) + "px, 0)";
       }
 
-      document.documentElement.classList.toggle("cinema-open", progress > 0.96);
+      document.documentElement.classList.toggle("cinema-open", progress > 0.965);
     }
 
     function requestCinemaRender() {
