@@ -29,6 +29,7 @@
   var rigLetters = [];
   var rigLines = [];
   var rigTargets = [];
+  var rigScatterRanks = [];
 
   function buildNameRig() {
     if (!nameRigLetters || !nameRigLines) return;
@@ -59,6 +60,13 @@
       });
 
       nameRigLetters.appendChild(wordEl);
+    });
+
+    var order = rigLetters.map(function (_, index) { return index; });
+    order.sort(function (a, b) { return seededUnit(a, 11) - seededUnit(b, 11); });
+    rigScatterRanks = [];
+    order.forEach(function (originalIndex, scatteredIndex) {
+      rigScatterRanks[originalIndex] = scatteredIndex;
     });
   }
 
@@ -95,31 +103,29 @@
       var target = rigTargets[index];
       if (!target) return;
 
-      var initialX;
+      var scatterRank = rigScatterRanks[index] || 0;
+      var spread = rigLetters.length > 1 ? scatterRank / (rigLetters.length - 1) : 0.5;
+      var initialX = width * (compact ? (0.08 + spread * 0.84) : (0.07 + spread * 0.86));
+      var rowNoise = seededUnit(index, 5);
       var rowLift = 0;
       if (compact) {
-        var wordIndex = Number(letter.dataset.rigWord);
-        var positionInWord = Number(letter.dataset.rigPos);
-        var wordLength = wordIndex === 0 ? 8 : 5;
-        var wordSpread = wordLength > 1 ? positionInWord / (wordLength - 1) : 0.5;
-        initialX = width * ((wordIndex === 0 ? 0.10 : 0.17) + wordSpread * (wordIndex === 0 ? 0.80 : 0.66));
-        rowLift = wordIndex === 0 ? -Math.min(58, height * 0.07) : 0;
+        rowLift = rowNoise < 0.34 ? -Math.min(92, height * 0.11) : rowNoise < 0.68 ? -Math.min(38, height * 0.05) : 0;
       } else {
-        var readingSpread = rigLetters.length > 1 ? index / (rigLetters.length - 1) : 0.5;
-        initialX = width * (0.08 + readingSpread * 0.84);
+        rowLift = rowNoise < 0.33 ? -Math.min(84, height * 0.10) : rowNoise < 0.66 ? -Math.min(34, height * 0.04) : 0;
       }
 
-      var scatterX = initialX - target.x + (seededUnit(index, 1) * 2 - 1) * (compact ? 7 : 16);
-      // Keep the letters on one floor line on desktop and two loose rows on phones.
-      var baselineJitter = (seededUnit(index, 4) * 2 - 1) * (compact ? 4 : 8);
+      var scatterX = initialX - target.x + (seededUnit(index, 1) * 2 - 1) * (compact ? 22 : 44);
+      var baselineJitter = (seededUnit(index, 4) * 2 - 1) * (compact ? 9 : 15);
       var scatterY = groundY + rowLift - target.y - target.height * 0.48 + baselineJitter;
-      var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 10 : 16);
+      var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 18 : 26);
 
       var x = scatterX * remaining;
       var y = scatterY * remaining;
       var rotation = scatterRotation * remaining;
-      var scale = 0.78 + eased * 0.22;
+      var scale = 0.72 + eased * 0.28;
+      var opacity = clamp(0.22 + eased * 0.78, 0, 1);
 
+      letter.style.opacity = opacity.toFixed(3);
       letter.style.transform =
         "translate3d(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
         "rotate(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
@@ -411,6 +417,4 @@
     renderColorDemo();
   }
 
-  var footerYear = document.getElementById("footerYear");
-  if (footerYear) footerYear.textContent = "· " + new Date().getFullYear();
 })();

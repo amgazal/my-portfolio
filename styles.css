@@ -814,6 +814,10 @@ main > section + section {
   aspect-ratio: 16 / 9;
 }
 
+.project-visual--featured img {
+  object-position: center center;
+}
+
 .project-visual--comparison {
   height: auto;
   aspect-ratio: 16 / 10;
@@ -1537,15 +1541,15 @@ main > section + section {
 }
 
 .colophon p {
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  line-height: 1.75;
-  letter-spacing: 0.04em;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--subtle);
 }
 
 .colophon-lead {
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.35rem;
   color: var(--muted);
+  font-weight: 600;
 }
 
 .footer-top {
