@@ -9,8 +9,9 @@
   var curtainSkip = document.getElementById("curtainSkip");
   var curtainPrompt = document.getElementById("curtainPrompt");
   var cinemaStageInner = document.querySelector(".cinema-stage-inner");
-  var nameRigLetters = document.getElementById("nameRigLetters");
-  var nameRigLines = document.getElementById("nameRigLines");
+  var wordRigLetters = document.getElementById("wordRigLetters");
+  var wordRigStrings = document.getElementById("wordRigStrings");
+  var wordRigSub = document.getElementById("wordRigSub");
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -26,126 +27,113 @@
     return raw - Math.floor(raw);
   }
 
+  /* Suspended word --------------------------------------------------------
+     The visitor is greeted by a word hanging in pieces. Scrolling raises each
+     letter into place, one after another, and every string releases the moment
+     its letter lands. Strings are anchored directly above each letter's final
+     position, so they straighten as the word forms instead of crossing. */
+
+  var INTRO_WORD = "WELCOME";
+  var LETTER_STAGGER = 0.4;   // share of the assembly spent handing off between letters
+  var LETTER_TRAVEL = 0.6;    // share of the assembly a single letter takes to arrive
+
   var rigLetters = [];
-  var rigLines = [];
+  var rigStrings = [];
   var rigTargets = [];
-  var rigScatterRanks = [];
 
-  function buildNameRig() {
-    if (!nameRigLetters || !nameRigLines) return;
+  function easeOutCubic(t) {
+    var inv = 1 - t;
+    return 1 - inv * inv * inv;
+  }
 
-    nameRigLetters.innerHTML = "";
-    nameRigLines.innerHTML = "";
+  function buildWordRig() {
+    if (!wordRigLetters || !wordRigStrings) return;
+
+    wordRigLetters.innerHTML = "";
+    wordRigStrings.innerHTML = "";
     rigLetters = [];
-    rigLines = [];
+    rigStrings = [];
 
-    ["ABDALLAH", "GAZAL"].forEach(function (word, wordIndex) {
-      var wordEl = document.createElement("span");
-      wordEl.className = "name-rig-word";
+    INTRO_WORD.split("").forEach(function (character) {
+      var letter = document.createElement("span");
+      letter.className = "word-rig-letter";
+      letter.textContent = character;
+      wordRigLetters.appendChild(letter);
+      rigLetters.push(letter);
 
-      word.split("").forEach(function (character, positionInWord) {
-        var index = rigLetters.length;
-        var letter = document.createElement("span");
-        letter.className = "name-rig-letter";
-        letter.textContent = character;
-        letter.dataset.rigWord = String(wordIndex);
-        letter.dataset.rigPos = String(positionInWord);
-        wordEl.appendChild(letter);
-        rigLetters.push(letter);
-
-        var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("class", "name-rig-line");
-        nameRigLines.appendChild(line);
-        rigLines.push(line);
-      });
-
-      nameRigLetters.appendChild(wordEl);
-    });
-
-    var order = rigLetters.map(function (_, index) { return index; });
-    order.sort(function (a, b) { return seededUnit(a, 11) - seededUnit(b, 11); });
-    rigScatterRanks = [];
-    order.forEach(function (originalIndex, scatteredIndex) {
-      rigScatterRanks[originalIndex] = scatteredIndex;
+      var string = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      string.setAttribute("class", "word-rig-string");
+      wordRigStrings.appendChild(string);
+      rigStrings.push(string);
     });
   }
 
   function measureRigTargets() {
     if (!rigLetters.length) return;
-    rigTargets = [];
-    rigLetters.forEach(function (letter) {
+    rigTargets = rigLetters.map(function (letter) {
       letter.style.transform = "none";
       var rect = letter.getBoundingClientRect();
-      rigTargets.push({
+      return {
         x: rect.left + rect.width / 2,
+        top: rect.top,
         y: rect.top + rect.height / 2,
-        width: rect.width,
         height: rect.height
-      });
+      };
     });
   }
 
-  function renderNameRig(assembly) {
-    if (!rigLetters.length || !nameRigLines || !rigTargets.length) return;
+  function renderWordRig(assembly) {
+    if (!rigLetters.length || !rigTargets.length) return;
 
     var width = window.innerWidth;
     var height = window.innerHeight;
-    var compact = width < 620;
-    var eased = smoothstep(assembly);
-    var remaining = 1 - eased;
-    var groundY = height - Math.max(72, height * (compact ? 0.085 : 0.075));
-    var stringOpacity = clamp(1 - Math.max(0, assembly - 0.82) / 0.18, 0, 1);
+    var count = rigLetters.length;
+    var railY = height - Math.max(64, height * 0.065);
 
-    nameRigLines.setAttribute("viewBox", "0 0 " + width + " " + height);
-    nameRigLines.style.opacity = String(stringOpacity);
+    wordRigStrings.setAttribute("viewBox", "0 0 " + width + " " + height);
 
     rigLetters.forEach(function (letter, index) {
       var target = rigTargets[index];
       if (!target) return;
 
-      var scatterRank = rigScatterRanks[index] || 0;
-      var spread = rigLetters.length > 1 ? scatterRank / (rigLetters.length - 1) : 0.5;
-      var initialX = width * (compact ? (0.04 + spread * 0.92) : (0.03 + spread * 0.94));
-      var rowNoise = seededUnit(index, 5);
-      var rowLift = 0;
-      if (compact) {
-        rowLift = rowNoise < 0.25 ? -Math.min(126, height * 0.15) : rowNoise < 0.5 ? -Math.min(72, height * 0.09) : rowNoise < 0.75 ? -Math.min(28, height * 0.035) : Math.min(12, height * 0.02);
-      } else {
-        rowLift = rowNoise < 0.25 ? -Math.min(116, height * 0.14) : rowNoise < 0.5 ? -Math.min(62, height * 0.075) : rowNoise < 0.75 ? -Math.min(24, height * 0.03) : Math.min(10, height * 0.018);
-      }
+      // Letters arrive in reading order, each overlapping the one before it.
+      var startAt = count > 1 ? (index / (count - 1)) * LETTER_STAGGER : 0;
+      var progress = clamp((assembly - startAt) / LETTER_TRAVEL, 0, 1);
+      var eased = easeOutCubic(progress);
+      var remaining = 1 - eased;
 
-      var scatterX = initialX - target.x + (seededUnit(index, 1) * 2 - 1) * (compact ? 36 : 64);
-      var baselineJitter = (seededUnit(index, 4) * 2 - 1) * (compact ? 16 : 24);
-      var scatterY = groundY + rowLift - target.y - target.height * 0.48 + baselineJitter;
-      var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 26 : 34);
+      // At rest each letter dangles just above the rail, at its own depth.
+      var hangDepth = railY - target.y - target.height * 0.5
+        - seededUnit(index, 2) * height * 0.1;
+      var swayX = (seededUnit(index, 1) * 2 - 1) * Math.min(width * 0.035, 46);
+      var tilt = (seededUnit(index, 3) * 2 - 1) * 11;
 
-      var x = scatterX * remaining;
-      var y = scatterY * remaining;
-      var rotation = scatterRotation * remaining;
-      var scale = 0.62 + eased * 0.38;
-      var opacity = clamp(0.12 + eased * 0.88, 0, 1);
+      var offsetX = swayX * remaining;
+      var offsetY = hangDepth * remaining;
 
-      letter.style.opacity = opacity.toFixed(3);
       letter.style.transform =
-        "translate3d(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
-        "rotate(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
+        "translate3d(" + offsetX.toFixed(1) + "px, " + offsetY.toFixed(1) + "px, 0) " +
+        "rotate(" + (tilt * remaining).toFixed(2) + "deg) " +
+        "scale(" + (0.9 + eased * 0.1).toFixed(3) + ")";
 
-      var currentX = target.x + x;
-      var currentY = target.y + y;
-      var anchorSpread = rigLetters.length > 1 ? index / (rigLetters.length - 1) : 0.5;
-      var x1 = width * (0.14 + anchorSpread * 0.72);
-      var line = rigLines[index];
-
-      line.setAttribute("x1", x1.toFixed(1));
-      line.setAttribute("y1", "0");
-      line.setAttribute("x2", currentX.toFixed(1));
-      line.setAttribute("y2", (currentY - target.height * 0.38).toFixed(1));
+      // The string hangs from the ceiling directly above where the letter belongs.
+      var string = rigStrings[index];
+      string.setAttribute("x1", target.x.toFixed(1));
+      string.setAttribute("y1", "0");
+      string.setAttribute("x2", (target.x + offsetX).toFixed(1));
+      string.setAttribute("y2", (target.top + offsetY).toFixed(1));
+      // Released once the letter has settled, so the word is left standing alone.
+      string.setAttribute("stroke-opacity", clamp((1 - progress) / 0.35, 0, 1).toFixed(3));
     });
+
+    if (wordRigSub) {
+      wordRigSub.style.opacity = smoothstep(clamp((assembly - 0.82) / 0.18, 0, 1)).toFixed(3);
+    }
   }
 
   if (cinemaIntro && cinemaCurtain && !reducedMotion) {
     document.documentElement.classList.add("cinema-enabled");
-    buildNameRig();
+    buildWordRig();
     measureRigTargets();
 
     var cinemaFrame = null;
@@ -157,10 +145,12 @@
     function renderCinemaIntro() {
       cinemaFrame = null;
       var progress = clamp(window.scrollY / getCinemaRange(), 0, 1);
-      var assembly = clamp(progress / 0.62, 0, 1);
-      var curtainProgress = smoothstep(clamp((progress - 0.62) / 0.38, 0, 1));
+      // Three beats: the word assembles, it holds complete for a moment with the
+      // greeting beneath it, and only then does the curtain lift.
+      var assembly = clamp(progress / 0.58, 0, 1);
+      var curtainProgress = smoothstep(clamp((progress - 0.72) / 0.28, 0, 1));
 
-      renderNameRig(assembly);
+      renderWordRig(assembly);
       document.documentElement.classList.add("cinema-rig-ready");
 
       cinemaCurtain.style.transform =

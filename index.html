@@ -19,7 +19,7 @@
       content="Cornell Information Science student building software across interfaces, APIs, data, testing, and deployment."
     />
     <meta property="og:site_name" content="Abdallah Gazal" />
-    <meta property="og:image" content="https://amgazal.github.io/my-portfolio/layer.png" />
+    <meta property="og:image" content="https://amgazal.github.io/my-portfolio/og-image.jpg" />
     <meta property="og:image:alt" content="Layer, a personalized weather app built by Abdallah Gazal." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Abdallah Gazal | Software Engineer" />
@@ -27,7 +27,7 @@
       name="twitter:description"
       content="Cornell Information Science student building software across interfaces, APIs, data, testing, and deployment."
     />
-    <meta name="twitter:image" content="https://amgazal.github.io/my-portfolio/layer.png" />
+    <meta name="twitter:image" content="https://amgazal.github.io/my-portfolio/og-image.jpg" />
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#09090b" />
@@ -40,7 +40,7 @@
         "url": "https://amgazal.github.io/my-portfolio/",
         "email": "mailto:amg526@cornell.edu",
         "jobTitle": "Software Engineer",
-        "alumniOf": {
+        "affiliation": {
           "@type": "CollegeOrUniversity",
           "name": "Cornell University"
         },
@@ -76,17 +76,18 @@
     <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
 
     <div class="cinema-curtain" id="cinemaCurtain">
-      <div class="curtain-meta" aria-hidden="true">Portfolio</div>
+      <p class="curtain-meta" aria-hidden="true">Abdallah Gazal — Portfolio</p>
       <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
 
-      <div class="name-rig" id="nameRig" aria-hidden="true">
-        <svg class="name-rig-lines" id="nameRigLines" preserveAspectRatio="none"></svg>
-        <div class="name-rig-letters" id="nameRigLetters"></div>
-        <div class="name-rig-ground"></div>
+      <div class="word-rig" aria-hidden="true">
+        <svg class="word-rig-strings" id="wordRigStrings" preserveAspectRatio="none"></svg>
+        <div class="word-rig-letters" id="wordRigLetters"></div>
+        <p class="word-rig-sub" id="wordRigSub">I’m Abdallah — thanks for stopping by.</p>
+        <div class="word-rig-rail"></div>
       </div>
 
       <div class="curtain-prompt" id="curtainPrompt" aria-hidden="true">
-        <span>Scroll to assemble</span>
+        <span>Scroll</span>
         <i>↓</i>
       </div>
       <div class="curtain-hem" aria-hidden="true"></div>
@@ -138,7 +139,7 @@
                   class="button button-secondary"
                   href="Abdallah_Gazal_Resume.pdf"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   Resume
                 </a>
@@ -194,9 +195,12 @@
           <article class="project-card project-card--featured" id="layer">
             <div class="project-visual project-visual--featured">
               <img
-                src="layer.png"
-                alt="Layer weather app interface with a personalized clothing recommendation"
+                src="layer.webp"
+                width="1600"
+                height="900"
                 decoding="async"
+                loading="lazy"
+                alt="Layer weather app interface with a personalized clothing recommendation"
               />
               <div class="visual-placeholder" aria-hidden="true">
                 <span>Layer</span>
@@ -235,8 +239,9 @@
                 <span>Supabase</span><span>Vitest</span><span>GitHub Actions</span>
               </div>
 
-              <div class="project-links">
-                <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noreferrer">Live app ↗</a>
+              <div class="project-links" aria-label="Layer project links">
+                <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noopener noreferrer">Live app ↗</a>
+                <a href="https://github.com/amgazal/Layer" target="_blank" rel="noopener noreferrer" aria-label="Layer source code on GitHub">GitHub ↗</a>
               </div>
             </div>
           </article>
@@ -244,9 +249,9 @@
           <article class="project-card">
             <div class="project-visual">
               <img
-                src="future.png"
-                width="1295"
-                height="994"
+                src="future.webp"
+                width="1200"
+                height="921"
                 decoding="async"
                 alt="Future Civilizations Conference website homepage"
                 loading="lazy"
@@ -279,8 +284,9 @@
               <div class="tag-row">
                 <span>JavaScript</span><span>HTML/CSS</span><span>Responsive Design</span><span>Git</span>
               </div>
-              <div class="project-links">
-                <a href="https://futurecivilizations.com" target="_blank" rel="noreferrer">Visit site ↗</a>
+              <div class="project-links" aria-label="Future Civilizations project links">
+                <a href="https://futurecivilizations.com" target="_blank" rel="noopener noreferrer">Live site ↗</a>
+                <a href="https://github.com/amgazal/future-civilizations" target="_blank" rel="noopener noreferrer" aria-label="Future Civilizations source code on GitHub">GitHub ↗</a>
               </div>
             </div>
           </article>
@@ -340,12 +346,12 @@
                 <span>Python</span><span>BERT</span><span>scikit-learn</span><span>pandas</span><span>Streamlit</span><span>NLP</span>
               </div>
 
-              <div class="project-links">
+              <div class="project-links" aria-label="AI Tweet Detection project links">
                 <a
                   href="https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app/"
                   target="_blank"
-                  rel="noreferrer"
-                  >Try the app ↗</a
+                  rel="noopener noreferrer"
+                  >Live app ↗</a
                 >
               </div>
             </div>
@@ -359,7 +365,7 @@
           <article class="project-card">
             <div class="project-visual dual-image">
               <img
-                src="colormodel.png"
+                src="colormodel.webp"
                 width="907"
                 height="541"
                 decoding="async"
@@ -368,7 +374,7 @@
                 loading="lazy"
               />
               <img
-                src="colormodel2.png"
+                src="colormodel2.webp"
                 width="438"
                 height="450"
                 decoding="async"
@@ -431,13 +437,16 @@
               <div class="tag-row">
                 <span>Python</span><span>Kivy</span><span>Testing</span><span>Numerical Logic</span>
               </div>
+              <div class="project-links" aria-label="Color Model Converter project links">
+                <a href="https://github.com/amgazal/color-model-converter" target="_blank" rel="noopener noreferrer" aria-label="Color Model Converter source code on GitHub">GitHub ↗</a>
+              </div>
             </div>
           </article>
 
           <article class="project-card">
             <div class="project-visual">
               <img
-                src="frogger.png"
+                src="frogger.webp"
                 width="913"
                 height="758"
                 decoding="async"
@@ -473,7 +482,7 @@
           <article class="project-card">
             <div class="project-visual project-visual--comparison">
               <img
-                src="imager.png"
+                src="imager.webp"
                 width="1150"
                 height="647"
                 decoding="async"
@@ -502,6 +511,9 @@
               </ul>
               <div class="tag-row">
                 <span>Python</span><span>Kivy</span><span>OOP</span><span>Testing</span>
+              </div>
+              <div class="project-links" aria-label="Interactive Image Filter Editor project links">
+                <a href="https://github.com/amgazal/Image-editor-python" target="_blank" rel="noopener noreferrer" aria-label="Interactive Image Filter Editor source code on GitHub">GitHub ↗</a>
               </div>
             </div>
           </article>
@@ -563,7 +575,7 @@
               <span>Ithaca, NY</span>
             </div>
             <div class="timeline-copy">
-              <h3>Web Lead & Financial Coordinator <span>· Future Civilisations Society</span></h3>
+              <h3>Web Lead & Financial Coordinator <span>· Future Civilizations Society</span></h3>
               <p>
                 Own the conference website and help turn changing event plans into a clear, reliable experience for attendees.
               </p>
@@ -683,9 +695,9 @@
 
           <div class="contact-links">
             <a href="mailto:amg526@cornell.edu">Email <span>amg526@cornell.edu</span></a>
-            <a href="https://github.com/amgazal" target="_blank" rel="noreferrer">GitHub <span>github.com/amgazal ↗</span></a>
-            <a href="https://www.linkedin.com/in/abdallah-gazal-99b3a1333" target="_blank" rel="noreferrer">LinkedIn <span>abdallah-gazal ↗</span></a>
-            <a href="Abdallah_Gazal_Resume.pdf" target="_blank" rel="noreferrer">Resume <span>View PDF ↗</span></a>
+            <a href="https://github.com/amgazal" target="_blank" rel="noopener noreferrer">GitHub <span>github.com/amgazal ↗</span></a>
+            <a href="https://www.linkedin.com/in/abdallah-gazal-99b3a1333" target="_blank" rel="noopener noreferrer">LinkedIn <span>abdallah-gazal ↗</span></a>
+            <a href="Abdallah_Gazal_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume <span>View PDF ↗</span></a>
           </div>
         </div>
       </section>
@@ -694,7 +706,11 @@
         <footer class="footer container">
       <div class="footer-inner">
         <div class="colophon">
-          <p class="colophon-lead">Designed by Abdallah Gazal.</p>
+          <p class="colophon-lead">Designed and built by Abdallah Gazal.</p>
+          <p>
+            Written by hand in HTML, CSS, and JavaScript — no framework, no template,
+            no page builder. Set in Bricolage Grotesque and Hanken Grotesk.
+          </p>
         </div>
 
         <a class="footer-top" href="#home">

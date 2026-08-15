@@ -1,26 +1,48 @@
 # Abdallah Gazal — Portfolio
 
-Static portfolio built with hand-written HTML, CSS, and JavaScript. No build step or framework is required.
+Static site. Hand-written HTML, CSS, and JavaScript — no framework, no build
+step, no dependencies.
 
 ## Run locally
 
-```bash
-python3 -m http.server 8000
-```
+    python3 -m http.server 8000
+    # http://localhost:8000
 
-Then open `http://localhost:8000`.
+## Files
 
-## Included assets
+    index.html      markup, metadata, JSON-LD Person schema
+    styles.css      all styling, including the print stylesheet
+    script.js       intro rig, scroll reveal, scrollspy, nav, colour demo
+    favicon.svg     AG monogram
+    og-image.jpg    1200x630 social preview
+    *.webp          project screenshots
+    Abdallah_Gazal_Resume.pdf
 
-- `layer.png` — Layer product screenshot used by the featured project.
-- `future.png` — Future Civilizations Conference website.
-- `colormodel.png` / `colormodel2.png` — Color Model Converter.
-- `frogger.png` — Froggit.
-- `imager.png` — Interactive Image Filter Editor.
-- `Abdallah_Gazal_Resume.pdf` — Software engineering resume linked from the hero and contact section.
+## Notes
 
-## Design notes
+- Screenshots are served as WebP, sized to the largest slot each one renders in.
+  Total image payload is ~0.55 MB. If a browser cannot decode WebP, each card
+  falls back to a styled placeholder panel rather than a broken image.
+- Fonts load from Google Fonts. Without a connection the page falls back to
+  system faces; layout and spacing are unaffected.
+- The scroll intro is skipped entirely for visitors who set
+  `prefers-reduced-motion: reduce`; they land straight on the hero.
+- Smallest text/background contrast ratio on the site is 4.76:1
+  (WCAG AA for normal text is 4.5:1).
 
-- The opening interaction is intentionally the only expressive animation: the letters begin scattered near the floor and are pulled into the name by strings as the visitor scrolls.
-- The rest of the site avoids card lifting, image zooming, glows, and decorative motion. Hover states are limited to clear interaction feedback.
-- `prefers-reduced-motion` skips the opening animation and presents the portfolio normally.
+## Updating the live site
+
+From inside your clone, copy these files in and push:
+
+    git add -A
+    git commit -m "Update portfolio"
+    git push
+
+## Project links
+
+- Layer: https://github.com/amgazal/Layer
+- Future Civilizations: https://github.com/amgazal/future-civilizations
+- Color Model Converter: https://github.com/amgazal/color-model-converter
+- Image Filter Editor: https://github.com/amgazal/Image-editor-python
+
+Froggit can be linked after its repository is published.
