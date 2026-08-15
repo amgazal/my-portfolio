@@ -1,1161 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Abdallah Gazal | Software Engineer
-  </title>
-  <meta content="Abdallah Gazal is a Cornell Information Science student and software engineer building reliable products across interfaces, APIs, data, testing, and deployment." name="description"/>
-  <link href="https://amgazal.github.io/my-portfolio/" rel="canonical"/>
-  <meta content="website" property="og:type"/>
-  <meta content="https://amgazal.github.io/my-portfolio/" property="og:url"/>
-  <meta content="Abdallah Gazal | Software Engineer" property="og:title"/>
-  <meta content="Cornell Information Science student building reliable software products across interfaces, APIs, data, testing, and deployment." property="og:description"/>
-  <meta content="Abdallah Gazal" property="og:site_name"/>
-  <meta content="https://amgazal.github.io/my-portfolio/future.png" property="og:image"/>
-  <meta content="Selected work from Abdallah Gazal&rsquo;s software engineering portfolio." property="og:image:alt"/>
-  <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="Abdallah Gazal | Software Engineer" name="twitter:title"/>
-  <meta content="Cornell Information Science student building reliable software products across interfaces, APIs, data, testing, and deployment." name="twitter:description"/>
-  <meta content="https://amgazal.github.io/my-portfolio/future.png" name="twitter:image"/>
-  <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
-  <meta content="#09090b" name="theme-color"/>
-  <script type="application/ld+json">
-   {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Abdallah Gazal | Software Engineer</title>
+    <meta
+      name="description"
+      content="Abdallah Gazal is a Cornell Information Science student and software engineer building and shipping web products with React, JavaScript, TypeScript, Python, PostgreSQL, testing, and CI/CD."
+    />
+    <link rel="canonical" href="https://amgazal.github.io/my-portfolio/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://amgazal.github.io/my-portfolio/" />
+    <meta property="og:title" content="Abdallah Gazal | Software Engineer" />
+    <meta
+      property="og:description"
+      content="Cornell Information Science student building software across interfaces, APIs, data, testing, and deployment."
+    />
+    <meta property="og:site_name" content="Abdallah Gazal" />
+    <meta property="og:image" content="https://amgazal.github.io/my-portfolio/layer.png" />
+    <meta property="og:image:alt" content="Layer, a personalized weather app built by Abdallah Gazal." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Abdallah Gazal | Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="Cornell Information Science student building software across interfaces, APIs, data, testing, and deployment."
+    />
+    <meta name="twitter:image" content="https://amgazal.github.io/my-portfolio/layer.png" />
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#09090b" />
+
+    <script type="application/ld+json">
+      {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Abdallah Gazal",
         "url": "https://amgazal.github.io/my-portfolio/",
         "email": "mailto:amg526@cornell.edu",
         "jobTitle": "Software Engineer",
-        "affiliation": {
-                "@type": "CollegeOrUniversity",
-                "name": "Cornell University"
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Cornell University"
         },
         "knowsAbout": [
-                "Software Engineering",
-                "React",
-                "TypeScript",
-                "Python",
-                "PostgreSQL",
-                "Machine Learning",
-                "Web Accessibility"
+          "Software Engineering",
+          "React",
+          "JavaScript",
+          "TypeScript",
+          "Python",
+          "PostgreSQL",
+          "REST APIs",
+          "Software Testing"
         ],
         "sameAs": [
-                "https://github.com/amgazal",
-                "https://www.linkedin.com/in/abdallah-gazal-99b3a1333"
+          "https://github.com/amgazal",
+          "https://www.linkedin.com/in/abdallah-gazal-99b3a1333"
         ]
-}
-  </script>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-  <link href="styles.css" rel="stylesheet"/>
- </head>
- <body>
-  <a class="skip-link" href="#main">
-   Skip to content
-  </a>
-  <div aria-hidden="true" class="scroll-progress">
-   <span id="scrollProgress">
-   </span>
-  </div>
-  <div class="cinema-curtain" id="cinemaCurtain">
-   <div aria-hidden="true" class="curtain-meta">
-    Portfolio / 2026
-   </div>
-   <button class="curtain-skip" id="curtainSkip" type="button">
-    Skip intro
-   </button>
-   <div aria-hidden="true" class="name-rig" id="nameRig">
-    <svg class="name-rig-lines" id="nameRigLines" preserveaspectratio="none">
-    </svg>
-    <div class="name-rig-letters" id="nameRigLetters">
-    </div>
-    <div class="name-rig-final" id="nameRigFinal">
-     <span>
-      ABDALLAH
-     </span>
-     <span>
-      GAZAL
-     </span>
-    </div>
-    <div class="name-rig-ground">
-    </div>
-   </div>
-   <div aria-hidden="true" class="curtain-prompt" id="curtainPrompt">
-    <span>
-     Scroll to assemble
-    </span>
-    <i>
-     &darr;
-    </i>
-   </div>
-   <div aria-hidden="true" class="curtain-hem">
-   </div>
-  </div>
-  <header class="topbar">
-   <div class="container nav">
-    <a aria-label="Abdallah Gazal, home" class="brand" href="#home">
-     <span class="brand-name">
-      Abdallah Gazal
-     </span>
-     <span class="brand-role">
-      Software Engineer &middot; Product-minded builder
-     </span>
-    </a>
-    <button aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation" class="menu-toggle" id="menuToggle" type="button">
-     Menu
-    </button>
-    <nav aria-label="Main navigation" class="nav-links" id="navLinks">
-     <a href="#work">
-      Work
-     </a>
-     <a href="#experience">
-      Experience
-     </a>
-     <a href="#about">
-      About
-     </a>
-     <a href="#skills">
-      Skills
-     </a>
-     <a href="#contact">
-      Contact
-     </a>
-    </nav>
-   </div>
-  </header>
-  <main id="main">
-   <section aria-labelledby="introTitle" class="cinema-intro" id="home">
-    <div class="cinema-stage">
-     <div class="container cinema-stage-inner">
-      <div class="cinema-hero-copy">
-       <p class="cinema-overline">
-        Cornell University &middot; Information Science &middot; Class of 2028
-       </p>
-       <h1 id="introTitle">
-        Abdallah Gazal
-       </h1>
-       <p class="cinema-role">
-        Software engineer building products from interface to implementation.
-       </p>
-       <p class="cinema-lede">
-        I like working across the full path from interface to implementation&mdash;designing responsive experiences, wiring APIs and data, testing edge cases, and shipping software that holds up beyond the demo.
-       </p>
-       <div class="cinema-actions">
-        <a class="button button-primary" href="#work">
-         View selected work
-        </a>
-        <a class="button button-secondary" data-resume-link="" href="Abdallah_Gazal_Resume.pdf" rel="noreferrer" target="_blank">
-         Resume
-        </a>
-       </div>
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+    <div class="cinema-curtain" id="cinemaCurtain">
+      <div class="curtain-meta" aria-hidden="true">Portfolio / 2026</div>
+      <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
+
+      <div class="name-rig" id="nameRig" aria-hidden="true">
+        <svg class="name-rig-lines" id="nameRigLines" preserveAspectRatio="none"></svg>
+        <div class="name-rig-letters" id="nameRigLetters"></div>
+        <div class="name-rig-ground"></div>
       </div>
-      <aside aria-label="Quick profile" class="cinema-rail">
-       <div class="cinema-rail-row">
-        <span>
-         01
-        </span>
-        <div>
-         <small>
-          Focus
-         </small>
-         <strong>
-          Software engineering &middot; Product development
-         </strong>
-        </div>
-       </div>
-       <div class="cinema-rail-row">
-        <span>
-         02
-        </span>
-        <div>
-         <small>
-          Current role
-         </small>
-         <strong>
-          IT Support Consultant &middot; Cornell University
-         </strong>
-        </div>
-       </div>
-       <div class="cinema-rail-row">
-        <span>
-         03
-        </span>
-        <div>
-         <small>
-          Looking for
-         </small>
-         <strong>
-          Summer 2027 software engineering internships
-         </strong>
-        </div>
-       </div>
-      </aside>
-      <div aria-label="Core skills" class="cinema-skill-strip">
-       <span>
-        React
-       </span>
-       <span>
-        JavaScript
-       </span>
-       <span>
-        TypeScript
-       </span>
-       <span>
-        Python
-       </span>
-       <span>
-        PostgreSQL
-       </span>
-       <span>
-        Git
-       </span>
+
+      <div class="curtain-prompt" id="curtainPrompt" aria-hidden="true">
+        <span>Scroll to assemble</span>
+        <i>↓</i>
       </div>
-     </div>
+      <div class="curtain-hem" aria-hidden="true"></div>
     </div>
-   </section>
-   <section class="container reveal" id="work">
-    <div class="section-head section-head--compact">
-     <div>
-      <p class="eyebrow">
-       <span>
-        01
-       </span>
-       Selected work
-      </p>
-      <h2>
-       Projects I can walk through from interface to implementation.
-      </h2>
-     </div>
-    </div>
-    <div class="projects-grid">
-     <article class="project-card project-card--featured" id="layer">
-      <div aria-label="Layer weather app preview showing a personalized clothing recommendation for Ithaca weather" class="project-visual project-visual--featured layer-preview" role="img">
-       <div aria-hidden="true" class="layer-preview-shell">
-        <div class="layer-preview-topline">
-         <span>
-          Layer
-         </span>
-         <small>
-          Cornell University &middot; Ithaca, NY
-         </small>
+
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="#home" aria-label="Abdallah Gazal, home">
+          <span class="brand-name">Abdallah Gazal</span>
+          <span class="brand-role">Software Engineer · Information Science</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
+          Menu
+        </button>
+
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+          <a href="#work">Work</a>
+          <a href="#experience">Experience</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="cinema-intro" id="home" aria-labelledby="introTitle">
+        <div class="cinema-stage">
+          <div class="container cinema-stage-inner">
+            <div class="cinema-hero-copy">
+              <p class="cinema-overline">Cornell University · Information Science · 2028</p>
+              <h1 id="introTitle">Abdallah Gazal</h1>
+              <p class="cinema-role">Software engineer who likes understanding the whole system.</p>
+              <p class="cinema-lede">
+                I’ve built and shipped React interfaces, worked with APIs and PostgreSQL, written tests
+                and CI checks, and supported real users when things break. I care about the details,
+                but I also want to understand how the pieces fit together.
+              </p>
+
+              <div class="cinema-actions">
+                <a class="button button-primary" href="#work">View selected work</a>
+                <a
+                  class="button button-secondary"
+                  href="Abdallah_Gazal_Resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
+
+            <aside class="cinema-rail" aria-label="Quick profile">
+              <div class="cinema-rail-row">
+                <span>01</span>
+                <div>
+                  <small>Focus</small>
+                  <strong>Software engineering · Full-stack product development</strong>
+                </div>
+              </div>
+              <div class="cinema-rail-row">
+                <span>02</span>
+                <div>
+                  <small>Current role</small>
+                  <strong>IT Support Consultant · Cornell University</strong>
+                </div>
+              </div>
+              <div class="cinema-rail-row">
+                <span>03</span>
+                <div>
+                  <small>Looking for</small>
+                  <strong>Summer 2027 software engineering internships</strong>
+                </div>
+              </div>
+            </aside>
+
+            <div class="cinema-skill-strip" aria-label="Core skills">
+              <span>Python</span>
+              <span>JavaScript</span>
+              <span>TypeScript</span>
+              <span>Java</span>
+              <span>SQL</span>
+              <span>React</span>
+              <span>PostgreSQL</span>
+            </div>
+          </div>
         </div>
-        <div class="layer-preview-grid">
-         <div class="layer-preview-weather">
+      </section>
+
+      <section id="work" class="container reveal">
+        <div class="section-head section-head--compact">
+          <div>
+            <p class="eyebrow"><span>01</span> Work</p>
+            <h2>Selected projects.</h2>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card project-card--featured" id="layer">
+            <div class="project-visual project-visual--featured">
+              <img
+                src="layer.png"
+                alt="Layer weather app interface with a personalized clothing recommendation"
+                decoding="async"
+              />
+              <div class="visual-placeholder" aria-hidden="true">
+                <span>Layer</span>
+                <small>Project preview</small>
+              </div>
+            </div>
+
+            <div class="project-text">
+              <div class="project-meta">
+                <span class="project-status project-status--live">Independent project</span>
+                <span>2026</span>
+              </div>
+
+              <h3>Layer</h3>
+              <p class="project-summary">
+                A weather app that turns live conditions into clothing recommendations that adapt to the person using it.
+              </p>
+              <p>
+                I started Layer after moving from Kumasi to Ithaca and realizing that knowing the temperature
+                was not the same as knowing what to wear. I built the React interface, then took the product
+                through authentication, PostgreSQL/Supabase, local-first sync, feedback, testing, and deployment.
+              </p>
+
+              <div class="project-proof" aria-label="Layer technical highlights">
+                <span>40 unit tests</span>
+                <span>Local-first sync</span>
+                <span>CI/CD</span>
+              </div>
+
+              <ul class="project-points">
+                <li>Designed the PostgreSQL schema and Row-Level Security for profiles, personalization state, and feedback.</li>
+                <li>Built queued writes and idempotency protection so weak connections do not create duplicate or lost feedback.</li>
+                <li>Separated personalization logic from the UI; Vitest and GitHub Actions check behavior before deployment.</li>
+              </ul>
+
+              <div class="tag-row" aria-label="Layer technologies">
+                <span>React</span><span>JavaScript</span><span>PostgreSQL</span>
+                <span>Supabase</span><span>Vitest</span><span>GitHub Actions</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noreferrer">Live app ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual">
+              <img
+                src="future.png"
+                width="1295"
+                height="994"
+                decoding="async"
+                alt="Future Civilizations Conference website homepage"
+                loading="lazy"
+              />
+              <div class="visual-placeholder" aria-hidden="true">
+                <span>Future Civilizations</span>
+                <small>Live website</small>
+              </div>
+            </div>
+
+            <div class="project-text">
+              <div class="project-meta">
+                <span class="project-status project-status--live">Live website</span>
+                <span>2026</span>
+              </div>
+              <h3>Future Civilizations Conference</h3>
+              <p class="project-summary">
+                The public-facing site for Cornell’s Future Civilizations Conference, built from the ground up for a new event.
+              </p>
+              <p>
+                I own the site structure and frontend, and I keep it current as speakers, panels,
+                schedules, and event details change. The challenge has been making those updates without
+                letting the information architecture become messy.
+              </p>
+              <ul class="project-points">
+                <li>Planned the information architecture and navigation from scratch.</li>
+                <li>Built responsive layouts for speakers, panels, and programming.</li>
+                <li>Maintained iterative releases through Git as conference requirements changed.</li>
+              </ul>
+              <div class="tag-row">
+                <span>JavaScript</span><span>HTML/CSS</span><span>Responsive Design</span><span>Git</span>
+              </div>
+              <div class="project-links">
+                <a href="https://futurecivilizations.com" target="_blank" rel="noreferrer">Visit site ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div
+              class="project-visual ai-preview"
+              role="img"
+              aria-label="Preview of the AI Tweet Detection Streamlit app: a tweet input panel beside a prediction panel showing the label, selected model, confidence, and model agreement."
+            >
+              <div class="ai-preview-top" aria-hidden="true">
+                <span>AI Tweet Detection</span>
+                <small>Streamlit</small>
+              </div>
+              <div class="ai-preview-grid" aria-hidden="true">
+                <div class="ai-input-panel">
+                  <span class="ui-kicker">Enter a tweet</span>
+                  <div class="fake-input">Paste or type a tweet to classify...</div>
+                  <div class="fake-button">Predict</div>
+                </div>
+                <div class="ai-result-panel">
+                  <span class="ui-kicker">Prediction</span>
+                  <strong>AI-generated</strong>
+                  <div class="ai-result-row"><span>Selected model</span><b>BERT</b></div>
+                  <div class="ai-result-row"><span>Confidence</span><b>77.5%</b></div>
+                  <div class="agreement-line"><span>BERT</span><span>Random Forest</span><span>Logistic Regression</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-text">
+              <div class="project-meta">
+                <span class="project-status project-status--live">AI4ALL · Team project</span>
+                <span>2026</span>
+              </div>
+              <h3>AI Tweet Detection</h3>
+              <p class="project-summary">
+                An AI4ALL team project for distinguishing human-written and AI-generated tweets, with results available in Streamlit.
+              </p>
+              <p>
+                We combined TweepFake and ElectAI, standardized more than 35,000 tweets, and compared
+                BERT with Random Forest and Logistic Regression. I worked on the data preparation and
+                the Streamlit result flow so users could see confidence and model agreement, not only a label.
+              </p>
+              <div class="project-proof" aria-label="AI Tweet Detection project scale">
+                <span>35K+ tweets</span>
+                <span>3 models</span>
+                <span>2 datasets</span>
+              </div>
+              <ul class="project-points">
+                <li>Cleaned and standardized the combined datasets while preserving source and generator labels.</li>
+                <li>Compared BERT, Random Forest, and Logistic Regression on the same classification task.</li>
+                <li>Built the Streamlit result flow for prediction, confidence, AI probability, and model agreement.</li>
+              </ul>
+
+              <div class="tag-row">
+                <span>Python</span><span>BERT</span><span>scikit-learn</span><span>pandas</span><span>Streamlit</span><span>NLP</span>
+              </div>
+
+              <div class="project-links">
+                <a
+                  href="https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Try the app ↗</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <div class="project-divider" aria-hidden="true">
+            <span>Technical foundations</span>
+            <div></div>
+          </div>
+
+          <article class="project-card">
+            <div class="project-visual dual-image">
+              <img
+                src="colormodel.png"
+                width="907"
+                height="541"
+                decoding="async"
+                alt="RGB and HSV panels in the color model converter"
+                class="primary-image"
+                loading="lazy"
+              />
+              <img
+                src="colormodel2.png"
+                width="438"
+                height="450"
+                decoding="async"
+                alt="Contrast adjustment panel in the color model converter"
+                class="secondary-image"
+                loading="lazy"
+              />
+              <div class="visual-placeholder" aria-hidden="true">
+                <span>Color Model Converter</span>
+                <small>Python coursework</small>
+              </div>
+            </div>
+
+            <div class="project-text">
+              <div class="project-meta">
+                <span class="project-status">Coursework · CS 1110</span>
+                <span>Python</span>
+              </div>
+              <h3>Color Model Converter</h3>
+              <p class="project-summary">
+                A Python color-conversion tool where I implemented the RGB, CMYK, and HSV math directly and kept each representation synchronized.
+              </p>
+
+              <div class="demo" data-demo="color" aria-label="Interactive color conversion demo">
+                <div class="demo-heading">
+                  <span>Try the conversion logic</span>
+                  <code id="demoHEX">#358CEB</code>
+                </div>
+                <div class="demo-body">
+                  <div class="demo-swatch" id="demoSwatch" aria-hidden="true"></div>
+                  <div class="demo-controls">
+                    <label>
+                      <span>R</span>
+                      <input type="range" id="demoR" min="0" max="255" value="53" aria-label="Red" />
+                      <output id="demoRv">53</output>
+                    </label>
+                    <label>
+                      <span>G</span>
+                      <input type="range" id="demoG" min="0" max="255" value="140" aria-label="Green" />
+                      <output id="demoGv">140</output>
+                    </label>
+                    <label>
+                      <span>B</span>
+                      <input type="range" id="demoB" min="0" max="255" value="235" aria-label="Blue" />
+                      <output id="demoBv">235</output>
+                    </label>
+                  </div>
+                </div>
+                <div class="demo-output">
+                  <div><span>HSV</span><strong id="demoHSV">211.3, 0.774, 0.922</strong></div>
+                  <div><span>CMYK</span><strong id="demoCMYK">77.4, 40.4, 0.0, 7.8</strong></div>
+                </div>
+              </div>
+
+              <ul class="project-points">
+                <li>Implemented RGB ↔ CMYK and RGB ↔ HSV conversions without color libraries.</li>
+                <li>Built helpers for contrast, complementary colors, and fixed-width formatting.</li>
+                <li>Tested conversion behavior and formatting edge cases.</li>
+              </ul>
+              <div class="tag-row">
+                <span>Python</span><span>Kivy</span><span>Testing</span><span>Numerical Logic</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual">
+              <img
+                src="frogger.png"
+                width="913"
+                height="758"
+                decoding="async"
+                alt="Froggit gameplay with the frog, terrain, and exits"
+                loading="lazy"
+              />
+              <div class="visual-placeholder" aria-hidden="true">
+                <span>Froggit</span>
+                <small>Python coursework</small>
+              </div>
+            </div>
+
+            <div class="project-text">
+              <div class="project-meta">
+                <span class="project-status">Coursework · CS 1110</span>
+                <span>Python</span>
+              </div>
+              <h3>Froggit</h3>
+              <p class="project-summary">
+                A Frogger-style game with moving terrain, collisions, lives, exits, and JSON-defined levels. This was where state machines and OOP really clicked for me.
+              </p>
+              <ul class="project-points">
+                <li>Implemented gameplay states for loading, active play, pause, death, and completion.</li>
+                <li>Built object-oriented models for the frog, pads, hedges, exits, and moving lanes.</li>
+                <li>Handled multiple JSON-defined levels, resets, wrapping, and progression logic.</li>
+              </ul>
+              <div class="tag-row">
+                <span>Python</span><span>OOP</span><span>State Machines</span><span>JSON</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual project-visual--comparison">
+              <img
+                src="imager.png"
+                width="1150"
+                height="647"
+                decoding="async"
+                alt="Original campus photograph beside a grayscale image transformation"
+                loading="lazy"
+              />
+              <div class="visual-placeholder" aria-hidden="true">
+                <span>Image Filter Editor</span>
+                <small>Python coursework</small>
+              </div>
+            </div>
+
+            <div class="project-text">
+              <div class="project-meta">
+                <span class="project-status">Coursework · CS 1110</span>
+                <span>Python</span>
+              </div>
+              <h3>Interactive Image Filter Editor</h3>
+              <p class="project-summary">
+                A pixel-level image editor with cumulative filters, custom image operations, and tests for the details that are easy to get wrong.
+              </p>
+              <ul class="project-points">
+                <li>Implemented pixel access, copying, swapping, and image transformations.</li>
+                <li>Built grayscale, sepia, reflection, vignette, jail-bar, and pixelation filters as modular operations.</li>
+                <li>Validated filter behavior against an integrated test suite.</li>
+              </ul>
+              <div class="tag-row">
+                <span>Python</span><span>Kivy</span><span>OOP</span><span>Testing</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="experience" class="container reveal">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span>02</span> Experience</p>
+            <h2>Experience.</h2>
+          </div>
           <p>
-           Light rain &middot; 3:18 PM
+            Roles across software engineering, IT, web, teaching, and operations.
           </p>
-          <strong>
-           Comfortable
-          </strong>
-          <span>
-           Rain protection needed.
-          </span>
-          <div class="layer-preview-temp">
-           <div>
-            <small>
-             Temperature
-            </small>
-            <b>
-             71&deg;
-            </b>
-           </div>
-           <i>
-            &rarr;
-           </i>
-           <div>
-            <small>
-             For you
-            </small>
-            <b>
-             68&deg;
-            </b>
-           </div>
-          </div>
-         </div>
-         <div class="layer-preview-card">
-          <small>
-           Wear this
-          </small>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <p>May 2025 — Aug 2025</p>
+              <span>Kumasi, Ghana</span>
+            </div>
+            <div class="timeline-copy">
+              <h3>Software Engineer Intern <span>· Donyma Steel Complex</span></h3>
+              <p>
+                Worked on a production React dashboard in weekly sprints, contributing features inside an
+                existing codebase and learning to balance interface changes with performance and reliability.
+              </p>
+              <ul>
+                <li>Redesigned dashboard and navigation, reducing page-load time by about 20% in product analytics.</li>
+                <li>Built 15+ reusable UI components across 10+ screens to reduce duplicated interface code.</li>
+                <li>Integrated REST APIs, fixed interface and data-flow issues, and worked through code review and testing.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <p>Jan 2026 — Present</p>
+              <span>Ithaca, NY</span>
+            </div>
+            <div class="timeline-copy">
+              <h3>IT Support Consultant <span>· Cornell University</span></h3>
+              <p>
+                Support Cornell users across hardware, software, connectivity, and account issues where the priority is simple: diagnose the problem and get them working again.
+              </p>
+              <ul>
+                <li>Resolve 10–15 hardware, software, connectivity, and account support requests on a typical day.</li>
+                <li>Configure and deploy new workstations so users have the hardware and software they need from day one.</li>
+                <li>Manage the loaner-laptop program, including inventory, allocation, and equipment turnaround.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <p>Jan 2026 — Present</p>
+              <span>Ithaca, NY</span>
+            </div>
+            <div class="timeline-copy">
+              <h3>Web Lead & Financial Coordinator <span>· Future Civilisations Society</span></h3>
+              <p>
+                Own the conference website and help turn changing event plans into a clear, reliable experience for attendees.
+              </p>
+              <ul>
+                <li>Design, deploy, and maintain the official conference website.</li>
+                <li>Ship updates through Git as speakers, panels, logistics, and requirements change.</li>
+                <li>Work across programming, logistics, marketing, and budgeting instead of treating the website as a separate task.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <p>May 2023 — Aug 2024</p>
+              <span>Remote, Ghana</span>
+            </div>
+            <div class="timeline-copy">
+              <h3>Programming Instructor <span>· Intro to Computer Programming</span></h3>
+              <p>
+                Taught web development fundamentals online to high-school students, writing lessons and debugging with students until the concepts made sense.
+              </p>
+              <ul>
+                <li>Taught HTML, CSS, and JavaScript to 50+ students.</li>
+                <li>Created lesson plans, live demos, and programming exercises from scratch.</li>
+                <li>Worked one-on-one with students to debug assignments and explain concepts in different ways.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <p>Feb 2025 — Present</p>
+              <span>Ithaca, NY</span>
+            </div>
+            <div class="timeline-copy">
+              <h3>Student Manager <span>· Cornell Dining</span></h3>
+              <p>
+                Promoted from associate to a role that requires coordinating people, priorities, and service standards during high-volume shifts.
+              </p>
+              <ul>
+                <li>Supervise student staff and coordinate work during high-volume service periods.</li>
+                <li>Support staffing, onboarding, shift coverage, and day-to-day team communication.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="container reveal">
+        <div class="section-head">
           <div>
-           <span>
-            01
-           </span>
-           <b>
-            T-shirt or long sleeve
-           </b>
+            <p class="eyebrow"><span>03</span> About</p>
+            <h2>I care about what happens after “it works.”</h2>
           </div>
+          <p>
+            Getting the first version running is the start. I like tightening the interface, tracing the
+            data flow, testing the failure cases, and making sure the person using it never has to think
+            about the engineering underneath.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <article class="panel">
+            <span class="panel-number">01</span>
+            <h3>Finish the last 10%</h3>
+            <p>
+              I revisit responsive behavior, edge cases, wording, and the awkward states that appear
+              after the clean demo is over. Those details are usually what make software feel finished.
+            </p>
+          </article>
+
+          <article class="panel">
+            <span class="panel-number">02</span>
+            <h3>Know what sits behind the screen</h3>
+            <p>
+              I like being able to trace a feature from the interface to the API, data, tests, and
+              deployment. It makes debugging faster and makes it clearer where a fix actually belongs.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills" class="container reveal">
+        <div class="section-head section-head--compact">
           <div>
-           <span>
-            02
-           </span>
-           <b>
-            Light sweater or overshirt
-           </b>
+            <p class="eyebrow"><span>04</span> Skills</p>
+            <h2>Tools I use.</h2>
           </div>
+        </div>
+
+        <div class="skills-list">
+          <div class="skill-group">
+            <h3>Languages</h3>
+            <p>Python · Java · JavaScript · TypeScript · SQL · HTML · CSS</p>
+          </div>
+          <div class="skill-group">
+            <h3>Web & Product</h3>
+            <p>React · Node.js · Vite · Responsive Design · Accessibility · REST APIs</p>
+          </div>
+          <div class="skill-group">
+            <h3>Backend & Data</h3>
+            <p>PostgreSQL · Supabase · pandas · NumPy · BERT · scikit-learn · Streamlit</p>
+          </div>
+          <div class="skill-group">
+            <h3>Engineering</h3>
+            <p>Git · GitHub Actions · Vitest · Unit Testing · CI/CD · Code Review · Agile</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="container reveal">
+        <div class="contact-card">
           <div>
-           <span>
-            03
-           </span>
-           <b>
-            Packable rain shell
-           </b>
+            <p class="eyebrow"><span>05</span> Contact</p>
+            <h2>Open to Summer 2027 software engineering internships.</h2>
+            <p>
+              I’m looking for a team where I can contribute to real software, learn from strong engineers,
+              and own meaningful pieces of the work. I’m always happy to walk through how I built anything here.
+            </p>
           </div>
-         </div>
+
+          <div class="contact-links">
+            <a href="mailto:amg526@cornell.edu">Email <span>amg526@cornell.edu</span></a>
+            <a href="https://github.com/amgazal" target="_blank" rel="noreferrer">GitHub <span>github.com/amgazal ↗</span></a>
+            <a href="https://www.linkedin.com/in/abdallah-gazal-99b3a1333" target="_blank" rel="noreferrer">LinkedIn <span>abdallah-gazal ↗</span></a>
+            <a href="Abdallah_Gazal_Resume.pdf" target="_blank" rel="noreferrer">Resume <span>View PDF ↗</span></a>
+          </div>
         </div>
-       </div>
-      </div>
-      <div class="project-text">
-       <div class="project-meta">
-        <span class="project-status project-status--live">
-         Independent product
-        </span>
-        <span>
-         2026
-        </span>
-       </div>
-       <h3>
-        Layer
-       </h3>
-       <p class="project-summary">
-        A weather app that turns conditions into clothing recommendations that adapt to the person using it.
-       </p>
-       <p>
-        I started Layer after moving from Kumasi to Ithaca and realizing that knowing the temperature was not the same as knowing what I should wear. I designed the interface and took the product through authentication, local-first sync, Supabase/PostgreSQL, feedback, and testing.
-       </p>
-       <dl class="stat-strip">
-        <div>
-         <dt>
-          Unit tests
-         </dt>
-         <dd>
-          40
-         </dd>
+      </section>
+    </main>
+
+    <footer class="footer container">
+      <div class="footer-inner">
+        <div class="colophon">
+          <p class="colophon-lead">
+            Designed, built, and refined by Abdallah Gazal <span id="footerYear"></span>
+          </p>
+          <p>
+            Hand-written HTML, CSS, and JavaScript. No frameworks, no UI kit, no page builder.
+            Type set in Bricolage Grotesque and Hanken Grotesk.
+          </p>
         </div>
-        <div>
-         <dt>
-          Sync
-         </dt>
-         <dd>
-          Local-first
-         </dd>
-        </div>
-        <div>
-         <dt>
-          Pipeline
-         </dt>
-         <dd>
-          CI on push
-         </dd>
-        </div>
-       </dl>
-       <ul class="project-points">
-        <li>
-         Designed the data model and Row-Level Security rules for profiles, calibration state, and feedback.
-        </li>
-        <li>
-         Built local-first sync with queued writes and idempotency protection so weak connections do not break the experience.
-        </li>
-        <li>
-         Separated personalization logic from the UI and covered the behavior with 40 unit tests.
-        </li>
-        <li>
-         Added GitHub Actions checks for tests, regressions, and production builds before deployment.
-        </li>
-       </ul>
-       <div aria-label="Layer technologies" class="tag-row">
-        <span>
-         React
-        </span>
-        <span>
-         JavaScript
-        </span>
-        <span>
-         PostgreSQL
-        </span>
-        <span>
-         Supabase
-        </span>
-        <span>
-         Vitest
-        </span>
-        <span>
-         GitHub Actions
-        </span>
-       </div>
-       <div class="project-links">
-        <a href="https://amgazal.github.io/Layer/" rel="noreferrer" target="_blank">
-         Live app &nearrow;
+
+        <a class="footer-top" href="#home">
+          <span>Back to top</span>
+          <i aria-hidden="true">↑</i>
         </a>
-       </div>
       </div>
-     </article>
-     <article class="project-card">
-      <div class="project-visual">
-       <img alt="Future Civilizations Conference website homepage" decoding="async" height="994" loading="lazy" src="future.png" width="1295"/>
-       <div aria-hidden="true" class="visual-placeholder">
-        <span>
-         Future Civilizations
-        </span>
-        <small>
-         Live website
-        </small>
-       </div>
-      </div>
-      <div class="project-text">
-       <div class="project-meta">
-        <span class="project-status project-status--live">
-         Live website
-        </span>
-        <span>
-         2026
-        </span>
-       </div>
-       <h3>
-        Future Civilizations Conference
-       </h3>
-       <p class="project-summary">
-        The public-facing site for Cornell&rsquo;s Future Civilizations Conference, built from scratch for a new event.
-       </p>
-       <p>
-        I own the site structure and implementation, and I keep it useful as speakers, panels, schedules, and logistics change. The work is less about adding pages and more about keeping a growing amount of event information easy to navigate.
-       </p>
-       <ul class="project-points">
-        <li>
-         Planned the information architecture and navigation from a blank starting point.
-        </li>
-        <li>
-         Built responsive speaker, panel, and programming layouts for desktop and mobile.
-        </li>
-        <li>
-         Ship changes through Git as conference requirements evolve.
-        </li>
-       </ul>
-       <div class="tag-row">
-        <span>
-         JavaScript
-        </span>
-        <span>
-         HTML/CSS
-        </span>
-        <span>
-         Responsive Design
-        </span>
-        <span>
-         Git
-        </span>
-       </div>
-       <div class="project-links">
-        <a href="https://futurecivilizations.com" rel="noreferrer" target="_blank">
-         Visit site &nearrow;
-        </a>
-       </div>
-      </div>
-     </article>
-     <article class="project-card">
-      <div aria-label="Preview of the AI Tweet Detection Streamlit app: a tweet input panel beside a prediction panel showing the label, selected model, confidence, and model agreement." class="project-visual ai-preview" role="img">
-       <div aria-hidden="true" class="ai-preview-top">
-        <span>
-         AI Tweet Detection
-        </span>
-        <small>
-         Streamlit
-        </small>
-       </div>
-       <div aria-hidden="true" class="ai-preview-grid">
-        <div class="ai-input-panel">
-         <span class="ui-kicker">
-          Enter a tweet
-         </span>
-         <div class="fake-input">
-          Paste or type a tweet to classify...
-         </div>
-         <div class="fake-button">
-          Predict
-         </div>
-        </div>
-        <div class="ai-result-panel">
-         <span class="ui-kicker">
-          Prediction
-         </span>
-         <strong>
-          AI-generated
-         </strong>
-         <div class="ai-result-row">
-          <span>
-           Selected model
-          </span>
-          <b>
-           BERT
-          </b>
-         </div>
-         <div class="ai-result-row">
-          <span>
-           Confidence
-          </span>
-          <b>
-           77.5%
-          </b>
-         </div>
-         <div class="agreement-line">
-          <span>
-           BERT
-          </span>
-          <span>
-           Random Forest
-          </span>
-          <span>
-           Logistic Regression
-          </span>
-         </div>
-        </div>
-       </div>
-      </div>
-      <div class="project-text">
-       <div class="project-meta">
-        <span class="project-status project-status--live">
-         AI4ALL &middot; Team project
-        </span>
-        <span>
-         2026
-        </span>
-       </div>
-       <h3>
-        AI Tweet Detection
-       </h3>
-       <p class="project-summary">
-        An AI4ALL team project that classifies tweets as human-written or AI-generated and makes the result understandable in a Streamlit app.
-       </p>
-       <p>
-        We combined TweepFake and ElectAI into one training pipeline, then compared BERT with classical baselines so the interface could show confidence and model agreement instead of only returning a label.
-       </p>
-       <ul class="project-points">
-        <li>
-         Cleaned and standardized 35K+ tweets while preserving source and generator labels.
-        </li>
-        <li>
-         Compared BERT, Random Forest, and Logistic Regression on the same classification task.
-        </li>
-        <li>
-         Built the Streamlit result flow for prediction, confidence, AI probability, and model agreement.
-        </li>
-       </ul>
-       <dl class="stat-strip">
-        <div>
-         <dt>
-          Tweets
-         </dt>
-         <dd>
-          35K+
-         </dd>
-        </div>
-        <div>
-         <dt>
-          Models
-         </dt>
-         <dd>
-          3
-         </dd>
-        </div>
-        <div>
-         <dt>
-          Datasets
-         </dt>
-         <dd>
-          2
-         </dd>
-        </div>
-       </dl>
-       <div class="tag-row">
-        <span>
-         Python
-        </span>
-        <span>
-         BERT
-        </span>
-        <span>
-         scikit-learn
-        </span>
-        <span>
-         pandas
-        </span>
-        <span>
-         Streamlit
-        </span>
-        <span>
-         NLP
-        </span>
-       </div>
-       <div class="project-links">
-        <a href="https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app/" rel="noreferrer" target="_blank">
-         Open Streamlit app &nearrow;
-        </a>
-       </div>
-      </div>
-     </article>
-     <div aria-hidden="true" class="project-divider">
-      <span>
-       Technical foundations
-      </span>
-      <div>
-      </div>
-     </div>
-     <article class="project-card">
-      <div class="project-visual dual-image">
-       <img alt="RGB and HSV panels in the color model converter" class="primary-image" decoding="async" height="541" loading="lazy" src="colormodel.png" width="907"/>
-       <img alt="Contrast adjustment panel in the color model converter" class="secondary-image" decoding="async" height="450" loading="lazy" src="colormodel2.png" width="438"/>
-       <div aria-hidden="true" class="visual-placeholder">
-        <span>
-         Color Model Converter
-        </span>
-        <small>
-         Python coursework
-        </small>
-       </div>
-      </div>
-      <div class="project-text">
-       <div class="project-meta">
-        <span class="project-status">
-         Coursework &middot; CS 1110
-        </span>
-        <span>
-         Python
-        </span>
-       </div>
-       <h3>
-        Color Model Converter
-       </h3>
-       <p class="project-summary">
-        A Python color-conversion tool where I implemented the RGB, CMYK, and HSV math directly and kept each representation in sync.
-       </p>
-       <div aria-label="Interactive color conversion demo" class="demo" data-demo="color">
-        <div class="demo-heading">
-         <span>
-          Try the conversion logic
-         </span>
-         <code id="demoHEX">
-          #358CEB
-         </code>
-        </div>
-        <div class="demo-body">
-         <div aria-hidden="true" class="demo-swatch" id="demoSwatch">
-         </div>
-         <div class="demo-controls">
-          <label>
-           <span>
-            R
-           </span>
-           <input aria-label="Red" id="demoR" max="255" min="0" type="range" value="53"/>
-           <output id="demoRv">
-            53
-           </output>
-          </label>
-          <label>
-           <span>
-            G
-           </span>
-           <input aria-label="Green" id="demoG" max="255" min="0" type="range" value="140"/>
-           <output id="demoGv">
-            140
-           </output>
-          </label>
-          <label>
-           <span>
-            B
-           </span>
-           <input aria-label="Blue" id="demoB" max="255" min="0" type="range" value="235"/>
-           <output id="demoBv">
-            235
-           </output>
-          </label>
-         </div>
-        </div>
-        <div class="demo-output">
-         <div>
-          <span>
-           HSV
-          </span>
-          <strong id="demoHSV">
-           211.3, 0.774, 0.922
-          </strong>
-         </div>
-         <div>
-          <span>
-           CMYK
-          </span>
-          <strong id="demoCMYK">
-           77.4, 40.4, 0.0, 7.8
-          </strong>
-         </div>
-        </div>
-       </div>
-       <ul class="project-points">
-        <li>
-         Implemented RGB &harr; CMYK and RGB &harr; HSV conversions without color libraries.
-        </li>
-        <li>
-         Tested conversion math, formatting, contrast, and edge cases.
-        </li>
-       </ul>
-       <div class="tag-row">
-        <span>
-         Python
-        </span>
-        <span>
-         Kivy
-        </span>
-        <span>
-         Testing
-        </span>
-        <span>
-         Numerical Logic
-        </span>
-       </div>
-      </div>
-     </article>
-     <article class="project-card">
-      <div class="project-visual">
-       <img alt="Froggit gameplay with the frog, terrain, and exits" decoding="async" height="758" loading="lazy" src="frogger.png" width="913"/>
-       <div aria-hidden="true" class="visual-placeholder">
-        <span>
-         Froggit
-        </span>
-        <small>
-         Python coursework
-        </small>
-       </div>
-      </div>
-      <div class="project-text">
-       <div class="project-meta">
-        <span class="project-status">
-         Coursework &middot; CS 1110
-        </span>
-        <span>
-         Python
-        </span>
-       </div>
-       <h3>
-        Froggit
-       </h3>
-       <p class="project-summary">
-        A Frogger-style game that made state machines and object-oriented design feel practical rather than theoretical.
-       </p>
-       <ul class="project-points">
-        <li>
-         Implemented gameplay states for loading, active play, pause, death, and completion.
-        </li>
-        <li>
-         Built object models and level logic for moving lanes, collisions, exits, resets, and JSON-defined levels.
-        </li>
-       </ul>
-       <div class="tag-row">
-        <span>
-         Python
-        </span>
-        <span>
-         OOP
-        </span>
-        <span>
-         State Machines
-        </span>
-        <span>
-         JSON
-        </span>
-       </div>
-      </div>
-     </article>
-     <article class="project-card">
-      <div class="project-visual project-visual--comparison">
-       <img alt="Original campus photograph beside a grayscale image transformation" decoding="async" height="647" loading="lazy" src="imager.png" width="1150"/>
-       <div aria-hidden="true" class="visual-placeholder">
-        <span>
-         Image Filter Editor
-        </span>
-        <small>
-         Python coursework
-        </small>
-       </div>
-      </div>
-      <div class="project-text">
-       <div class="project-meta">
-        <span class="project-status">
-         Coursework &middot; CS 1110
-        </span>
-        <span>
-         Python
-        </span>
-       </div>
-       <h3>
-        Interactive Image Filter Editor
-       </h3>
-       <p class="project-summary">
-        A pixel-level image editor built around cumulative filters, reusable image operations, and tests for the details that are easy to get wrong.
-       </p>
-       <ul class="project-points">
-        <li>
-         Implemented pixel access, copying, swapping, and image transformations.
-        </li>
-        <li>
-         Built grayscale, sepia, reflection, vignette, jail-bar, and pixelation filters and validated them against the integrated tests.
-        </li>
-       </ul>
-       <div class="tag-row">
-        <span>
-         Python
-        </span>
-        <span>
-         Kivy
-        </span>
-        <span>
-         OOP
-        </span>
-        <span>
-         Testing
-        </span>
-       </div>
-      </div>
-     </article>
-    </div>
-   </section>
-   <section class="container reveal" id="experience">
-    <div class="section-head">
-     <div>
-      <p class="eyebrow">
-       <span>
-        02
-       </span>
-       Experience
-      </p>
-      <h2>
-       Work that taught me to own the problem, not just my part of it.
-      </h2>
-     </div>
-     <p>
-      Software, IT support, web ownership, teaching, and operations have all made me better at working through ambiguity, communicating clearly, and finishing what I take responsibility for.
-     </p>
-    </div>
-    <div class="timeline">
-     <article class="timeline-item">
-      <div class="timeline-side">
-       <p>
-        May 2025 &mdash; Aug 2025
-       </p>
-       <span>
-        Kumasi, Ghana
-       </span>
-      </div>
-      <div class="timeline-copy">
-       <h3>
-        Software Engineer Intern
-        <span>
-         &middot; Donyma Steel Complex
-        </span>
-       </h3>
-       <p>
-        Worked inside a production React dashboard in weekly sprints, contributing features to an existing codebase and learning to balance interface changes with performance and reliability.
-       </p>
-       <ul>
-        <li>
-         Redesigned dashboard and navigation, reducing page-load time by about 20% in product analytics.
-        </li>
-        <li>
-         Built 15+ reusable UI components across 10+ screens to reduce duplicated interface code.
-        </li>
-        <li>
-         Integrated REST APIs, fixed interface and data-flow issues, and worked through code review and testing.
-        </li>
-       </ul>
-      </div>
-     </article>
-     <article class="timeline-item">
-      <div class="timeline-side">
-       <p>
-        Jan 2026 &mdash; Present
-       </p>
-       <span>
-        Ithaca, NY
-       </span>
-      </div>
-      <div class="timeline-copy">
-       <h3>
-        IT Support Consultant
-        <span>
-         &middot; Cornell University
-        </span>
-       </h3>
-       <p>
-        Support Cornell users across hardware, software, connectivity, and account issues. The job has made me faster at diagnosing ambiguous problems and clearer about explaining what I am doing while I fix them.
-       </p>
-       <ul>
-        <li>
-         Resolve 10&ndash;15 hardware, software, connectivity, and account requests on a typical day.
-        </li>
-        <li>
-         Configure and deploy workstations so users have the right hardware and software from day one.
-        </li>
-        <li>
-         Manage loaner-laptop inventory, allocation, and equipment turnaround.
-        </li>
-       </ul>
-      </div>
-     </article>
-     <article class="timeline-item">
-      <div class="timeline-side">
-       <p>
-        Jan 2026 &mdash; Present
-       </p>
-       <span>
-        Ithaca, NY
-       </span>
-      </div>
-      <div class="timeline-copy">
-       <h3>
-        Web Lead &amp; Financial Coordinator
-        <span>
-         &middot; Future Civilizations Society
-        </span>
-       </h3>
-       <p>
-        Own the conference website and turn changing event plans into a clear, reliable experience for attendees.
-       </p>
-       <ul>
-        <li>
-         Design, deploy, and maintain the official conference website.
-        </li>
-        <li>
-         Ship updates through Git as speakers, panels, logistics, and requirements change.
-        </li>
-        <li>
-         Work across programming, logistics, marketing, and budgeting rather than treating the website as an isolated task.
-        </li>
-       </ul>
-      </div>
-     </article>
-     <article class="timeline-item">
-      <div class="timeline-side">
-       <p>
-        Feb 2025 &mdash; Present
-       </p>
-       <span>
-        Ithaca, NY
-       </span>
-      </div>
-      <div class="timeline-copy">
-       <h3>
-        Student Manager
-        <span>
-         &middot; Cornell Dining
-        </span>
-       </h3>
-       <p>
-        Promoted from associate into a role centered on coordinating people, priorities, and service standards during high-volume shifts.
-       </p>
-       <ul>
-        <li>
-         Supervise student staff and coordinate work during high-volume service periods.
-        </li>
-        <li>
-         Support staffing, onboarding, shift coverage, and day-to-day team communication.
-        </li>
-       </ul>
-      </div>
-     </article>
-     <article class="timeline-item">
-      <div class="timeline-side">
-       <p>
-        May 2023 &mdash; Aug 2024
-       </p>
-       <span>
-        Remote, Ghana
-       </span>
-      </div>
-      <div class="timeline-copy">
-       <h3>
-        Programming Instructor
-        <span>
-         &middot; Intro to Computer Programming
-        </span>
-       </h3>
-       <p>
-        Taught web development fundamentals online to high-school students and learned how much clearer my own thinking becomes when I have to explain it to someone else.
-       </p>
-       <ul>
-        <li>
-         Taught HTML, CSS, and JavaScript to 50+ students.
-        </li>
-        <li>
-         Created lessons, live demos, and programming exercises from scratch.
-        </li>
-        <li>
-         Debugged assignments one-on-one and explained the same concept in different ways until it clicked.
-        </li>
-       </ul>
-      </div>
-     </article>
-    </div>
-   </section>
-   <section class="container reveal" id="about">
-    <div class="section-head">
-     <div>
-      <p class="eyebrow">
-       <span>
-        03
-       </span>
-       About
-      </p>
-      <h2>
-       I care about the finish.
-      </h2>
-     </div>
-     <p>
-      The first working version is not where I stop. I care about the details that decide whether a product feels considered: responsive behavior, clear language, edge cases, and whether the thing still works outside the ideal demo.
-     </p>
-    </div>
-    <div class="about-grid">
-     <article class="panel">
-      <span class="panel-number">
-       01
-      </span>
-      <h3>
-       I notice the last 10%.
-      </h3>
-      <p>
-       I pay attention to loading and error states, mobile behavior, wording, accessibility, and tests where they protect the parts most likely to break.
-      </p>
-     </article>
-     <article class="panel">
-      <span class="panel-number">
-       02
-      </span>
-      <h3>
-       I like knowing what sits behind the screen.
-      </h3>
-      <p>
-       I enjoy working across the product stack: shaping the interface, tracing data through APIs and persistence, and understanding how the system is tested, deployed, and maintained.
-      </p>
-     </article>
-    </div>
-   </section>
-   <section class="container reveal" id="skills">
-    <div class="section-head section-head--compact">
-     <div>
-      <p class="eyebrow">
-       <span>
-        04
-       </span>
-       Skills
-      </p>
-      <h2>
-       Tools I use with enough context to explain the tradeoffs.
-      </h2>
-     </div>
-    </div>
-    <div class="skills-list">
-     <div class="skill-group">
-      <h3>
-       Frontend
-      </h3>
-      <p>
-       React &middot; JavaScript &middot; TypeScript &middot; HTML &middot; CSS &middot; Responsive Design &middot; Accessibility
-      </p>
-     </div>
-     <div class="skill-group">
-      <h3>
-       Backend &amp; Data
-      </h3>
-      <p>
-       Python &middot; PostgreSQL &middot; Supabase &middot; SQL &middot; REST APIs &middot; pandas &middot; NumPy
-      </p>
-     </div>
-     <div class="skill-group">
-      <h3>
-       ML &amp; Prototyping
-      </h3>
-      <p>
-       BERT &middot; scikit-learn &middot; Streamlit &middot; NLP &middot; Model Evaluation
-      </p>
-     </div>
-     <div class="skill-group">
-      <h3>
-       Engineering
-      </h3>
-      <p>
-       Git &middot; GitHub &middot; GitHub Actions &middot; Vitest &middot; Unit Testing &middot; Code Review
-      </p>
-     </div>
-    </div>
-   </section>
-   <section class="container reveal" id="contact">
-    <div class="contact-card">
-     <div>
-      <p class="eyebrow">
-       <span>
-        05
-       </span>
-       Contact
-      </p>
-      <h2>
-       Open to Summer 2027.
-      </h2>
-      <p>
-       I&rsquo;m looking for Summer 2027 software engineering internships where I can contribute to real product work, learn from strong engineers, and take meaningful ownership. I&rsquo;m happy to walk through any project here.
-      </p>
-     </div>
-     <div class="contact-links">
-      <a href="mailto:amg526@cornell.edu">
-       Email
-       <span>
-        amg526@cornell.edu
-       </span>
-      </a>
-      <a href="https://github.com/amgazal" rel="noreferrer" target="_blank">
-       GitHub
-       <span>
-        github.com/amgazal &nearrow;
-       </span>
-      </a>
-      <a href="https://www.linkedin.com/in/abdallah-gazal-99b3a1333" rel="noreferrer" target="_blank">
-       LinkedIn
-       <span>
-        abdallah-gazal &nearrow;
-       </span>
-      </a>
-      <a data-resume-link="" href="Abdallah_Gazal_Resume.pdf" rel="noreferrer" target="_blank">
-       Resume
-       <span>
-        View PDF &nearrow;
-       </span>
-      </a>
-     </div>
-    </div>
-   </section>
-  </main>
-  <footer class="footer container">
-   <div class="footer-inner">
-    <div class="colophon">
-     <p class="colophon-lead">
-      Designed, built, and refined by Abdallah Gazal
-      <span id="footerYear">
-      </span>
-     </p>
-     <p>
-      Built in HTML, CSS, and JavaScript, with accessibility and reduced-motion support.
-     </p>
-    </div>
-    <a class="footer-top" href="#home">
-     <span>
-      Back to top
-     </span>
-     <i aria-hidden="true">
-      &uarr;
-     </i>
-    </a>
-   </div>
-  </footer>
-  <script src="script.js">
-  </script>
- </body>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>

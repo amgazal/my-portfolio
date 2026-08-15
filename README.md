@@ -1,35 +1,26 @@
-# Abdallah Gazal — Software Engineering Portfolio
+# Abdallah Gazal — Portfolio
 
-Static portfolio built with hand-written HTML, CSS, and JavaScript. There is no build step and no framework dependency.
+Static portfolio built with hand-written HTML, CSS, and JavaScript. No build step or framework is required.
 
 ## Run locally
 
 ```bash
 python3 -m http.server 8000
-# http://localhost:8000
 ```
 
-## Files
+Then open `http://localhost:8000`.
 
-- `index.html` — content, metadata, project/experience structure
-- `styles.css` — responsive visual system, intro, project layouts, print styles
-- `script.js` — cinematic name assembly, navigation, section state, color demo
-- `favicon.svg` — site icon
-- `*.png` — project screenshots
+## Included assets
 
-## Resume
-
-The site looks for `Abdallah_Gazal_Resume.pdf` in the project root. If the PDF is present, the Resume links work normally. If it is not present on the deployed site, those links are hidden instead of sending visitors to a broken page.
+- `layer.png` — Layer product screenshot used by the featured project.
+- `future.png` — Future Civilizations Conference website.
+- `colormodel.png` / `colormodel2.png` — Color Model Converter.
+- `frogger.png` — Froggit.
+- `imager.png` — Interactive Image Filter Editor.
+- `Abdallah_Gazal_Resume.pdf` — Software engineering resume linked from the hero and contact section.
 
 ## Design notes
 
-- Two type families: Bricolage Grotesque for display type and Hanken Grotesk for body/UI text.
-- Motion is intentionally restrained. Project cards do not float, glow, lift, or zoom on hover; interaction is communicated through borders, type, and a single accent line.
-- The intro animation respects `prefers-reduced-motion` and is skipped for users who request reduced motion.
-- The Layer project preview is rendered in HTML/CSS, so it stays crisp and does not depend on a separate screenshot asset.
-
-## Live project links
-
-- Layer: https://amgazal.github.io/Layer/
-- Future Civilizations Conference: https://futurecivilizations.com
-- AI Tweet Detection (Streamlit): https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app/
+- The opening interaction is intentionally the only expressive animation: the letters begin scattered near the floor and are pulled into the name by strings as the visitor scrolls.
+- The rest of the site avoids card lifting, image zooming, glows, and decorative motion. Hover states are limited to clear interaction feedback.
+- `prefers-reduced-motion` skips the opening animation and presents the portfolio normally.

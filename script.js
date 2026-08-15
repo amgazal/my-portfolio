@@ -11,7 +11,6 @@
   var cinemaStageInner = document.querySelector(".cinema-stage-inner");
   var nameRigLetters = document.getElementById("nameRigLetters");
   var nameRigLines = document.getElementById("nameRigLines");
-  var nameRigFinal = document.getElementById("nameRigFinal");
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -29,6 +28,7 @@
 
   var rigLetters = [];
   var rigLines = [];
+  var rigTargets = [];
 
   function buildNameRig() {
     if (!nameRigLetters || !nameRigLines) return;
@@ -38,23 +38,17 @@
     rigLetters = [];
     rigLines = [];
 
-    var words = ["ABDALLAH", "GAZAL"];
-    var index = 0;
-
-    words.forEach(function (word, wordIndex) {
+    ["ABDALLAH", "GAZAL"].forEach(function (word, wordIndex) {
       var wordEl = document.createElement("span");
       wordEl.className = "name-rig-word";
 
       word.split("").forEach(function (character, positionInWord) {
+        var index = rigLetters.length;
         var letter = document.createElement("span");
         letter.className = "name-rig-letter";
         letter.textContent = character;
-        letter.dataset.rigIndex = String(index);
-        // Narrow screens stack the two words, so the scatter needs to know which
-        // word a letter belongs to in order to keep the rows from overlapping.
         letter.dataset.rigWord = String(wordIndex);
         letter.dataset.rigPos = String(positionInWord);
-        letter.dataset.rigLen = String(word.length);
         wordEl.appendChild(letter);
         rigLetters.push(letter);
 
@@ -62,119 +56,117 @@
         line.setAttribute("class", "name-rig-line");
         nameRigLines.appendChild(line);
         rigLines.push(line);
-
-        index += 1;
       });
 
       nameRigLetters.appendChild(wordEl);
     });
   }
 
+  function measureRigTargets() {
+    if (!rigLetters.length) return;
+    rigTargets = [];
+    rigLetters.forEach(function (letter) {
+      letter.style.transform = "none";
+      var rect = letter.getBoundingClientRect();
+      rigTargets.push({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        width: rect.width,
+        height: rect.height
+      });
+    });
+  }
+
+  function renderNameRig(assembly) {
+    if (!rigLetters.length || !nameRigLines || !rigTargets.length) return;
+
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    var compact = width < 620;
+    var eased = smoothstep(assembly);
+    var remaining = 1 - eased;
+    var groundY = height - Math.max(72, height * (compact ? 0.085 : 0.075));
+    var stringOpacity = clamp(1 - Math.max(0, assembly - 0.82) / 0.18, 0, 1);
+
+    nameRigLines.setAttribute("viewBox", "0 0 " + width + " " + height);
+    nameRigLines.style.opacity = String(stringOpacity);
+
+    rigLetters.forEach(function (letter, index) {
+      var target = rigTargets[index];
+      if (!target) return;
+
+      var initialX;
+      var rowLift = 0;
+      if (compact) {
+        var wordIndex = Number(letter.dataset.rigWord);
+        var positionInWord = Number(letter.dataset.rigPos);
+        var wordLength = wordIndex === 0 ? 8 : 5;
+        var wordSpread = wordLength > 1 ? positionInWord / (wordLength - 1) : 0.5;
+        initialX = width * ((wordIndex === 0 ? 0.10 : 0.17) + wordSpread * (wordIndex === 0 ? 0.80 : 0.66));
+        rowLift = wordIndex === 0 ? -Math.min(58, height * 0.07) : 0;
+      } else {
+        var readingSpread = rigLetters.length > 1 ? index / (rigLetters.length - 1) : 0.5;
+        initialX = width * (0.08 + readingSpread * 0.84);
+      }
+
+      var scatterX = initialX - target.x + (seededUnit(index, 1) * 2 - 1) * (compact ? 7 : 16);
+      // Keep the letters on one floor line on desktop and two loose rows on phones.
+      var baselineJitter = (seededUnit(index, 4) * 2 - 1) * (compact ? 4 : 8);
+      var scatterY = groundY + rowLift - target.y - target.height * 0.48 + baselineJitter;
+      var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 10 : 16);
+
+      var x = scatterX * remaining;
+      var y = scatterY * remaining;
+      var rotation = scatterRotation * remaining;
+      var scale = 0.78 + eased * 0.22;
+
+      letter.style.transform =
+        "translate3d(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
+        "rotate(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
+
+      var currentX = target.x + x;
+      var currentY = target.y + y;
+      var anchorSpread = rigLetters.length > 1 ? index / (rigLetters.length - 1) : 0.5;
+      var x1 = width * (0.14 + anchorSpread * 0.72);
+      var line = rigLines[index];
+
+      line.setAttribute("x1", x1.toFixed(1));
+      line.setAttribute("y1", "0");
+      line.setAttribute("x2", currentX.toFixed(1));
+      line.setAttribute("y2", (currentY - target.height * 0.38).toFixed(1));
+    });
+  }
+
   if (cinemaIntro && cinemaCurtain && !reducedMotion) {
     document.documentElement.classList.add("cinema-enabled");
     buildNameRig();
+    measureRigTargets();
 
     var cinemaFrame = null;
 
     function getCinemaRange() {
-      return Math.max(
-        cinemaIntro.offsetHeight - window.innerHeight,
-        window.innerHeight * 0.78
-      );
-    }
-
-    function renderNameRig(assembly) {
-      if (!rigLetters.length || !nameRigLines) return;
-
-      var width = window.innerWidth;
-      var height = window.innerHeight;
-      // Below this width the two words stack, so the scatter has to work
-      // per-word or the rows land on top of each other.
-      var compact = width < 620;
-      var maxScatterX = Math.min(width * (compact ? 0.08 : 0.16), compact ? 54 : 220);
-      var stringOpacity = clamp(1 - Math.max(0, assembly - 0.76) / 0.24, 0, 1);
-      var finalOpacity = smoothstep(clamp((assembly - 0.78) / 0.22, 0, 1));
-
-      if (nameRigFinal) nameRigFinal.style.opacity = finalOpacity.toFixed(3);
-
-      nameRigLines.setAttribute("viewBox", "0 0 " + width + " " + height);
-      nameRigLines.style.opacity = String(stringOpacity);
-
-      rigLetters.forEach(function (letter, index) {
-        var spread;
-        var jitterScale;
-
-        if (compact) {
-          // The words stack on phones. Each row spreads independently so the
-          // letters read like loose type resting near the floor before lifting.
-          var positionInWord = Number(letter.dataset.rigPos);
-          var wordLength = Number(letter.dataset.rigLen);
-          spread = wordLength > 1 ? positionInWord / (wordLength - 1) - 0.5 : 0;
-          jitterScale = 0.06;
-        } else {
-          // Desktop keeps the letters in reading order while spreading them
-          // across the floor. Nothing crosses or shuffles during assembly.
-          spread = rigLetters.length > 1 ? index / (rigLetters.length - 1) - 0.5 : 0;
-          jitterScale = 0.08;
-        }
-
-        var jitter = (seededUnit(index, 1) * 2 - 1) * jitterScale;
-        var scatterX = (spread * 2 + jitter) * maxScatterX;
-        var groundOffset = compact
-          ? (letter.dataset.rigWord === "0" ? 0.29 : 0.34)
-          : 0.31;
-        var scatterY = height * (groundOffset + seededUnit(index, 2) * 0.025);
-
-        var scatterRotation = (seededUnit(index, 3) * 2 - 1) * (compact ? 9 : 12);
-        var remaining = 1 - assembly;
-
-        var x = scatterX * remaining;
-        var y = scatterY * remaining;
-        var rotation = scatterRotation * remaining;
-        var scale = 0.72 + assembly * 0.28;
-
-        letter.style.transform =
-          "translate3d(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
-          "rotate(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
-        letter.style.opacity = (1 - finalOpacity).toFixed(3);
-
-        var rect = letter.getBoundingClientRect();
-        var x2 = rect.left + rect.width / 2;
-        var y2 = rect.top + Math.max(2, rect.height * 0.08);
-        var anchorSpread = rigLetters.length > 1 ? index / (rigLetters.length - 1) : 0.5;
-        var x1 = width * (0.14 + anchorSpread * 0.72);
-        var line = rigLines[index];
-
-        line.setAttribute("x1", x1.toFixed(1));
-        line.setAttribute("y1", "0");
-        line.setAttribute("x2", x2.toFixed(1));
-        line.setAttribute("y2", y2.toFixed(1));
-      });
+      return Math.max(cinemaIntro.offsetHeight - window.innerHeight, window.innerHeight * 0.78);
     }
 
     function renderCinemaIntro() {
       cinemaFrame = null;
       var progress = clamp(window.scrollY / getCinemaRange(), 0, 1);
-
-      // The first part of the scroll assembles the name. Only then does the
-      // curtain lift, so the interaction reads as one deliberate sequence.
-      var assembly = smoothstep(clamp(progress / 0.58, 0, 1));
-      var curtainProgress = smoothstep(clamp((progress - 0.58) / 0.42, 0, 1));
-      var curtainY = -102 * curtainProgress;
+      var assembly = clamp(progress / 0.62, 0, 1);
+      var curtainProgress = smoothstep(clamp((progress - 0.62) / 0.38, 0, 1));
 
       renderNameRig(assembly);
+      document.documentElement.classList.add("cinema-rig-ready");
 
       cinemaCurtain.style.transform =
-        "translate3d(0, " + curtainY.toFixed(2) + "%, 0)";
+        "translate3d(0, " + (-102 * curtainProgress).toFixed(2) + "%, 0)";
 
       if (curtainPrompt) {
         curtainPrompt.style.opacity = String(clamp(1 - progress * 5, 0, 1));
       }
 
       if (cinemaStageInner) {
-        var stageOffset = 18 * (1 - curtainProgress);
         cinemaStageInner.style.transform =
-          "translate3d(0, " + stageOffset.toFixed(1) + "px, 0)";
+          "translate3d(0, " + (16 * (1 - curtainProgress)).toFixed(1) + "px, 0)";
       }
 
       document.documentElement.classList.toggle("cinema-open", progress > 0.965);
@@ -186,7 +178,17 @@
     }
 
     window.addEventListener("scroll", requestCinemaRender, { passive: true });
-    window.addEventListener("resize", requestCinemaRender);
+    window.addEventListener("resize", function () {
+      measureRigTargets();
+      requestCinemaRender();
+    });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        measureRigTargets();
+        requestCinemaRender();
+      });
+    }
 
     if (curtainSkip) {
       curtainSkip.addEventListener("click", function () {
@@ -407,22 +409,6 @@
     });
 
     renderColorDemo();
-  }
-
-  /* Optional resume asset ------------------------------------------------- */
-  var resumeLinks = Array.from(document.querySelectorAll("[data-resume-link]"));
-  if (resumeLinks.length && window.location.protocol !== "file:") {
-    fetch("Abdallah_Gazal_Resume.pdf", { method: "HEAD", cache: "no-store" })
-      .then(function (response) {
-        if (!response.ok) {
-          resumeLinks.forEach(function (link) {
-            link.hidden = true;
-          });
-        }
-      })
-      .catch(function () {
-        // A network failure should not hide a resume that may still exist.
-      });
   }
 
   var footerYear = document.getElementById("footerYear");

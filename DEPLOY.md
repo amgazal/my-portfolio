@@ -1,22 +1,29 @@
-# Deploy to GitHub Pages
+# Safe GitHub update
 
-This portfolio is a static HTML/CSS/JavaScript site. If your existing repository is `amgazal/my-portfolio`, replace its contents with this folder while preserving `.git`, then commit and push.
+This package is complete: it includes the Layer screenshot and the PDF resume referenced by the site.
+
+The safest update is to copy it over your existing clone **without `--delete`** so unrelated files in the repository are not removed accidentally.
 
 ```bash
 cd ~/Downloads
-rm -rf my-portfolio-update
-git clone https://github.com/amgazal/my-portfolio.git my-portfolio-update
+rm -rf portfolio-rebuild-extracted
+unzip -q abdallah-portfolio-premium-rebuild-final.zip -d portfolio-rebuild-extracted
 
-rsync -av --delete \
-  --exclude='.git' \
-  ~/Downloads/abdallah-portfolio-software-engineer-final/ \
+rsync -av \
+  --exclude=".git" \
+  ~/Downloads/portfolio-rebuild-extracted/abdallah-portfolio-premium-rebuild-final/ \
   ~/Downloads/my-portfolio-update/
 
 cd ~/Downloads/my-portfolio-update
-git add -A
 git status
-git commit -m "Refine portfolio software engineering positioning"
+git add -A
+git commit -m "Polish portfolio content, visuals, and intro"
 git push origin main
 ```
 
-If the repository uses a branch other than `main`, replace `main` in the final command with that branch name.
+If `my-portfolio-update` no longer exists, clone it again first:
+
+```bash
+cd ~/Downloads
+git clone https://github.com/amgazal/my-portfolio.git my-portfolio-update
+```

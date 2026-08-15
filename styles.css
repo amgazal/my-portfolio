@@ -375,42 +375,8 @@ main > section + section {
   will-change: transform;
 }
 
-.name-rig-letter::after {
-  content: attr(data-code);
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 0.72rem);
-  transform: translateX(-50%);
-  color: var(--subtle);
-  font-family: var(--mono);
-  font-size: clamp(0.42rem, 0.68vw, 0.58rem);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  opacity: var(--code-opacity, 1);
-}
 
 
-.name-rig-final {
-  position: absolute;
-  left: 50%;
-  top: 48%;
-  width: min(92vw, 1120px);
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  gap: clamp(1.2rem, 3.2vw, 3.2rem);
-  opacity: 0;
-  pointer-events: none;
-  color: var(--text);
-  font-family: var(--display);
-  font-size: clamp(3.5rem, 8.6vw, 8.5rem);
-  line-height: 0.9;
-  font-weight: 800;
-  letter-spacing: -0.07em;
-  white-space: nowrap;
-}
 
 .name-rig-ground {
   position: absolute;
@@ -796,7 +762,8 @@ main > section + section {
   transition: border-color 0.2s ease;
 }
 
-/* A restrained hairline marks focus/hover without moving or glowing the card. */
+/* A hairline draws across the top edge on hover — the only motion the card
+   makes besides the lift, so it stays quiet. */
 .project-card::before {
   content: "";
   position: absolute;
@@ -1538,12 +1505,11 @@ main > section + section {
   color: var(--text);
   font-size: 0.92rem;
   font-weight: 600;
-  transition: color 0.18s ease, padding-left 0.18s ease;
+  transition: color 0.18s ease;
 }
 
 .contact-links a:hover {
   color: var(--accent-2);
-  padding-left: 0.35rem;
 }
 
 .contact-links a span {
@@ -1600,7 +1566,7 @@ main > section + section {
 .footer-top i {
   font-style: normal;
   color: var(--accent);
-  transition: transform 0.22s ease;
+  transition: color 0.18s ease;
 }
 
 .footer-top:hover {
@@ -1831,22 +1797,10 @@ main > section + section {
     gap: 0.02em;
   }
 
-  .name-rig-final {
-    top: 44%;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    font-size: clamp(2.7rem, 14vw, 4.2rem);
-  }
-
   .name-rig-letter {
     font-size: clamp(2.7rem, 14vw, 4.2rem);
   }
 
-  .name-rig-letter::after {
-    top: calc(100% + 0.35rem);
-    font-size: 0.38rem;
-  }
 
   .name-rig-ground {
     bottom: 7.2vh;
@@ -1968,717 +1922,6 @@ main > section + section {
 
   .contact-links a span {
     text-align: left;
-  }
-}
-
-
-/* Premium refinement pass -------------------------------------------------
-   The visual system stays deliberately quiet: no glow, no floating cards,
-   no image zooms, and only two type families. Interaction is communicated by
-   contrast, underlines, and focus states rather than decorative motion. */
-
-:root {
-  --bg: #0a0a0c;
-  --bg-deep: #070709;
-  --surface: #111216;
-  --surface-2: #15161a;
-  --surface-3: #191a1f;
-  --line: #2a2b31;
-  --line-soft: #1e1f24;
-  --hair: #3a3b42;
-  --text: #f3f0e9;
-  --muted: #b2aea5;
-  --subtle: #858179;
-  --accent: #dc7952;
-  --accent-2: #e59a79;
-  --mono: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --container: 1200px;
-  --radius-lg: 10px;
-  --radius-md: 7px;
-  --section: 6.35rem;
-}
-
-html,
-body {
-  overflow-x: clip;
-}
-
-.container {
-  width: min(var(--container), calc(100% - 3rem));
-}
-
-/* Remove decorative background effects that compete with the work. */
-.cinema-enabled .cinema-curtain {
-  background: #070709;
-}
-
-.cinema-enabled .cinema-curtain::before,
-.cinema-stage::after {
-  display: none;
-}
-
-.name-rig-letter::after {
-  display: none;
-}
-
-.name-rig-line {
-  stroke: rgba(243, 240, 233, 0.14);
-}
-
-.name-rig-ground {
-  left: 4vw;
-  right: 4vw;
-  bottom: 12vh;
-  background: #2a2b31;
-}
-
-.curtain-prompt,
-.curtain-meta,
-.curtain-skip,
-.brand-role,
-.cinema-overline,
-.cinema-rail-row > span,
-.cinema-rail-row small,
-.cinema-skill-strip span,
-.eyebrow,
-.project-meta,
-.tag-row span,
-.stat-strip dt,
-.project-divider span,
-.timeline-side,
-.skill-group h3,
-.colophon p,
-.footer-top {
-  font-family: var(--body);
-}
-
-.curtain-meta,
-.curtain-skip,
-.curtain-prompt,
-.brand-role,
-.cinema-overline,
-.cinema-rail-row > span,
-.cinema-rail-row small,
-.cinema-skill-strip span,
-.eyebrow,
-.project-meta,
-.stat-strip dt,
-.project-divider span,
-.skill-group h3,
-.footer-top {
-  font-weight: 600;
-}
-
-.topbar {
-  background: #0a0a0c;
-}
-
-.nav {
-  height: 72px;
-}
-
-.brand-name {
-  font-size: 1.02rem;
-}
-
-.brand-role {
-  margin-top: 0.28rem;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-}
-
-.nav-links {
-  gap: 1.65rem;
-}
-
-.nav-links a {
-  font-size: 0.88rem;
-}
-
-.nav-links a::after {
-  height: 1px;
-  bottom: -0.42rem;
-}
-
-.cinema-intro {
-  min-height: calc(100svh - 72px);
-}
-
-.cinema-enabled .cinema-stage {
-  margin-top: -72px;
-  padding-top: 72px;
-}
-
-.cinema-stage-inner {
-  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr);
-  gap: 2.4rem 4.5rem;
-  padding-top: clamp(6.5rem, 14vh, 9rem);
-  padding-bottom: clamp(2rem, 5vh, 3.5rem);
-}
-
-.cinema-overline {
-  margin-bottom: 1.2rem;
-  font-size: 0.63rem;
-  letter-spacing: 0.16em;
-}
-
-.cinema-hero-copy h1 {
-  max-width: 10.5ch;
-  margin-bottom: 0.72rem;
-  font-size: clamp(3.4rem, 6.8vw, 6.1rem);
-  line-height: 0.91;
-  letter-spacing: -0.052em;
-}
-
-.cinema-role {
-  max-width: 23ch;
-  margin-bottom: 1.2rem;
-  font-size: clamp(1.42rem, 2.45vw, 2.02rem);
-  line-height: 1.15;
-}
-
-.cinema-role::after {
-  width: 2.8rem;
-  height: 2px;
-  margin-top: 0.95rem;
-}
-
-.cinema-lede {
-  max-width: 45rem;
-  font-size: clamp(1rem, 1.4vw, 1.1rem);
-  line-height: 1.66;
-}
-
-.cinema-actions {
-  margin-top: 1.75rem;
-}
-
-.cinema-rail-row {
-  padding: 0.88rem 0 0.88rem 1.05rem;
-}
-
-.cinema-rail-row strong {
-  font-size: 0.84rem;
-}
-
-.cinema-skill-strip {
-  padding-top: 0.95rem;
-}
-
-.cinema-skill-strip span {
-  font-size: 0.62rem;
-}
-
-.section-head {
-  gap: 3rem;
-  margin-bottom: 2.8rem;
-}
-
-.section-head--compact {
-  margin-bottom: 2rem;
-}
-
-.section-head h2,
-.contact-card h2 {
-  font-size: clamp(2.05rem, 3.8vw, 3.15rem);
-  letter-spacing: -0.04em;
-}
-
-.section-head > p,
-.contact-card > div > p:last-child {
-  font-size: 1rem;
-  line-height: 1.65;
-}
-
-/* Buttons stay planted. */
-.button {
-  min-height: 46px;
-  border-radius: 7px;
-  padding: 0.76rem 1.18rem;
-  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
-}
-
-.button:hover {
-  transform: none;
-}
-
-.button-primary::after,
-.button-primary:hover::after {
-  transform: none;
-}
-
-/* Cards are framed, not floating. */
-.projects-grid {
-  gap: 1.35rem;
-}
-
-.project-card {
-  border-color: var(--line);
-  transition: border-color 0.16s ease;
-}
-
-.project-card::before {
-  display: none;
-}
-
-.project-card:hover,
-.project-card:focus-within {
-  transform: none;
-  border-color: var(--hair);
-}
-
-.project-visual img {
-  transition: opacity 0.2s ease;
-}
-
-.project-card:not(.project-card--featured):hover .project-visual > img:not(.secondary-image) {
-  transform: none;
-}
-
-.project-text,
-.project-card--featured .project-text {
-  gap: 0.82rem;
-}
-
-.project-text {
-  padding: 1.55rem;
-}
-
-.project-card--featured .project-text {
-  padding: 1.85rem;
-}
-
-.project-meta {
-  font-size: 0.61rem;
-  letter-spacing: 0.1em;
-}
-
-.project-text h3 {
-  font-size: clamp(1.35rem, 1.85vw, 1.65rem);
-}
-
-.project-text > p {
-  font-size: 0.92rem;
-  line-height: 1.62;
-}
-
-.project-summary {
-  font-size: 0.98rem !important;
-}
-
-.project-points {
-  font-size: 0.88rem;
-  line-height: 1.58;
-}
-
-.tag-row span {
-  padding: 0.3rem 0.52rem;
-  border-radius: 4px;
-  background: transparent;
-  font-size: 0.6rem;
-  transition: none;
-}
-
-.project-card:hover .tag-row span {
-  border-color: var(--line);
-}
-
-.project-links a {
-  font-size: 0.86rem;
-}
-
-.project-links a:hover {
-  color: var(--text);
-}
-
-/* Layer preview: an in-page product mock instead of a missing screenshot. */
-.layer-preview {
-  padding: clamp(1.1rem, 2.8vw, 2rem);
-  background: #0c131b;
-}
-
-.layer-preview-shell {
-  width: min(100%, 1040px);
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #26313d;
-  border-radius: 8px;
-  background: #121a23;
-  overflow: hidden;
-}
-
-.layer-preview-topline {
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0 1.1rem;
-  border-bottom: 1px solid #26313d;
-}
-
-.layer-preview-topline span {
-  font-family: var(--display);
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
-.layer-preview-topline small,
-.layer-preview-weather > p,
-.layer-preview-temp small,
-.layer-preview-card > small {
-  color: #93a1b0;
-  font-family: var(--body);
-  font-size: clamp(0.55rem, 0.9vw, 0.7rem);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.layer-preview-grid {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
-  gap: clamp(1rem, 3vw, 2.5rem);
-  align-items: center;
-  padding: clamp(1.25rem, 4vw, 3.25rem);
-}
-
-.layer-preview-weather > strong {
-  display: block;
-  margin: 0.28rem 0 0.1rem;
-  color: #f4f6f8;
-  font-family: var(--display);
-  font-size: clamp(2.35rem, 5.8vw, 5.2rem);
-  line-height: 0.95;
-  letter-spacing: -0.055em;
-}
-
-.layer-preview-weather > span {
-  color: #d8dee5;
-  font-size: clamp(0.85rem, 1.4vw, 1.08rem);
-}
-
-.layer-preview-temp {
-  display: flex;
-  align-items: end;
-  gap: clamp(0.85rem, 2vw, 1.5rem);
-  margin-top: clamp(1.2rem, 2.5vw, 2rem);
-}
-
-.layer-preview-temp div {
-  display: grid;
-  gap: 0.15rem;
-}
-
-.layer-preview-temp b {
-  color: #f4f6f8;
-  font-family: var(--display);
-  font-size: clamp(1.7rem, 3.7vw, 3.2rem);
-  line-height: 1;
-  letter-spacing: -0.045em;
-}
-
-.layer-preview-temp div:last-child b {
-  color: #e8ae4c;
-}
-
-.layer-preview-temp i {
-  padding-bottom: 0.2rem;
-  color: #8794a3;
-  font-style: normal;
-  font-size: 1.25rem;
-}
-
-.layer-preview-card {
-  padding: clamp(0.95rem, 2vw, 1.35rem);
-  border: 1px solid #d8dde2;
-  border-radius: 8px;
-  background: #eef0f2;
-  color: #142033;
-}
-
-.layer-preview-card > small {
-  display: block;
-  margin-bottom: 0.55rem;
-  color: #59687a;
-}
-
-.layer-preview-card > div {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 0.7rem;
-  align-items: center;
-  padding: 0.68rem 0;
-  border-top: 1px solid #d6dbe0;
-}
-
-.layer-preview-card > div span {
-  color: #bf7a17;
-  font-size: 0.67rem;
-  font-weight: 700;
-}
-
-.layer-preview-card > div b {
-  font-size: clamp(0.73rem, 1.1vw, 0.9rem);
-  font-weight: 650;
-}
-
-/* Interactive coursework demo: same visual language as the rest of the page. */
-.ai-preview,
-.demo,
-.ai-input-panel,
-.ai-result-panel,
-.fake-input {
-  border-radius: 7px;
-}
-
-/* Experience and about sections stay editorial, not animated cards. */
-.timeline-item {
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 2.6rem;
-  padding: 1.9rem 0;
-}
-
-.timeline-item::before {
-  display: none;
-}
-
-.timeline-copy > p,
-.timeline-copy ul {
-  font-size: 0.9rem;
-}
-
-.panel {
-  min-height: 220px;
-  padding: 1.75rem;
-  transition: border-color 0.16s ease;
-}
-
-.panel:hover {
-  transform: none;
-  border-color: var(--hair);
-}
-
-.panel-number {
-  margin-bottom: 2.2rem;
-}
-
-.skill-group {
-  grid-template-columns: 190px minmax(0, 1fr);
-  padding: 1.35rem 0;
-}
-
-.contact-card {
-  gap: 4rem;
-  border-top-width: 1px;
-  padding: clamp(1.6rem, 3.3vw, 2.8rem);
-}
-
-.footer {
-  padding-top: 1.2rem;
-}
-
-.footer-top:hover i {
-  transform: none;
-}
-
-/* Reveals should not make content float up from nowhere. */
-.js-reveal .reveal {
-  opacity: 0;
-  transform: none;
-  transition: opacity 0.38s ease;
-}
-
-.js-reveal .reveal.visible {
-  opacity: 1;
-  transform: none;
-}
-
-@media (max-width: 1020px) {
-  :root { --section: 5.6rem; }
-
-  .cinema-stage-inner {
-    gap: 1.9rem;
-    padding-top: 6.6rem;
-  }
-
-  .layer-preview-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
-  }
-}
-
-@media (max-width: 820px) {
-  :root { --section: 4.8rem; }
-
-  .container {
-    width: calc(100% - 2rem);
-  }
-
-  .nav {
-    height: 68px;
-  }
-
-  .nav-links {
-    top: 68px;
-    right: 1rem;
-  }
-
-  .cinema-intro {
-    min-height: calc(100svh - 68px);
-  }
-
-  .cinema-enabled .cinema-stage {
-    margin-top: -68px;
-    padding-top: 68px;
-  }
-
-  .cinema-stage-inner {
-    padding-top: 5.6rem;
-  }
-
-  .cinema-hero-copy h1 {
-    font-size: clamp(3.45rem, 16vw, 5.8rem);
-  }
-
-  .project-visual {
-    height: auto;
-    aspect-ratio: 16 / 10;
-  }
-
-  .project-visual--featured,
-  .layer-preview {
-    aspect-ratio: 16 / 11;
-  }
-
-  .layer-preview {
-    padding: 0.8rem;
-  }
-
-  .layer-preview-grid {
-    grid-template-columns: 1fr 0.9fr;
-    gap: 0.8rem;
-    padding: 1rem;
-  }
-
-  .layer-preview-card > div {
-    padding: 0.5rem 0;
-  }
-
-  .timeline-item {
-    gap: 0.55rem;
-  }
-}
-
-@media (max-width: 560px) {
-  :root { --section: 4.1rem; }
-
-  .container {
-    width: calc(100% - 1.5rem);
-  }
-
-  .cinema-enabled .cinema-intro {
-    height: 166svh;
-  }
-
-  .name-rig-ground {
-    bottom: 11vh;
-  }
-
-  .cinema-stage-inner {
-    padding-top: 5.15rem;
-    padding-bottom: 1.5rem;
-  }
-
-  .cinema-overline {
-    line-height: 1.55;
-  }
-
-  .cinema-role {
-    font-size: 1.28rem;
-  }
-
-  .cinema-lede {
-    font-size: 0.96rem;
-  }
-
-  .button {
-    min-height: 44px;
-  }
-
-  .section-head h2,
-  .contact-card h2 {
-    font-size: clamp(1.95rem, 9vw, 2.5rem);
-  }
-
-  .project-text,
-  .project-card--featured .project-text {
-    padding: 1.25rem;
-  }
-
-  .project-visual--featured,
-  .layer-preview {
-    min-height: 350px;
-    aspect-ratio: auto;
-  }
-
-  .layer-preview-shell {
-    min-height: 330px;
-  }
-
-  .layer-preview-topline {
-    min-height: 44px;
-    padding: 0 0.8rem;
-  }
-
-  .layer-preview-topline small {
-    max-width: 17ch;
-    text-align: right;
-    line-height: 1.25;
-  }
-
-  .layer-preview-grid {
-    grid-template-columns: 1fr;
-    gap: 0.9rem;
-    align-content: center;
-    padding: 1rem;
-  }
-
-  .layer-preview-weather > strong {
-    font-size: clamp(2.55rem, 13vw, 3.6rem);
-  }
-
-  .layer-preview-card {
-    padding: 0.75rem 0.85rem;
-  }
-
-  .layer-preview-card > div:nth-of-type(3) {
-    display: none;
-  }
-
-  .stat-strip dd {
-    font-size: 0.9rem;
-  }
-
-  .about-grid {
-    gap: 0.9rem;
-  }
-
-  .panel {
-    min-height: 0;
-    padding: 1.35rem;
-  }
-
-  .panel-number {
-    margin-bottom: 1.4rem;
-  }
-
-  .contact-card {
-    padding: 1.25rem;
   }
 }
 
@@ -2873,5 +2116,217 @@ body {
     font-weight: 400;
     color: #555;
     word-break: break-all;
+  }
+}
+
+/* Final portfolio polish ---------------------------------------------------
+   Deliberately restrained: no card lifting, glows, image zooms, or decorative
+   motion. The intro is the one expressive interaction; the rest stays quiet. */
+
+:root {
+  --mono: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --section: 6.25rem;
+  --radius-lg: 12px;
+}
+
+/* Keep the assembled name invisible until JS has placed every letter on the
+   floor. This prevents a one-frame flash of the final wordmark on load. */
+.cinema-enabled .name-rig-letters {
+  visibility: hidden;
+}
+
+.cinema-enabled.cinema-rig-ready .name-rig-letters {
+  visibility: visible;
+}
+
+
+.name-rig-line {
+  stroke: rgba(241, 238, 231, 0.14);
+}
+
+.name-rig-ground {
+  background: #2a2b31;
+}
+
+/* The metadata face uses the same family as the body for a tighter, more
+   editorial system. Code/output inside the interactive demo remains mono. */
+.demo-heading code,
+.demo-controls output,
+.demo-output strong,
+#demoHEX,
+#demoHSV,
+#demoCMYK {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.cinema-role {
+  max-width: 25ch;
+}
+
+.cinema-lede {
+  max-width: 47rem;
+}
+
+/* Quiet interaction language: state changes, not floating surfaces. */
+.button,
+.project-card,
+.project-visual img,
+.panel,
+.contact-links a,
+.footer-top i,
+.timeline-item::before,
+.tag-row span {
+  transform: none;
+}
+
+.button:hover,
+.button:focus-visible,
+.project-card:hover,
+.project-card:focus-within,
+.panel:hover,
+.contact-links a:hover,
+.footer-top:hover i,
+.project-card:not(.project-card--featured):hover .project-visual > img:not(.secondary-image) {
+  transform: none !important;
+}
+
+.project-card::before,
+.timeline-item::before {
+  display: none;
+}
+
+.project-card:hover,
+.project-card:focus-within,
+.panel:hover {
+  border-color: var(--hair);
+}
+
+.project-card:hover .tag-row span {
+  border-color: var(--line);
+}
+
+.contact-links a:hover {
+  padding-left: 0;
+}
+
+.cinema-skill-strip span:hover {
+  color: var(--subtle);
+}
+
+/* A single inline proof row reads faster than dashboard-style metric blocks. */
+.project-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0;
+  padding: 0.72rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.project-proof span {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.project-proof span + span::before {
+  content: "·";
+  margin: 0 0.7rem;
+  color: var(--accent);
+}
+
+/* Tighter project rhythm with enough room for screenshots to do the talking. */
+.projects-grid {
+  gap: 1.35rem;
+}
+
+.section-head {
+  margin-bottom: 2.65rem;
+}
+
+.section-head--compact {
+  margin-bottom: 2rem;
+}
+
+.project-text {
+  gap: 0.82rem;
+  padding: 1.55rem;
+}
+
+.project-card--featured .project-text {
+  padding: 1.8rem;
+}
+
+.project-card--featured .project-visual {
+  background: #0b0c0f;
+}
+
+.project-card--featured .project-visual img {
+  object-position: center top;
+}
+
+.project-points li + li {
+  margin-top: 0.38rem;
+}
+
+.panel {
+  min-height: 210px;
+  padding: 1.75rem;
+}
+
+.panel-number {
+  margin-bottom: 2.1rem;
+}
+
+/* Reveal without the familiar template-style vertical float. */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: none;
+  transition: opacity 0.42s ease;
+}
+
+.js-reveal .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 820px) {
+  :root {
+    --section: 4.85rem;
+  }
+
+  .project-proof {
+    font-size: 0.78rem;
+  }
+
+  .project-card--featured .project-visual {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .name-rig-letters {
+    top: 43%;
+  }
+
+  .name-rig-letter {
+    font-size: clamp(2.6rem, 13.5vw, 4rem);
+  }
+
+  .project-proof {
+    gap: 0.4rem 0;
+  }
+
+  .project-proof span + span::before {
+    margin: 0 0.52rem;
+  }
+
+  .section-head h2,
+  .contact-card h2 {
+    max-width: 16ch;
   }
 }
