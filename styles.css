@@ -468,6 +468,7 @@ main > section + section {
   position: sticky;
   top: 0;
   height: 100svh;
+  height: 100dvh;
   min-height: 0;
   margin-top: -76px;
   padding-top: 76px;
@@ -1376,6 +1377,53 @@ main > section + section {
   font-size: 0.98rem;
 }
 
+/* Back to top ------------------------------------------------------------- */
+
+.back-to-top {
+  position: fixed;
+  right: max(1.15rem, calc(env(safe-area-inset-right, 0px) + 0.85rem));
+  bottom: max(1.15rem, calc(env(safe-area-inset-bottom, 0px) + 0.85rem));
+  z-index: 900;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+  padding: 0.68rem 0.86rem 0.68rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(17, 18, 22, 0.96);
+  color: var(--muted);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.back-to-top b {
+  color: var(--accent);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  color: var(--text);
+  border-color: var(--hair);
+}
+
 /* Contact + footer -------------------------------------------------------- */
 
 .contact-card {
@@ -1551,16 +1599,21 @@ main > section + section {
 
   .cinema-intro {
     min-height: calc(100svh - 70px);
+    min-height: calc(100dvh - 70px);
   }
 
   .cinema-enabled .cinema-stage {
+    height: 100dvh;
     margin-top: -70px;
     padding-top: 70px;
   }
 
   .cinema-stage-inner {
-    padding-top: 6.5rem;
-    padding-bottom: 2rem;
+    min-height: 100%;
+    align-content: center;
+    gap: 1.45rem;
+    padding-top: max(4.9rem, calc(4.1rem + env(safe-area-inset-top, 0px)));
+    padding-bottom: max(1.35rem, calc(0.8rem + env(safe-area-inset-bottom, 0px)));
   }
 
   .cinema-hero-copy h1 {
@@ -1639,6 +1692,7 @@ main > section + section {
 @media (max-width: 560px) {
   .cinema-enabled .cinema-intro {
     height: 190svh;
+    height: 190dvh;
   }
 
   .curtain-meta {
@@ -1677,7 +1731,14 @@ main > section + section {
   }
 
   .cinema-stage-inner {
-    padding-top: 5.8rem;
+    gap: 1.05rem;
+    padding-top: max(4.35rem, calc(3.65rem + env(safe-area-inset-top, 0px)));
+    padding-bottom: max(1rem, calc(0.65rem + env(safe-area-inset-bottom, 0px)));
+  }
+
+  .cinema-hero-copy h1 {
+    font-size: clamp(3.25rem, 15vw, 5.2rem);
+    margin-bottom: 0.8rem;
   }
 
   .cinema-overline {
@@ -1686,11 +1747,36 @@ main > section + section {
   }
 
   .cinema-role {
-    font-size: 1.14rem;
+    margin-bottom: 0.88rem;
+    font-size: 1.08rem;
+  }
+
+  .cinema-role::after {
+    margin-top: 0.72rem;
   }
 
   .cinema-lede {
-    font-size: 0.98rem;
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+
+  .cinema-actions {
+    margin-top: 1.2rem;
+  }
+
+  .cinema-rail-row,
+  .cinema-rail-row:first-child {
+    padding-top: 0.54rem;
+    padding-bottom: 0.54rem;
+  }
+
+  .cinema-rail-row small {
+    margin-bottom: 0.16rem;
+  }
+
+  .cinema-rail-row strong {
+    font-size: 0.8rem;
+    line-height: 1.34;
   }
 
   .cinema-actions {
@@ -1752,6 +1838,20 @@ main > section + section {
     padding: 1.4rem;
   }
 
+  .back-to-top {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    justify-content: center;
+    padding: 0;
+    border-radius: 9px;
+  }
+
+  .back-to-top span {
+    display: none;
+  }
+
   .contact-links a {
     align-items: flex-start;
     flex-direction: column;
@@ -1760,6 +1860,89 @@ main > section + section {
 
   .contact-links a span {
     text-align: left;
+  }
+}
+
+
+@media (max-height: 560px) and (min-width: 561px) {
+  .cinema-enabled .cinema-intro {
+    height: 220dvh;
+  }
+
+  .cinema-enabled .cinema-stage {
+    height: 100dvh;
+  }
+
+  .cinema-stage-inner {
+    grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+    grid-template-rows: 1fr;
+    align-content: center;
+    align-items: center;
+    gap: 2rem;
+    min-height: 100%;
+    padding-top: max(4.8rem, calc(4rem + env(safe-area-inset-top, 0px)));
+    padding-bottom: max(0.9rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .cinema-overline {
+    margin-bottom: 0.65rem;
+    font-size: 0.55rem;
+  }
+
+  .cinema-hero-copy h1 {
+    margin-bottom: 0.55rem;
+    font-size: clamp(3rem, 7vw, 4.6rem);
+  }
+
+  .cinema-role {
+    margin-bottom: 0.55rem;
+    font-size: 0.98rem;
+  }
+
+  .cinema-role::after,
+  .cinema-skill-strip {
+    display: none;
+  }
+
+  .cinema-lede {
+    max-width: 39rem;
+    font-size: 0.82rem;
+    line-height: 1.42;
+  }
+
+  .cinema-actions {
+    margin-top: 0.85rem;
+  }
+
+  .button {
+    min-height: 40px;
+    padding: 0.58rem 0.9rem;
+    font-size: 0.82rem;
+  }
+
+  .cinema-rail {
+    display: block;
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .cinema-rail-row,
+  .cinema-rail-row:first-child {
+    border-left: 0;
+    padding: 0.42rem 0 0.42rem 0.85rem;
+  }
+
+  .cinema-rail-row + .cinema-rail-row {
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .cinema-rail-row small {
+    margin-bottom: 0.12rem;
+  }
+
+  .cinema-rail-row strong {
+    font-size: 0.74rem;
+    line-height: 1.28;
   }
 }
 

@@ -214,6 +214,35 @@
   window.addEventListener("resize", requestProgressRender);
   renderProgress();
 
+  /* Back to top -----------------------------------------------------------
+     Return to the hero rather than replaying the welcome curtain. */
+  var backToTop = document.getElementById("backToTop");
+  var backTopFrame = null;
+
+  function renderBackToTop() {
+    backTopFrame = null;
+    if (!backToTop) return;
+    var revealAfter = cinemaIntro ? cinemaIntro.offsetTop + cinemaIntro.offsetHeight + 40 : window.innerHeight * 1.25;
+    backToTop.classList.toggle("is-visible", window.scrollY > revealAfter);
+  }
+
+  function requestBackToTopRender() {
+    if (backTopFrame !== null) return;
+    backTopFrame = window.requestAnimationFrame(renderBackToTop);
+  }
+
+  if (backToTop) {
+    backToTop.addEventListener("click", function () {
+      var heroTop = (!reducedMotion && cinemaIntro && typeof cinemaRange === "number" && cinemaRange > 0)
+        ? cinemaRange + 2
+        : 0;
+      window.scrollTo({ top: heroTop, behavior: reducedMotion ? "auto" : "smooth" });
+    });
+    window.addEventListener("scroll", requestBackToTopRender, { passive: true });
+    window.addEventListener("resize", requestBackToTopRender);
+    renderBackToTop();
+  }
+
   /* Section reveal -------------------------------------------------------- */
   var revealTargets = document.querySelectorAll(".reveal");
 
