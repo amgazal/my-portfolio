@@ -8,10 +8,14 @@
   var cinemaCurtain = document.getElementById("cinemaCurtain");
   var curtainSkip = document.getElementById("curtainSkip");
   var curtainPrompt = document.getElementById("curtainPrompt");
+  var curtainLeft = document.getElementById("curtainLeft");
+  var curtainRight = document.getElementById("curtainRight");
+  var curtainMeta = cinemaCurtain ? cinemaCurtain.querySelector(".curtain-meta") : null;
   var cinemaStageInner = document.querySelector(".cinema-stage-inner");
-  var wordRigLetters = document.getElementById("wordRigLetters");
-  var wordRigStrings = document.getElementById("wordRigStrings");
-  var wordRigSub = document.getElementById("wordRigSub");
+  var nameRig = document.getElementById("nameRig");
+  var nameRigLetters = document.getElementById("nameRigLetters");
+  var nameRigLines = document.getElementById("nameRigLines");
+  var nameRigFinal = document.getElementById("nameRigFinal");
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -27,142 +31,141 @@
     return raw - Math.floor(raw);
   }
 
-  /* Suspended word --------------------------------------------------------
-     The visitor is greeted by a word hanging in pieces. Scrolling raises each
-     letter into place, one after another, and every string releases the moment
-     its letter lands. Strings are anchored directly above each letter's final
-     position, so they straighten as the word forms instead of crossing. */
-
-  var INTRO_WORD = "WELCOME";
-  var LETTER_STAGGER = 0.4;   // share of the assembly spent handing off between letters
-  var LETTER_TRAVEL = 0.6;    // share of the assembly a single letter takes to arrive
-
   var rigLetters = [];
-  var rigStrings = [];
-  var rigTargets = [];
+  var rigLines = [];
 
-  function easeOutCubic(t) {
-    var inv = 1 - t;
-    return 1 - inv * inv * inv;
-  }
+  function buildNameRig() {
+    if (!nameRigLetters || !nameRigLines) return;
 
-  function buildWordRig() {
-    if (!wordRigLetters || !wordRigStrings) return;
-
-    wordRigLetters.innerHTML = "";
-    wordRigStrings.innerHTML = "";
+    nameRigLetters.innerHTML = "";
+    nameRigLines.innerHTML = "";
     rigLetters = [];
-    rigStrings = [];
+    rigLines = [];
 
-    INTRO_WORD.split("").forEach(function (character) {
-      var letter = document.createElement("span");
-      letter.className = "word-rig-letter";
-      letter.textContent = character;
-      wordRigLetters.appendChild(letter);
-      rigLetters.push(letter);
+    var words = ["ABDALLAH", "GAZAL"];
+    var index = 0;
 
-      var string = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      string.setAttribute("class", "word-rig-string");
-      wordRigStrings.appendChild(string);
-      rigStrings.push(string);
+    words.forEach(function (word) {
+      var wordEl = document.createElement("span");
+      wordEl.className = "name-rig-word";
+
+      word.split("").forEach(function (character) {
+        var letter = document.createElement("span");
+        letter.className = "name-rig-letter";
+        letter.textContent = character;
+        letter.setAttribute("data-code", "char[" + String(index).padStart(2, "0") + "]");
+        letter.dataset.rigIndex = String(index);
+        wordEl.appendChild(letter);
+        rigLetters.push(letter);
+
+        var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("class", "name-rig-line");
+        nameRigLines.appendChild(line);
+        rigLines.push(line);
+
+        index += 1;
+      });
+
+      nameRigLetters.appendChild(wordEl);
     });
-  }
-
-  function measureRigTargets() {
-    if (!rigLetters.length) return;
-    rigTargets = rigLetters.map(function (letter) {
-      letter.style.transform = "none";
-      var rect = letter.getBoundingClientRect();
-      return {
-        x: rect.left + rect.width / 2,
-        top: rect.top,
-        y: rect.top + rect.height / 2,
-        height: rect.height
-      };
-    });
-  }
-
-  function renderWordRig(assembly) {
-    if (!rigLetters.length || !rigTargets.length) return;
-
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    var count = rigLetters.length;
-    var railY = height - Math.max(64, height * 0.065);
-
-    wordRigStrings.setAttribute("viewBox", "0 0 " + width + " " + height);
-
-    rigLetters.forEach(function (letter, index) {
-      var target = rigTargets[index];
-      if (!target) return;
-
-      // Letters arrive in reading order, each overlapping the one before it.
-      var startAt = count > 1 ? (index / (count - 1)) * LETTER_STAGGER : 0;
-      var progress = clamp((assembly - startAt) / LETTER_TRAVEL, 0, 1);
-      var eased = easeOutCubic(progress);
-      var remaining = 1 - eased;
-
-      // At rest each letter dangles just above the rail, at its own depth.
-      var hangDepth = railY - target.y - target.height * 0.5
-        - seededUnit(index, 2) * height * 0.1;
-      var swayX = (seededUnit(index, 1) * 2 - 1) * Math.min(width * 0.035, 46);
-      var tilt = (seededUnit(index, 3) * 2 - 1) * 11;
-
-      var offsetX = swayX * remaining;
-      var offsetY = hangDepth * remaining;
-
-      letter.style.transform =
-        "translate3d(" + offsetX.toFixed(1) + "px, " + offsetY.toFixed(1) + "px, 0) " +
-        "rotate(" + (tilt * remaining).toFixed(2) + "deg) " +
-        "scale(" + (0.9 + eased * 0.1).toFixed(3) + ")";
-
-      // The string hangs from the ceiling directly above where the letter belongs.
-      var string = rigStrings[index];
-      string.setAttribute("x1", target.x.toFixed(1));
-      string.setAttribute("y1", "0");
-      string.setAttribute("x2", (target.x + offsetX).toFixed(1));
-      string.setAttribute("y2", (target.top + offsetY).toFixed(1));
-      // Released once the letter has settled, so the word is left standing alone.
-      string.setAttribute("stroke-opacity", clamp((1 - progress) / 0.35, 0, 1).toFixed(3));
-    });
-
-    if (wordRigSub) {
-      wordRigSub.style.opacity = smoothstep(clamp((assembly - 0.82) / 0.18, 0, 1)).toFixed(3);
-    }
   }
 
   if (cinemaIntro && cinemaCurtain && !reducedMotion) {
     document.documentElement.classList.add("cinema-enabled");
-    buildWordRig();
-    measureRigTargets();
+    buildNameRig();
 
     var cinemaFrame = null;
 
     function getCinemaRange() {
-      return Math.max(cinemaIntro.offsetHeight - window.innerHeight, window.innerHeight * 0.78);
+      return Math.max(
+        cinemaIntro.offsetHeight - window.innerHeight,
+        window.innerHeight * 0.78
+      );
+    }
+
+    function renderNameRig(assembly, splitProgress) {
+      if (!rigLetters.length || !nameRigLines) return;
+
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+      var maxScatterX = Math.min(width * 0.34, 430);
+      var codeOpacity = clamp(1 - assembly * 1.35, 0, 1);
+      var stringOpacity = clamp(1 - Math.max(0, assembly - 0.72) / 0.28, 0, 1);
+      var assembledOpacity = smoothstep(clamp((assembly - 0.78) / 0.22, 0, 1));
+
+      if (nameRigFinal) nameRigFinal.style.opacity = assembledOpacity.toFixed(3);
+
+      nameRigLines.setAttribute("viewBox", "0 0 " + width + " " + height);
+      nameRigLines.style.opacity = String(stringOpacity);
+
+      rigLetters.forEach(function (letter, index) {
+        var scatterX = (seededUnit(index, 1) * 2 - 1) * maxScatterX;
+        var scatterY = height * (0.34 + seededUnit(index, 2) * 0.14);
+        var scatterRotation = (seededUnit(index, 3) * 2 - 1) * 24;
+        var remaining = 1 - assembly;
+
+        var x = scatterX * remaining;
+        var y = scatterY * remaining;
+        var rotation = scatterRotation * remaining;
+        var scale = 0.72 + assembly * 0.28;
+
+        letter.style.transform =
+          "translate3d(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
+          "rotate(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
+        letter.style.setProperty("--code-opacity", codeOpacity.toFixed(3));
+        letter.style.opacity = (1 - assembledOpacity).toFixed(3);
+
+        var rect = letter.getBoundingClientRect();
+        var x2 = rect.left + rect.width / 2;
+        var y2 = rect.top + Math.max(2, rect.height * 0.08);
+        var anchorSpread = rigLetters.length > 1 ? index / (rigLetters.length - 1) : 0.5;
+        var x1 = width * (0.14 + anchorSpread * 0.72);
+        var line = rigLines[index];
+
+        line.setAttribute("x1", x1.toFixed(1));
+        line.setAttribute("y1", "0");
+        line.setAttribute("x2", x2.toFixed(1));
+        line.setAttribute("y2", y2.toFixed(1));
+      });
     }
 
     function renderCinemaIntro() {
       cinemaFrame = null;
       var progress = clamp(window.scrollY / getCinemaRange(), 0, 1);
-      // Three beats: the word assembles, it holds complete for a moment with the
-      // greeting beneath it, and only then does the curtain lift.
-      var assembly = clamp(progress / 0.58, 0, 1);
-      var curtainProgress = smoothstep(clamp((progress - 0.72) / 0.28, 0, 1));
 
-      renderWordRig(assembly);
-      document.documentElement.classList.add("cinema-rig-ready");
+      // First the scattered letters assemble. Once the name resolves, the two
+      // curtain panels move away from the center in opposite directions.
+      var assembly = smoothstep(clamp(progress / 0.58, 0, 1));
+      var splitProgress = smoothstep(clamp((progress - 0.58) / 0.42, 0, 1));
+      var panelTravel = 102 * splitProgress;
 
-      cinemaCurtain.style.transform =
-        "translate3d(0, " + (-102 * curtainProgress).toFixed(2) + "%, 0)";
+      renderNameRig(assembly, splitProgress);
+
+      if (nameRig) {
+        nameRig.style.opacity = String(clamp(1 - splitProgress * 2.2, 0, 1));
+      }
+
+      if (curtainLeft) {
+        curtainLeft.style.transform =
+          "translate3d(" + (-panelTravel).toFixed(2) + "%, 0, 0)";
+      }
+      if (curtainRight) {
+        curtainRight.style.transform =
+          "translate3d(" + panelTravel.toFixed(2) + "%, 0, 0)";
+      }
 
       if (curtainPrompt) {
         curtainPrompt.style.opacity = String(clamp(1 - progress * 5, 0, 1));
       }
 
+      var overlayOpacity = clamp(1 - splitProgress * 2.4, 0, 1);
+      if (curtainMeta) curtainMeta.style.opacity = String(overlayOpacity);
+      if (curtainSkip) curtainSkip.style.opacity = String(overlayOpacity);
+
       if (cinemaStageInner) {
+        var stageOffset = 18 * (1 - splitProgress);
         cinemaStageInner.style.transform =
-          "translate3d(0, " + (16 * (1 - curtainProgress)).toFixed(1) + "px, 0)";
+          "translate3d(0, " + stageOffset.toFixed(1) + "px, 0)";
       }
 
       document.documentElement.classList.toggle("cinema-open", progress > 0.965);
@@ -174,17 +177,7 @@
     }
 
     window.addEventListener("scroll", requestCinemaRender, { passive: true });
-    window.addEventListener("resize", function () {
-      measureRigTargets();
-      requestCinemaRender();
-    });
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () {
-        measureRigTargets();
-        requestCinemaRender();
-      });
-    }
+    window.addEventListener("resize", requestCinemaRender);
 
     if (curtainSkip) {
       curtainSkip.addEventListener("click", function () {
@@ -208,7 +201,7 @@
     var scrollable = document.documentElement.scrollHeight - window.innerHeight;
     var progress = scrollable > 0 ? window.scrollY / scrollable : 0;
     progress = Math.min(Math.max(progress, 0), 1);
-    scrollProgress.style.transform = "scaleX(" + progress.toFixed(4) + ")";
+    scrollProgress.style.width = (progress * 100).toFixed(2) + "%";
   }
 
   function requestProgressRender() {
@@ -407,4 +400,6 @@
     renderColorDemo();
   }
 
+  var footerYear = document.getElementById("footerYear");
+  if (footerYear) footerYear.textContent = "· " + new Date().getFullYear();
 })();
