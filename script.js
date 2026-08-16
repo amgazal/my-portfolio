@@ -4,9 +4,9 @@
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Cinematic intro -------------------------------------------------------
-     The welcome screen is a real two-panel curtain. The page is already
-     rendered underneath it; the first scroll simply parts the panels and
-     reveals the hero. */
+     The welcome screen resolves first, then the two curtain panels part to
+     reveal the hero underneath. The motion is tied to scroll so visitors can
+     move through it at their own pace. */
   var cinemaIntro = document.querySelector(".cinema-intro");
   var cinemaCurtain = document.getElementById("cinemaCurtain");
   var curtainLeft = document.getElementById("curtainLeft");
@@ -14,7 +14,10 @@
   var curtainContent = document.getElementById("curtainContent");
   var curtainSkip = document.getElementById("curtainSkip");
   var curtainTrackFill = document.getElementById("curtainTrackFill");
+  var curtainWord = document.getElementById("curtainWord");
+  var curtainLine = document.getElementById("curtainLine");
   var cinemaStageInner = document.querySelector(".cinema-stage-inner");
+  var introTitle = document.getElementById("introTitle");
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -25,26 +28,100 @@
     return value * value * (3 - 2 * value);
   }
 
+  function easeOutCubic(t) {
+    var inv = 1 - t;
+    return 1 - inv * inv * inv;
+  }
+
+  /* Split the greeting into pieces the scroll can bring in one at a time:
+     the headline letter by letter, the line beneath it word by word. */
+  var wordLetters = [];
+  var lineWords = [];
+
+  function buildGreeting() {
+    if (curtainWord) {
+      var text = curtainWord.textContent.trim();
+      curtainWord.setAttribute("aria-label", text);
+      curtainWord.textContent = "";
+      text.split("").forEach(function (character) {
+        var span = document.createElement("span");
+        span.textContent = character;
+        span.setAttribute("aria-hidden", "true");
+        curtainWord.appendChild(span);
+        wordLetters.push(span);
+      });
+    }
+
+    if (curtainLine) {
+      var originalLine = curtainLine.textContent.trim();
+      var words = originalLine.split(/\s+/);
+      curtainLine.setAttribute("aria-label", originalLine);
+      curtainLine.textContent = "";
+      words.forEach(function (word, index) {
+        var span = document.createElement("span");
+        span.textContent = word;
+        span.setAttribute("aria-hidden", "true");
+        curtainLine.appendChild(span);
+        if (index < words.length - 1) {
+          curtainLine.appendChild(document.createTextNode(" "));
+        }
+        lineWords.push(span);
+      });
+    }
+  }
+
+  /* assembly runs 0 -> 1 while the greeting spells itself out. */
+  function renderGreeting(assembly) {
+    var total = wordLetters.length;
+
+    wordLetters.forEach(function (letter, index) {
+      var startAt = total > 1 ? (index / (total - 1)) * 0.45 : 0;
+      var eased = easeOutCubic(clamp((assembly - startAt) / 0.55, 0, 1));
+      letter.style.opacity = eased.toFixed(3);
+      letter.style.transform =
+        "translate3d(0, " + ((1 - eased) * 0.42).toFixed(3) + "em, 0) " +
+        "scale(" + (0.88 + eased * 0.12).toFixed(3) + ")";
+    });
+
+    // The line resolves only once the headline is nearly whole.
+    lineWords.forEach(function (word, index) {
+      var startAt = 0.55 + index * 0.05;
+      var eased = easeOutCubic(clamp((assembly - startAt) / 0.2, 0, 1));
+      word.style.opacity = eased.toFixed(3);
+      word.style.transform = "translate3d(0, " + ((1 - eased) * 0.6).toFixed(2) + "em, 0)";
+    });
+  }
+
   if (cinemaIntro && cinemaCurtain && !reducedMotion) {
     document.documentElement.classList.add("cinema-enabled");
+    buildGreeting();
 
     var cinemaFrame = null;
+    var cinemaRange = 1;
+    var cinemaWasOpen = false;
 
-    function getCinemaRange() {
-      return Math.max(
+    function updateCinemaRange() {
+      cinemaRange = Math.max(
         cinemaIntro.offsetHeight - window.innerHeight,
-        window.innerHeight * 0.48
+        window.innerHeight * 0.48,
+        1
       );
     }
 
     function renderCinemaIntro() {
       cinemaFrame = null;
-      var progress = clamp(window.scrollY / getCinemaRange(), 0, 1);
+      var progress = clamp(Math.max(window.scrollY, 0) / cinemaRange, 0, 1);
 
-      // Leave a short beat at the top so the welcome screen reads before the
-      // panels begin to move. After that, each half exits in the opposite direction.
-      var split = smoothstep(clamp((progress - 0.06) / 0.94, 0, 1));
+      // Three beats. The greeting spells itself out, it holds complete and
+      // readable for a moment, and only then do the panels part sideways.
+      var assembly = clamp(progress / 0.55, 0, 1);
+      // The greeting clears first, then the panels move. If they overlap, the
+      // words are still sitting on top of the hero as the gap opens.
+      var greetingExit = smoothstep(clamp((progress - 0.64) / 0.1, 0, 1));
+      var split = smoothstep(clamp((progress - 0.72) / 0.28, 0, 1));
       var travel = 101.5 * split;
+
+      renderGreeting(assembly);
 
       if (curtainLeft) {
         curtainLeft.style.transform =
@@ -57,14 +134,14 @@
       }
 
       if (curtainContent) {
-        var contentOpacity = clamp(1 - split * 2.15, 0, 1);
+        var contentOpacity = 1 - greetingExit;
         curtainContent.style.opacity = contentOpacity.toFixed(3);
         curtainContent.style.transform =
-          "translate3d(0, " + (-10 * split).toFixed(1) + "px, 0)";
+          "translate3d(0, " + (-14 * greetingExit).toFixed(1) + "px, 0)";
       }
 
       if (curtainTrackFill) {
-        curtainTrackFill.style.width = (split * 100).toFixed(1) + "%";
+        curtainTrackFill.style.transform = "scaleX(" + progress.toFixed(4) + ")";
       }
 
       if (cinemaStageInner) {
@@ -72,7 +149,19 @@
           "translate3d(0, " + (16 * (1 - split)).toFixed(1) + "px, 0)";
       }
 
-      document.documentElement.classList.toggle("cinema-open", progress > 0.965);
+      var cinemaIsOpen = progress > 0.965;
+      document.documentElement.classList.toggle("cinema-open", cinemaIsOpen);
+
+      if (cinemaCurtain) {
+        cinemaCurtain.setAttribute("aria-hidden", String(cinemaIsOpen));
+        if (cinemaIsOpen) cinemaCurtain.setAttribute("inert", "");
+        else cinemaCurtain.removeAttribute("inert");
+      }
+
+      if (cinemaIsOpen && !cinemaWasOpen && document.activeElement === curtainSkip && introTitle) {
+        introTitle.focus({ preventScroll: true });
+      }
+      cinemaWasOpen = cinemaIsOpen;
     }
 
     function requestCinemaRender() {
@@ -81,14 +170,22 @@
     }
 
     window.addEventListener("scroll", requestCinemaRender, { passive: true });
-    window.addEventListener("resize", requestCinemaRender);
+    window.addEventListener("resize", function () {
+      updateCinemaRange();
+      requestCinemaRender();
+    });
+    window.addEventListener("pageshow", function () {
+      updateCinemaRange();
+      requestCinemaRender();
+    });
 
     if (curtainSkip) {
       curtainSkip.addEventListener("click", function () {
-        window.scrollTo({ top: getCinemaRange() + 2, behavior: "smooth" });
+        window.scrollTo({ top: cinemaRange + 2, behavior: "smooth" });
       });
     }
 
+    updateCinemaRange();
     renderCinemaIntro();
   } else {
     document.documentElement.classList.add("cinema-open");
@@ -105,7 +202,7 @@
     var scrollable = document.documentElement.scrollHeight - window.innerHeight;
     var progress = scrollable > 0 ? window.scrollY / scrollable : 0;
     progress = Math.min(Math.max(progress, 0), 1);
-    scrollProgress.style.width = (progress * 100).toFixed(2) + "%";
+    scrollProgress.style.transform = "scaleX(" + progress.toFixed(4) + ")";
   }
 
   function requestProgressRender() {
@@ -176,17 +273,47 @@
         setMenu(false);
       }
     });
+
+    var desktopNav = window.matchMedia("(min-width: 821px)");
+    var resetMenuForDesktop = function (event) {
+      if (event.matches) setMenu(false);
+    };
+    if (desktopNav.addEventListener) desktopNav.addEventListener("change", resetMenuForDesktop);
+    else if (desktopNav.addListener) desktopNav.addListener(resetMenuForDesktop);
   }
 
-  /* Missing image fallbacks ---------------------------------------------- */
+  /* Missing image fallbacks ----------------------------------------------
+     A failed secondary image should not hide a working primary image. */
+  function refreshImageHolder(holder) {
+    if (!holder) return;
+    var images = Array.from(holder.querySelectorAll("img"));
+    var hasAvailableImage = images.some(function (image) {
+      return image.dataset.failed !== "true";
+    });
+    holder.classList.toggle("is-empty", !hasAvailableImage);
+  }
+
   document.querySelectorAll(".project-visual img").forEach(function (img) {
+    var holder = img.closest(".project-visual");
+
     var markMissing = function () {
-      var holder = img.closest(".project-visual");
-      if (holder) holder.classList.add("is-empty");
+      img.dataset.failed = "true";
+      img.hidden = true;
+      refreshImageHolder(holder);
+    };
+
+    var markLoaded = function () {
+      img.dataset.failed = "false";
+      img.hidden = false;
+      refreshImageHolder(holder);
     };
 
     img.addEventListener("error", markMissing);
-    if (img.complete && img.naturalWidth === 0) markMissing();
+    img.addEventListener("load", markLoaded);
+    if (img.complete) {
+      if (img.naturalWidth === 0) markMissing();
+      else markLoaded();
+    }
   });
 
   /* Active section in navigation ----------------------------------------- */
@@ -204,7 +331,10 @@
           if (!entry.isIntersecting) return;
           var activeId = "#" + entry.target.id;
           navAnchors.forEach(function (anchor) {
-            anchor.classList.toggle("is-active", anchor.getAttribute("href") === activeId);
+            var isActive = anchor.getAttribute("href") === activeId;
+            anchor.classList.toggle("is-active", isActive);
+            if (isActive) anchor.setAttribute("aria-current", "location");
+            else anchor.removeAttribute("aria-current");
           });
         });
       },
@@ -276,8 +406,10 @@
     var outHSV = document.getElementById("demoHSV");
     var outCMYK = document.getElementById("demoCMYK");
     var outHEX = document.getElementById("demoHEX");
+    var demoReady = inputs.r && inputs.g && inputs.b && values.r && values.g && values.b && swatch && outHSV && outCMYK && outHEX;
 
     function renderColorDemo() {
+      if (!demoReady) return;
       var r = Number(inputs.r.value);
       var g = Number(inputs.g.value);
       var b = Number(inputs.b.value);
@@ -297,11 +429,12 @@
         cmyk.k.toFixed(1);
     }
 
-    Object.keys(inputs).forEach(function (key) {
-      inputs[key].addEventListener("input", renderColorDemo);
-    });
-
-    renderColorDemo();
+    if (demoReady) {
+      Object.keys(inputs).forEach(function (key) {
+        inputs[key].addEventListener("input", renderColorDemo);
+      });
+      renderColorDemo();
+    }
   }
 
   var footerYear = document.getElementById("footerYear");

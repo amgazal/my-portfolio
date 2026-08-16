@@ -40,6 +40,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
   background: var(--bg);
+  color-scheme: dark;
 }
 
 body {
@@ -51,6 +52,7 @@ body {
   letter-spacing: 0.003em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 img {
@@ -116,11 +118,18 @@ main > section + section {
   height: 2px;
   pointer-events: none;
   background: transparent;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.cinema-open .scroll-progress {
+  opacity: 1;
 }
 
 .scroll-progress span {
   display: block;
-  width: 0;
+  width: 100%;
+  transform: scaleX(0);
   height: 100%;
   background: var(--accent);
   transform-origin: left center;
@@ -234,7 +243,9 @@ main > section + section {
   display: block;
   overflow: hidden;
   touch-action: pan-y;
-  background: #070708;
+  /* No background here on purpose: the two panels do the covering. A colour on
+     this element would stay behind after they part and hide the whole page. */
+  background: transparent;
 }
 
 .curtain-panel {
@@ -285,8 +296,8 @@ main > section + section {
 
 .curtain-meta {
   position: absolute;
-  top: 1.55rem;
-  left: 1.7rem;
+  top: calc(1.55rem + env(safe-area-inset-top, 0px));
+  left: calc(1.7rem + env(safe-area-inset-left, 0px));
   color: #8b877f;
   font-family: var(--mono);
   font-size: 0.62rem;
@@ -296,8 +307,8 @@ main > section + section {
 
 .curtain-skip {
   position: absolute;
-  top: 1.25rem;
-  right: 1.45rem;
+  top: calc(1.25rem + env(safe-area-inset-top, 0px));
+  right: calc(1.45rem + env(safe-area-inset-right, 0px));
   border: 1px solid transparent;
   padding: 0.5rem 0.7rem;
   border-radius: 7px;
@@ -327,17 +338,37 @@ main > section + section {
   text-align: center;
 }
 
-.curtain-welcome h1 {
+.curtain-word {
+  display: flex;
+  justify-content: center;
   color: var(--text);
   font-family: var(--display);
-  font-size: clamp(5.5rem, 13.4vw, 12.5rem);
+  font-size: clamp(1.95rem, 13vw, 11rem);
   font-weight: 800;
-  line-height: 0.82;
-  letter-spacing: -0.065em;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.curtain-welcome p {
+.curtain-word span {
+  display: inline-block;
+  transform-origin: 50% 80%;
+  will-change: transform, opacity;
+}
+
+.curtain-line span {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Without the intro running, every letter and word is simply visible. */
+.cinema-enabled .curtain-word span,
+.cinema-enabled .curtain-line span {
+  opacity: 0;
+}
+
+.curtain-line {
   margin-top: clamp(2.1rem, 4vw, 3.3rem);
   color: #85817a;
   font-size: clamp(1.05rem, 1.7vw, 1.45rem);
@@ -385,14 +416,17 @@ main > section + section {
   position: absolute;
   left: 0;
   top: 0;
-  width: 0;
+  width: 100%;
   height: 1px;
   background: var(--accent);
-  transition: width 0.06s linear;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
 }
 
 .cinema-open .cinema-curtain {
   pointer-events: none;
+  visibility: hidden;
 }
 
 /* Hero / stage ------------------------------------------------------------ */
@@ -404,7 +438,7 @@ main > section + section {
 }
 
 .cinema-enabled .cinema-intro {
-  height: 154svh;
+  height: 205svh;
   min-height: 0;
 }
 
@@ -474,6 +508,7 @@ main > section + section {
 
 .cinema-hero-copy h1 {
   max-width: 11ch;
+  text-wrap: balance;
   margin-bottom: 1.05rem;
   font-family: var(--display);
   font-size: clamp(4rem, 9.5vw, 8.8rem);
@@ -529,15 +564,11 @@ main > section + section {
 }
 
 .cinema-rail-row small {
+  display: block;
   font-family: var(--mono);
   font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-
-
-.cinema-rail-row small {
-  display: block;
   margin-bottom: 0.3rem;
   color: var(--subtle);
 }
@@ -619,6 +650,7 @@ main > section + section {
 .section-head h2,
 .contact-card h2 {
   max-width: 18ch;
+  text-wrap: balance;
   font-family: var(--display);
   font-size: clamp(2.1rem, 4.2vw, 3.35rem);
   line-height: 1.03;
@@ -825,6 +857,7 @@ main > section + section {
 
 .project-text h3 {
   font-family: var(--display);
+  text-wrap: balance;
   font-size: clamp(1.35rem, 2vw, 1.72rem);
   line-height: 1.12;
   letter-spacing: -0.03em;
@@ -838,6 +871,7 @@ main > section + section {
 
 .project-summary {
   color: var(--text) !important;
+  text-wrap: pretty;
   font-size: 1rem !important;
   line-height: 1.57;
 }
@@ -1604,20 +1638,20 @@ main > section + section {
 
 @media (max-width: 560px) {
   .cinema-enabled .cinema-intro {
-    height: 148svh;
+    height: 190svh;
   }
 
   .curtain-meta {
-    top: 1.35rem;
-    left: 1rem;
+    top: calc(1.35rem + env(safe-area-inset-top, 0px));
+    left: calc(1rem + env(safe-area-inset-left, 0px));
     max-width: 62vw;
     font-size: 0.55rem;
     letter-spacing: 0.16em;
   }
 
   .curtain-skip {
-    top: 1.05rem;
-    right: 0.85rem;
+    top: calc(1.05rem + env(safe-area-inset-top, 0px));
+    right: calc(0.85rem + env(safe-area-inset-right, 0px));
   }
 
   .curtain-welcome {
@@ -1625,12 +1659,12 @@ main > section + section {
     width: 94vw;
   }
 
-  .curtain-welcome h1 {
-    font-size: clamp(4.2rem, 19vw, 6.8rem);
-    letter-spacing: -0.07em;
+  .curtain-word {
+    font-size: clamp(1.95rem, 17vw, 6.8rem);
+    letter-spacing: -0.06em;
   }
 
-  .curtain-welcome p {
+  .curtain-line {
     margin-top: 2.4rem;
     padding: 0 1.25rem;
     font-size: 1rem;
@@ -1766,5 +1800,33 @@ main > section + section {
   .js-reveal .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Final interaction polish ------------------------------------------------
+   Keep motion deliberate on pointer devices and avoid sticky hover states on
+   touch screens. */
+
+.contact-links a span {
+  overflow-wrap: anywhere;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .button:hover,
+  .project-card:hover,
+  .panel:hover {
+    transform: none;
+  }
+
+  .project-card:not(.project-card--featured):hover .project-visual > img:not(.secondary-image) {
+    transform: none;
+  }
+
+  .timeline-item:hover::before {
+    width: 0;
+  }
+
+  .contact-links a:hover {
+    padding-left: 0;
   }
 }

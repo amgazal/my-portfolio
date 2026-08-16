@@ -23,6 +23,8 @@
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#09090b" />
+    <meta name="author" content="Abdallah Gazal" />
+    <meta property="og:site_name" content="Abdallah Gazal Portfolio" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -47,8 +49,8 @@
         <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
 
         <div class="curtain-welcome">
-          <h1>Welcome</h1>
-          <p>I’m Abdallah. Thanks for stopping by.</p>
+          <h1 class="curtain-word" id="curtainWord">Welcome</h1>
+          <p class="curtain-line" id="curtainLine">I’m Abdallah. Thanks for stopping by.</p>
         </div>
 
         <div class="curtain-prompt" aria-hidden="true">
@@ -92,12 +94,12 @@
           <div class="container cinema-stage-inner">
             <div class="cinema-hero-copy">
               <p class="cinema-overline">Cornell University · Information Science · 2028</p>
-              <h1 id="introTitle">Abdallah Gazal</h1>
+              <h1 id="introTitle" tabindex="-1">Abdallah Gazal</h1>
               <p class="cinema-role">Frontend engineer with full-stack range.</p>
               <p class="cinema-lede">
-                I like frontend work because it is where engineering decisions become the experience
-                someone actually uses. I build responsive interfaces, then work through the APIs, data,
-                testing, and deployment behind them when the product calls for it.
+                I like frontend work because it is where engineering decisions become something people
+                actually use. I build responsive interfaces, then work through the APIs, data, testing,
+                and deployment behind them when the product needs it.
               </p>
 
               <div class="cinema-actions">
@@ -160,6 +162,8 @@
               <img
                 src="layer.png"
                 alt="Layer weather app interface with a personalized clothing recommendation"
+                decoding="async"
+                fetchpriority="high"
               />
               <div class="visual-placeholder" aria-hidden="true">
                 <span>Layer</span>
@@ -178,9 +182,9 @@
                 A personalized weather app that turns forecast data into clothing guidance and learns from user feedback.
               </p>
               <p>
-                The idea came from adapting to Ithaca weather after growing up in Kumasi. The forecast could
-                be accurate and still leave me unsure what to wear. I built Layer to close that gap, then kept
-                pushing past the interface into persistence, sync, authentication, feedback, and testing.
+                The idea came from adapting to Ithaca weather after growing up in Kumasi. A forecast could
+                be accurate and still leave me unsure what to wear. I built Layer to close that gap. What
+                started as a frontend idea grew into persistence, sync, authentication, feedback, and testing.
               </p>
 
               <ul class="project-points">
@@ -208,6 +212,7 @@
                 src="future.png"
                 alt="Future Civilizations Conference website homepage"
                 loading="lazy"
+                decoding="async"
               />
               <div class="visual-placeholder" aria-hidden="true">
                 <span>Future Civilizations</span>
@@ -308,12 +313,14 @@
                 alt="RGB and HSV panels in the color model converter"
                 class="primary-image"
                 loading="lazy"
+                decoding="async"
               />
               <img
                 src="colormodel2.png"
                 alt="Contrast adjustment panel in the color model converter"
                 class="secondary-image"
                 loading="lazy"
+                decoding="async"
               />
               <div class="visual-placeholder" aria-hidden="true">
                 <span>Color Model Converter</span>
@@ -370,6 +377,7 @@
               <div class="tag-row">
                 <span>Python</span><span>Kivy</span><span>Testing</span><span>Numerical Logic</span>
               </div>
+
             </div>
           </article>
 
@@ -379,6 +387,7 @@
                 src="frogger.png"
                 alt="Froggit gameplay with the frog, terrain, and exits"
                 loading="lazy"
+                decoding="async"
               />
               <div class="visual-placeholder" aria-hidden="true">
                 <span>Froggit</span>
@@ -412,6 +421,7 @@
                 src="imager.png"
                 alt="Original campus photograph beside a grayscale image transformation"
                 loading="lazy"
+                decoding="async"
               />
               <div class="visual-placeholder" aria-hidden="true">
                 <span>Image Filter Editor</span>
@@ -436,6 +446,7 @@
               <div class="tag-row">
                 <span>Python</span><span>Kivy</span><span>OOP</span><span>Testing</span>
               </div>
+
             </div>
           </article>
         </div>
@@ -449,7 +460,7 @@
           </div>
           <p>
             Each role has asked for a different kind of problem solving: shipping software, supporting
-            people in real time, maintaining a live site, teaching, and leading busy service shifts.
+            people in real time, maintaining a live site, teaching, and keeping busy teams moving.
           </p>
         </div>
 
@@ -553,10 +564,10 @@
             <h2>Good software should respect the person using it.</h2>
           </div>
           <p>
-            A lot of my work has been customer-facing: troubleshooting a laptop while someone waits,
-            helping people through busy service shifts, teaching students who are stuck, and maintaining
-            a site attendees rely on for event information. Those experiences made me care about the small
-            points of friction that decide whether a product feels dependable or frustrating.
+            A lot of my work has put me directly in front of the person relying on the outcome: troubleshooting
+            a laptop while someone waits, helping people through busy service shifts, teaching students who are
+            stuck, and maintaining a site attendees depend on for event information. That has made me pay close
+            attention to the small points of friction that decide whether software feels dependable or frustrating.
           </p>
         </div>
 
