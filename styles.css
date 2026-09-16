@@ -20,7 +20,7 @@
 
   --text: #f1eee7;
   --muted: #aaa69d;
-  --subtle: #77746d;
+  --subtle: #969188;
 
   --accent: #dd7a52;
   --accent-2: #e79a78;
@@ -960,7 +960,8 @@ main > section + section {
   padding: 1.15rem 0 0.15rem;
 }
 
-.project-divider span {
+.project-divider h3 {
+  font-weight: 400;
   color: var(--subtle);
   font-family: var(--mono);
   font-size: 0.62rem;
@@ -1160,14 +1161,14 @@ main > section + section {
   gap: 0.4rem;
 }
 
-.demo-controls label {
+.demo-control {
   display: grid;
   grid-template-columns: 14px minmax(0, 1fr) 34px;
   gap: 0.5rem;
   align-items: center;
 }
 
-.demo-controls span,
+.demo-controls label,
 .demo-controls output,
 .demo-output span,
 .demo-output strong {
@@ -1175,7 +1176,7 @@ main > section + section {
   font-size: 0.63rem;
 }
 
-.demo-controls span,
+.demo-controls label,
 .demo-output span {
   color: var(--subtle);
 }
@@ -1323,7 +1324,7 @@ main > section + section {
 
 .panel {
   position: relative;
-  min-height: 240px;
+  min-height: 0;
   padding: 2rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -1513,7 +1514,7 @@ main > section + section {
 
   .cinema-rail {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     border-left: 0;
     border-top: 1px solid var(--line);
   }
@@ -2012,4 +2013,50 @@ main > section + section {
   .contact-links a:hover {
     padding-left: 0;
   }
+}
+
+/* Smaller previews distinguish the supporting Python projects. */
+.project-card--compact .project-visual {
+  height: 160px;
+  aspect-ratio: auto;
+}
+
+/* Real product captures: keep the focal content visible at every card width.
+   Original image files remain untouched and open at full resolution on click. */
+.project-visual--capture {
+  height: auto;
+  aspect-ratio: 16 / 11;
+  background: #faf9f7;
+}
+
+.project-preview-link {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.project-preview-link:focus-visible {
+  outline-offset: -4px;
+}
+
+.project-visual--capture .project-preview-link img {
+  position: absolute;
+  top: 0;
+  max-width: none;
+  height: auto;
+}
+
+.project-visual--resolve .project-preview-link img {
+  top: -9%;
+  width: 145%;
+  left: -22.5%;
+}
+
+.project-visual--bridge .project-preview-link img {
+  top: -8%;
+  width: 132%;
+  left: -7%;
 }

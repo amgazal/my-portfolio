@@ -1,48 +1,33 @@
 # Abdallah Gazal — Portfolio
 
-Static site. Hand-written HTML, CSS, and JavaScript — no framework, no build
-step, no dependencies.
+Static portfolio built with HTML, CSS, and JavaScript. No build step or runtime dependencies.
 
 ## Run locally
 
-    python3 -m http.server 8000
-    # http://localhost:8000
+```sh
+python3 -m http.server 8000
+```
+
+Open http://localhost:8000.
 
 ## Files
 
-    index.html      markup, metadata, JSON-LD Person schema
-    styles.css      all styling, including the print stylesheet
-    script.js       intro rig, scroll reveal, scrollspy, nav, colour demo
-    favicon.svg     AG monogram
-    og-image.jpg    1200x630 social preview
-    *.webp          project screenshots
-    Abdallah_Gazal_Resume.pdf
+- `index.html`: content, project cards, and social metadata.
+- `styles.css`: layout, typography, cinematic intro, and responsive styles.
+- `script.js`: curtain, navigation, section reveals, Back to Top, and color demo.
+- `*.png`: project screenshots currently referenced by the page; WebP copies are also available.
+- `Abdallah Gazal Resume.pdf`: current linked resume. The underscore filename is kept in sync for existing bookmarks.
 
-## Notes
+## Project previews
 
-- Screenshots are served as WebP, sized to the largest slot each one renders in.
-  Total image payload is ~0.55 MB. If a browser cannot decode WebP, each card
-  falls back to a styled placeholder panel rather than a broken image.
-- Fonts load from Google Fonts. Without a connection the page falls back to
-  system faces; layout and spacing are unaffected.
-- The scroll intro is skipped entirely for visitors who set
-  `prefers-reduced-motion: reduce`; they land straight on the hero.
-- Smallest text/background contrast ratio on the site is 4.76:1
-  (WCAG AA for normal text is 4.5:1).
+Resolve and Bridge use the supplied original screenshots in `resolve.png` and
+`bridge.png`. CSS frames each image around the product content at every card
+width; clicking a preview opens the untouched, full-resolution screenshot.
+Froggit assets remain in the repository but are not displayed.
 
-## Updating the live site
+The intro is skipped when reduced motion is enabled. Fonts fall back to system
+faces if Google Fonts is unavailable.
 
-From inside your clone, copy these files in and push:
+## Final content pass
 
-    git add -A
-    git commit -m "Update portfolio"
-    git push
-
-## Project links
-
-- Layer: https://github.com/amgazal/Layer
-- Future Civilizations: https://github.com/amgazal/future-civilizations
-- Color Model Converter: https://github.com/amgazal/color-model-converter
-- Image Filter Editor: https://github.com/amgazal/Image-editor-python
-
-Froggit can be linked after its repository is published.
+See [QA.md](QA.md) for validation results, link status, and facts to confirm before publishing.
