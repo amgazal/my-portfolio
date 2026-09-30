@@ -3,10 +3,6 @@
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Cinematic intro -------------------------------------------------------
-     The welcome screen resolves first, then the two curtain panels part to
-     reveal the hero underneath. The motion is tied to scroll so visitors can
-     move through it at their own pace. */
   var cinemaIntro = document.querySelector(".cinema-intro");
   var cinemaCurtain = document.getElementById("cinemaCurtain");
   var curtainLeft = document.getElementById("curtainLeft");
@@ -33,8 +29,6 @@
     return 1 - inv * inv * inv;
   }
 
-  /* Split the greeting into pieces the scroll can bring in one at a time:
-     the headline letter by letter, the line beneath it word by word. */
   var wordLetters = [];
   var lineWords = [];
 
@@ -62,15 +56,12 @@
         span.textContent = word;
         span.setAttribute("aria-hidden", "true");
         curtainLine.appendChild(span);
-        if (index < words.length - 1) {
-          curtainLine.appendChild(document.createTextNode(" "));
-        }
+        if (index < words.length - 1) curtainLine.appendChild(document.createTextNode(" "));
         lineWords.push(span);
       });
     }
   }
 
-  /* assembly runs 0 -> 1 while the greeting spells itself out. */
   function renderGreeting(assembly) {
     var total = wordLetters.length;
 
@@ -83,7 +74,6 @@
         "scale(" + (0.88 + eased * 0.12).toFixed(3) + ")";
     });
 
-    // The line resolves only once the headline is nearly whole.
     lineWords.forEach(function (word, index) {
       var startAt = 0.55 + index * 0.05;
       var eased = easeOutCubic(clamp((assembly - startAt) / 0.2, 0, 1));
@@ -103,7 +93,7 @@
     function updateCinemaRange() {
       cinemaRange = Math.max(
         cinemaIntro.offsetHeight - window.innerHeight,
-        window.innerHeight * 0.48,
+        window.innerHeight * 0.36,
         1
       );
     }
@@ -111,45 +101,26 @@
     function renderCinemaIntro() {
       cinemaFrame = null;
       var progress = clamp(Math.max(window.scrollY, 0) / cinemaRange, 0, 1);
-
-      // Three beats. The greeting spells itself out, it holds complete and
-      // readable for a moment, and only then do the panels part sideways.
-      var assembly = clamp(progress / 0.55, 0, 1);
-      // The greeting clears first, then the panels move. If they overlap, the
-      // words are still sitting on top of the hero as the gap opens.
-      var greetingExit = smoothstep(clamp((progress - 0.64) / 0.1, 0, 1));
-      var split = smoothstep(clamp((progress - 0.72) / 0.28, 0, 1));
+      var assembly = clamp(progress / 0.52, 0, 1);
+      var greetingExit = smoothstep(clamp((progress - 0.62) / 0.1, 0, 1));
+      var split = smoothstep(clamp((progress - 0.72) / 0.22, 0, 1));
       var travel = 101.5 * split;
 
       renderGreeting(assembly);
 
-      if (curtainLeft) {
-        curtainLeft.style.transform =
-          "translate3d(" + (-travel).toFixed(2) + "%, 0, 0)";
-      }
-
-      if (curtainRight) {
-        curtainRight.style.transform =
-          "translate3d(" + travel.toFixed(2) + "%, 0, 0)";
-      }
+      if (curtainLeft) curtainLeft.style.transform = "translate3d(" + (-travel).toFixed(2) + "%, 0, 0)";
+      if (curtainRight) curtainRight.style.transform = "translate3d(" + travel.toFixed(2) + "%, 0, 0)";
 
       if (curtainContent) {
         var contentOpacity = 1 - greetingExit;
         curtainContent.style.opacity = contentOpacity.toFixed(3);
-        curtainContent.style.transform =
-          "translate3d(0, " + (-14 * greetingExit).toFixed(1) + "px, 0)";
+        curtainContent.style.transform = "translate3d(0, " + (-14 * greetingExit).toFixed(1) + "px, 0)";
       }
 
-      if (curtainTrackFill) {
-        curtainTrackFill.style.transform = "scaleX(" + progress.toFixed(4) + ")";
-      }
+      if (curtainTrackFill) curtainTrackFill.style.transform = "scaleX(" + progress.toFixed(4) + ")";
+      if (cinemaStageInner) cinemaStageInner.style.transform = "translate3d(0, " + (12 * (1 - split)).toFixed(1) + "px, 0)";
 
-      if (cinemaStageInner) {
-        cinemaStageInner.style.transform =
-          "translate3d(0, " + (16 * (1 - split)).toFixed(1) + "px, 0)";
-      }
-
-      var cinemaIsOpen = progress > 0.965;
+      var cinemaIsOpen = progress > 0.96;
       document.documentElement.classList.toggle("cinema-open", cinemaIsOpen);
 
       if (cinemaCurtain) {
@@ -174,14 +145,10 @@
       updateCinemaRange();
       requestCinemaRender();
     });
-    window.addEventListener("pageshow", function () {
-      updateCinemaRange();
-      requestCinemaRender();
-    });
 
     if (curtainSkip) {
       curtainSkip.addEventListener("click", function () {
-        window.scrollTo({ top: cinemaRange + 2, behavior: "smooth" });
+        window.scrollTo({ top: cinemaRange + 4, behavior: "smooth" });
       });
     }
 
@@ -191,7 +158,6 @@
     document.documentElement.classList.add("cinema-open");
   }
 
-  /* Scroll progress ------------------------------------------------------- */
   var scrollProgress = document.getElementById("scrollProgress");
   var progressFrame = null;
 
@@ -214,8 +180,6 @@
   window.addEventListener("resize", requestProgressRender);
   renderProgress();
 
-  /* Back to top -----------------------------------------------------------
-     Return to the hero rather than replaying the welcome curtain. */
   var backToTop = document.getElementById("backToTop");
   var backTopFrame = null;
 
@@ -233,17 +197,13 @@
 
   if (backToTop) {
     backToTop.addEventListener("click", function () {
-      var heroTop = (!reducedMotion && cinemaIntro && typeof cinemaRange === "number" && cinemaRange > 0)
-        ? cinemaRange + 2
-        : 0;
-      window.scrollTo({ top: heroTop, behavior: reducedMotion ? "auto" : "smooth" });
+      window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
     });
     window.addEventListener("scroll", requestBackToTopRender, { passive: true });
     window.addEventListener("resize", requestBackToTopRender);
     renderBackToTop();
   }
 
-  /* Section reveal -------------------------------------------------------- */
   var revealTargets = document.querySelectorAll(".reveal");
 
   if (!reducedMotion && "IntersectionObserver" in window) {
@@ -266,7 +226,6 @@
     });
   }
 
-  /* Mobile navigation ----------------------------------------------------- */
   var menuToggle = document.getElementById("menuToggle");
   var navLinks = document.getElementById("navLinks");
 
@@ -311,41 +270,6 @@
     else if (desktopNav.addListener) desktopNav.addListener(resetMenuForDesktop);
   }
 
-  /* Missing image fallbacks ----------------------------------------------
-     A failed secondary image should not hide a working primary image. */
-  function refreshImageHolder(holder) {
-    if (!holder) return;
-    var images = Array.from(holder.querySelectorAll("img"));
-    var hasAvailableImage = images.some(function (image) {
-      return image.dataset.failed !== "true";
-    });
-    holder.classList.toggle("is-empty", !hasAvailableImage);
-  }
-
-  document.querySelectorAll(".project-visual img").forEach(function (img) {
-    var holder = img.closest(".project-visual");
-
-    var markMissing = function () {
-      img.dataset.failed = "true";
-      img.hidden = true;
-      refreshImageHolder(holder);
-    };
-
-    var markLoaded = function () {
-      img.dataset.failed = "false";
-      img.hidden = false;
-      refreshImageHolder(holder);
-    };
-
-    img.addEventListener("error", markMissing);
-    img.addEventListener("load", markLoaded);
-    if (img.complete) {
-      if (img.naturalWidth === 0) markMissing();
-      else markLoaded();
-    }
-  });
-
-  /* Active section in navigation ----------------------------------------- */
   var navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
   var sections = navAnchors
     .map(function (anchor) {
@@ -373,97 +297,6 @@
     sections.forEach(function (section) {
       activeObserver.observe(section);
     });
-  }
-
-  /* Interactive Color Model Converter ------------------------------------ */
-  function rgbToHsv(r, g, b) {
-    var rn = r / 255;
-    var gn = g / 255;
-    var bn = b / 255;
-    var max = Math.max(rn, gn, bn);
-    var min = Math.min(rn, gn, bn);
-    var delta = max - min;
-    var h = 0;
-
-    if (delta !== 0) {
-      if (max === rn) h = 60 * (((gn - bn) / delta) % 6);
-      else if (max === gn) h = 60 * ((bn - rn) / delta + 2);
-      else h = 60 * ((rn - gn) / delta + 4);
-    }
-
-    if (h < 0) h += 360;
-    return { h: h, s: max === 0 ? 0 : delta / max, v: max };
-  }
-
-  function rgbToCmyk(r, g, b) {
-    var rn = r / 255;
-    var gn = g / 255;
-    var bn = b / 255;
-    var k = 1 - Math.max(rn, gn, bn);
-
-    if (k === 1) return { c: 0, m: 0, y: 0, k: 100 };
-
-    return {
-      c: ((1 - rn - k) / (1 - k)) * 100,
-      m: ((1 - gn - k) / (1 - k)) * 100,
-      y: ((1 - bn - k) / (1 - k)) * 100,
-      k: k * 100
-    };
-  }
-
-  function toHex(r, g, b) {
-    function pair(value) {
-      return value.toString(16).padStart(2, "0").toUpperCase();
-    }
-    return "#" + pair(r) + pair(g) + pair(b);
-  }
-
-  var demo = document.querySelector('[data-demo="color"]');
-
-  if (demo) {
-    var inputs = {
-      r: document.getElementById("demoR"),
-      g: document.getElementById("demoG"),
-      b: document.getElementById("demoB")
-    };
-    var values = {
-      r: document.getElementById("demoRv"),
-      g: document.getElementById("demoGv"),
-      b: document.getElementById("demoBv")
-    };
-    var swatch = document.getElementById("demoSwatch");
-    var outHSV = document.getElementById("demoHSV");
-    var outCMYK = document.getElementById("demoCMYK");
-    var outHEX = document.getElementById("demoHEX");
-    var demoReady = inputs.r && inputs.g && inputs.b && values.r && values.g && values.b && swatch && outHSV && outCMYK && outHEX;
-
-    function renderColorDemo() {
-      if (!demoReady) return;
-      var r = Number(inputs.r.value);
-      var g = Number(inputs.g.value);
-      var b = Number(inputs.b.value);
-      var hsv = rgbToHsv(r, g, b);
-      var cmyk = rgbToCmyk(r, g, b);
-
-      values.r.textContent = r;
-      values.g.textContent = g;
-      values.b.textContent = b;
-      swatch.style.background = "rgb(" + r + ", " + g + ", " + b + ")";
-      outHEX.textContent = toHex(r, g, b);
-      outHSV.textContent = hsv.h.toFixed(1) + ", " + hsv.s.toFixed(3) + ", " + hsv.v.toFixed(3);
-      outCMYK.textContent =
-        cmyk.c.toFixed(1) + ", " +
-        cmyk.m.toFixed(1) + ", " +
-        cmyk.y.toFixed(1) + ", " +
-        cmyk.k.toFixed(1);
-    }
-
-    if (demoReady) {
-      Object.keys(inputs).forEach(function (key) {
-        inputs[key].addEventListener("input", renderColorDemo);
-      });
-      renderColorDemo();
-    }
   }
 
   var footerYear = document.getElementById("footerYear");
