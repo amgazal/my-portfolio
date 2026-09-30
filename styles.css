@@ -9,27 +9,29 @@
 }
 
 :root {
-  --bg: #0b0c0e;
-  --bg-deep: #060607;
-  --surface: #111318;
-  --surface-raised: #15171c;
-  --surface-2: var(--surface-raised);
-  --surface-3: #1a1b21;
-  --border: #282b31;
+  --bg: #0a0e14;
+  --bg-deep: #070b11;
+  --surface: #101620;
+  --surface-raised: #151c27;
+  --surface-2: #1a2432;
+  --surface-3: #202b3a;
+  --border: #26303d;
   --line: var(--border);
-  --border-soft: #1d2025;
+  --border-soft: #19212c;
   --line-soft: var(--border-soft);
-  --hair: #34353d;
+  --hair: #364253;
 
-  --text: #f2efe9;
-  --text-muted: #9b9da3;
-  --muted: var(--text-muted);
+  --text: #f1eee7;
+  --text-secondary: #b8b5ae;
+  --text-muted: #7d8490;
+  --muted: var(--text-secondary);
   --subtle: var(--text-muted);
 
-  --accent: #c9784c;
-  --accent-hover: #dc8959;
+  --accent: #c6a15b;
+  --accent-hover: #d7b772;
   --accent-2: var(--accent-hover);
-  --accent-ink: #160b07;
+  --accent-ink: #11151a;
+  --cool-accent: #7189a6;
 
   --display: "Bricolage Grotesque", "Hanken Grotesk", Georgia, serif;
   --body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -39,6 +41,34 @@
   --radius-lg: 14px;
   --radius-md: 9px;
   --section: 7.6rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f5f2eb;
+    --bg-deep: #f0eadf;
+    --surface: #fcfaf6;
+    --surface-raised: #ffffff;
+    --surface-2: #f7f3ef;
+    --surface-3: #f1ece1;
+    --border: #ddd8ce;
+    --line: var(--border);
+    --border-soft: #e7e0d5;
+    --line-soft: var(--border-soft);
+    --hair: #c7c1b8;
+
+    --text: #161a20;
+    --text-secondary: #555b64;
+    --text-muted: #777d85;
+    --muted: var(--text-secondary);
+    --subtle: var(--text-muted);
+
+    --accent: #98713c;
+    --accent-hover: #a57b46;
+    --accent-2: var(--accent-hover);
+    --accent-ink: #f7f1ea;
+    --cool-accent: #5f6e7a;
+  }
 }
 
 html {
@@ -89,6 +119,19 @@ main > section {
 
 main > section + section {
   border-top: 1px solid var(--line-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .skip-link {
@@ -147,8 +190,16 @@ main > section + section {
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid transparent;
-  background: rgba(11, 12, 14, 0.96);
+  background: rgba(10, 14, 20, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition: border-color 0.25s ease;
+}
+
+@media (prefers-color-scheme: light) {
+  .topbar {
+    background: rgba(245, 242, 235, 0.9);
+  }
 }
 
 .cinema-open .topbar {
@@ -452,9 +503,9 @@ main > section + section {
   z-index: 2;
   min-height: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(270px, 0.5fr);
+  grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.55fr);
   grid-template-rows: 1fr auto;
-  gap: 2.8rem 5rem;
+  gap: 2.8rem 3rem;
   align-items: end;
   padding-top: clamp(7rem, 16vh, 10.5rem);
   padding-bottom: clamp(2.2rem, 6vh, 4rem);
@@ -509,6 +560,10 @@ main > section + section {
   background: var(--accent);
 }
 
+.cinema-hero-copy h1 {
+  letter-spacing: -0.08em;
+}
+
 .cinema-lede {
   max-width: 49rem;
   color: var(--muted);
@@ -523,13 +578,58 @@ main > section + section {
 }
 
 .cinema-rail {
-  align-self: end;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 1rem;
   border-left: 1px solid var(--line);
+  padding-left: 1.2rem;
+}
+
+.cinema-rail-row strong {
+  color: var(--text-secondary);
+}
+
+.portrait-shell {
+  position: relative;
+  width: min(180px, 100%);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+.portrait-shell img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.portrait-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 5vw, 3.4rem);
+  letter-spacing: -0.06em;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(12, 13, 15, 0.94), rgba(18, 20, 24, 0.85));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.portrait-shell.fallback-visible .portrait-fallback {
+  opacity: 1;
 }
 
 .cinema-rail-row {
   display: block;
-  padding: 1rem 0 1rem 1.2rem;
+  padding-top: 0.2rem;
   border-top: 1px solid var(--line-soft);
 }
 

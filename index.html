@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-    <title>Abdallah Gazal | Full-stack Software Engineer</title>
+    <title>Abdallah Gazal | Software Engineer</title>
     <meta
       name="description"
-      content="Abdallah Gazal is a Cornell Information Science student building full-stack software with React, TypeScript, Python, and PostgreSQL."
+      content="Abdallah Gazal is a software engineer building products from the interface to the systems behind them."
     />
     <link rel="canonical" href="https://amgazal.github.io/my-portfolio/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://amgazal.github.io/my-portfolio/" />
-    <meta property="og:title" content="Abdallah Gazal | Full-stack Software Engineer" />
+    <meta property="og:title" content="Abdallah Gazal | Software Engineer" />
     <meta
       property="og:description"
-      content="Cornell Information Science student building web products from interface to backend."
+      content="Software engineer building thoughtful products across the stack."
     />
     <meta property="og:image" content="https://amgazal.github.io/my-portfolio/layer.png" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -64,7 +64,7 @@
       <div class="container nav">
         <a class="brand" href="#home" aria-label="Abdallah Gazal, home">
           <span class="brand-name">Abdallah Gazal</span>
-          <span class="brand-role">Full-stack software engineer</span>
+          <span class="brand-role">Software engineer</span>
         </a>
 
         <button
@@ -82,7 +82,7 @@
           <a href="#work">Work</a>
           <a href="#experience">Experience</a>
           <a href="#about">About</a>
-          <a href="#skills">Skills</a>
+          <a href="#tools">Tools</a>
           <a href="#contact">Contact</a>
         </nav>
       </div>
@@ -93,18 +93,34 @@
         <div class="cinema-stage">
           <div class="container cinema-stage-inner">
             <div class="cinema-hero-copy">
-              <p class="cinema-overline">Cornell University · Information Science · 2028</p>
-              <h1 id="introTitle" tabindex="-1">Abdallah Gazal</h1>
-              <p class="cinema-role">Full-stack software engineer.</p>
+              <p class="cinema-overline">Cornell University · Information Science · Class of 2028</p>
+              <h1 id="introTitle" tabindex="-1">ABDALLAH GAZAL</h1>
+              <p class="cinema-role">Software Engineer</p>
               <p class="cinema-lede">
-                I build useful products from interface to deployment.
+                I build software around the people using it, from the interface to the systems behind it.
               </p>
 
               <div class="cinema-actions">
-                <a class="button button-primary" href="#work">View selected work</a>
+                <a class="button button-primary" href="#work">View work</a>
                 <a
                   class="button button-secondary"
-                  href="Abdallah%20Gazal%20Resume.pdf" title="Abdallah Gazal Resume (PDF)"
+                  href="https://github.com/amgazal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </a>
+                <a
+                  class="button button-secondary"
+                  href="https://www.linkedin.com/in/abdallah-m-gazal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  class="button button-secondary"
+                  href="Abdallah_Gazal_Resume.pdf" title="Abdallah Gazal Resume (PDF)"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -114,16 +130,28 @@
             </div>
 
             <aside class="cinema-rail" aria-label="Quick profile">
+              <div class="portrait-shell" aria-label="Portrait placeholder">
+                <!-- PROFILE PHOTO: Replace assets/headshot.jpg with final professional headshot. -->
+                <img
+                  src="assets/headshot.jpg"
+                  alt="Portrait of Abdallah Gazal"
+                  loading="eager"
+                  decoding="async"
+                  onerror="this.style.display='none'; this.parentElement.classList.add('fallback-visible');"
+                />
+                <span class="portrait-fallback" aria-hidden="true">AG</span>
+              </div>
+
               <div class="cinema-rail-row">
                 <div>
                   <small>Focus</small>
-                  <strong>Interfaces · APIs · Data</strong>
+                  <strong>Product design · systems thinking · full-stack delivery</strong>
                 </div>
               </div>
               <div class="cinema-rail-row">
                 <div>
-                  <small>Current role</small>
-                  <strong>IT Client Services Assistant · Cornell SC Johnson</strong>
+                  <small>Current work</small>
+                  <strong>Resolve · Layer · Bridge · data and ML projects</strong>
                 </div>
               </div>
             </aside>
@@ -144,11 +172,38 @@
         <div class="section-head section-head--compact">
           <div>
             <p class="eyebrow">Selected work</p>
-            <h2>Products and projects.</h2>
+            <h2>Selected work</h2>
           </div>
         </div>
 
         <div class="projects-grid">
+          <article class="project-card" id="resolve">
+            <div class="project-visual project-visual--capture project-visual--resolve">
+              <a class="project-preview-link" href="resolve.png" target="_blank" rel="noopener noreferrer" aria-label="View full Resolve screenshot">
+                <img src="resolve.png" alt="Resolve requester interface with an issue description and six troubleshooting categories" width="2856" height="1594" loading="lazy" decoding="async" />
+              </a>
+              <div class="visual-placeholder" aria-hidden="true">
+                <span>Resolve</span>
+                <small>Project preview</small>
+              </div>
+            </div>
+            <div class="project-text">
+              <div class="project-meta"><span class="project-status">Full-stack product</span><span>2026</span></div>
+              <h3>Resolve</h3>
+              <p class="project-summary">Resolve turns vague IT problems into guided troubleshooting and technician-ready support tickets.</p>
+              <ul class="project-points">
+                <li>Server-owned diagnostic flows and role-based access for requester, technician, and admin views.</li>
+                <li>Built with React, TypeScript, PostgreSQL, and Supabase for persistence, authentication, and RLS.</li>
+              </ul>
+              <div class="tag-row" role="group" aria-label="Resolve technologies">
+                <span>React</span><span>TypeScript</span><span>Supabase</span><span>PostgreSQL</span><span>RLS</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/amgazal/Resolve" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
           <article class="project-card project-card--featured" id="layer">
             <div class="project-visual project-visual--featured">
               <img
@@ -165,20 +220,18 @@
 
             <div class="project-text">
               <div class="project-meta">
-                <span class="project-status project-status--live">Independent project</span>
-                <span>2026</span>
+                <span class="project-status project-status--live">Independent product</span>
+                <span>2025</span>
               </div>
 
               <h3>Layer</h3>
               <p class="project-summary">
-                Layer turns live weather data into clothing recommendations based on a user’s comfort profile.
+                Layer turns live weather data into clothing recommendations based on a user’s comfort profile and outing context.
               </p>
 
               <ul class="project-points">
-                <li>Designed PostgreSQL tables and Row-Level Security for profiles, calibration, and feedback.</li>
-                <li>Queued writes locally and made retries idempotent to prevent duplicate records.</li>
-                <li>Separated the personalization logic from the UI and covered it with 40 unit tests.</li>
-                <li>Automated tests, regression checks, and builds with GitHub Actions.</li>
+                <li>Built personalization, persistence, and offline syncing for weather-based recommendations.</li>
+                <li>Used React, PostgreSQL, Supabase, and automated tests to support reliability and deployment.</li>
               </ul>
 
               <div class="tag-row" role="group" aria-label="Layer technologies">
@@ -189,35 +242,6 @@
               <div class="project-links">
                 <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noopener noreferrer">Live app ↗</a>
                 <a href="https://github.com/amgazal/Layer" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card" id="resolve">
-            <div class="project-visual project-visual--capture project-visual--resolve">
-              <a class="project-preview-link" href="resolve.png" target="_blank" rel="noopener noreferrer" aria-label="View full Resolve screenshot">
-                <img src="resolve.png" alt="Resolve requester interface with an issue description and six troubleshooting categories" width="2856" height="1594" loading="lazy" decoding="async" />
-              </a>
-              <div class="visual-placeholder" aria-hidden="true">
-                <span>Resolve</span>
-                <small>Project preview</small>
-              </div>
-            </div>
-            <div class="project-text">
-              <div class="project-meta"><span class="project-status">Full-stack product / IT support platform</span></div>
-              <h3>Resolve</h3>
-              <p class="project-summary">Resolve turns vague IT problems into guided troubleshooting and technician-ready support tickets.</p>
-              <ul class="project-points">
-                <li>Built requester, technician, and admin workflows around a shared TypeScript contract.</li>
-                <li>Moved diagnostic traversal into PostgreSQL functions that validate each answer.</li>
-                <li>Added Supabase authentication, Row-Level Security, persistent sessions, and versioned diagnostic trees.</li>
-                <li>Tested role boundaries and workflow rules in Vitest, plus database integrity checks in pgTAP.</li>
-              </ul>
-              <div class="tag-row" role="group" aria-label="Resolve technologies">
-                <span>React</span><span>TypeScript</span><span>Vite</span><span>Supabase</span><span>PostgreSQL</span><span>Vitest</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/amgazal/Resolve" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               </div>
             </div>
           </article>
@@ -233,16 +257,15 @@
               </div>
             </div>
             <div class="project-text">
-              <div class="project-meta"><span class="project-status">Built for the Stellic Pathfinders Challenge</span></div>
+              <div class="project-meta"><span class="project-status">Stellic Pathfinders Challenge</span><span>2026</span></div>
               <h3>Bridge</h3>
-              <p class="project-summary">An action navigator that breaks unfamiliar processes into clear steps for international students.</p>
+              <p class="project-summary">Bridge turns unfamiliar university and administrative processes into guided journeys for international students.</p>
               <ul class="project-points">
-                <li>Built an internship/CPT preparation journey with requirements, checkpoints, and next actions.</li>
-                <li>Used typed workflow definitions and reusable components for active and preview journeys.</li>
-                <li>Derived progress and next actions from shared rules; preserved application state across reloads.</li>
+                <li>Organized process steps, checklists, and next actions into a clear student experience.</li>
+                <li>Built with React and TypeScript for reusable workflow state and step-by-step navigation.</li>
               </ul>
               <div class="tag-row" role="group" aria-label="Bridge technologies">
-                <span>React</span><span>TypeScript</span><span>Vite</span><span>React Router</span><span>Netlify</span>
+                <span>React</span><span>TypeScript</span><span>Vite</span><span>Netlify</span>
               </div>
               <div class="project-links">
                 <a href="https://bridge-navigator.netlify.app/" target="_blank" rel="noopener noreferrer">Live app ↗</a>
@@ -462,85 +485,37 @@
         <div class="section-head section-head--compact">
           <div>
             <p class="eyebrow">Experience</p>
-            <h2>Software, IT, and product-facing work.</h2>
+            <h2>Product-facing engineering and technical work.</h2>
           </div>
         </div>
 
         <div class="timeline">
           <article class="timeline-item">
             <div class="timeline-side">
-              <p>May 2025 to Aug 2025</p>
+              <p>May 2025 – Aug 2025</p>
               <span>Kumasi, Ghana</span>
             </div>
             <div class="timeline-copy">
               <h3>Software Engineer Intern <span>· Donyma Steel Complex</span></h3>
-              <p>Contributed to a production React dashboard in weekly sprints.</p>
               <ul>
-                <li>Redesigned dashboard and navigation, reducing page-load time by about 20% in product analytics.</li>
-                <li>Built 15+ reusable UI components across 10+ screens to reduce duplicated interface code.</li>
-                <li>Integrated REST APIs, fixed interface and data-flow issues, and worked through code review and testing.</li>
+                <li>Reduced React dashboard load times by roughly 20% by improving navigation and the main customer-facing screens.</li>
+                <li>Built 15+ reusable React components across 10+ screens to reduce duplicate UI code.</li>
+                <li>Integrated REST APIs and fixed data-flow issues using Python analysis to prioritize the highest-impact fixes.</li>
               </ul>
             </div>
           </article>
 
           <article class="timeline-item">
             <div class="timeline-side">
-              <p>Jan 2026 to Present</p>
-              <span>Ithaca, NY</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>IT Client Services Assistant <span>· Cornell SC Johnson College of Business</span></h3>
-              <p>Support faculty and staff with hardware, software, login, and connectivity issues.</p>
-              <ul>
-                <li>Handle roughly 10 to 15 help-desk and walk-in support requests on a typical day.</li>
-                <li>Configure and deploy workstations for new staff and faculty, including required hardware, software, and account access.</li>
-                <li>Run the loaner-laptop program, tracking inventory, checkouts, and equipment turnaround across the college.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>Jan 2026 to Present</p>
+              <p>Jan 2026 – Present</p>
               <span>Ithaca, NY</span>
             </div>
             <div class="timeline-copy">
               <h3>Web Lead & Financial Coordinator <span>· Future Civilisations Society</span></h3>
               <ul>
-                <li>Design, deploy, and maintain the official conference website.</li>
-                <li>Ship updates through Git as speakers, panels, logistics, and requirements change.</li>
-                <li>Coordinate website updates with programming, logistics, marketing, and budgeting.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>May 2023 to Aug 2024</p>
-              <span>Remote, Ghana</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Programming Instructor <span>· Intro to Computer Programming</span></h3>
-              <p>Taught web development online to high-school students.</p>
-              <ul>
-                <li>Taught HTML, CSS, and JavaScript to 50+ students.</li>
-                <li>Created lesson plans, live demos, and programming exercises from scratch.</li>
-                <li>Helped students debug assignments in individual sessions.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>Feb 2025 to Present</p>
-              <span>Ithaca, NY</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Student Manager <span>· Cornell Dining</span></h3>
-              <p>Promoted from associate to student manager.</p>
-              <ul>
-                <li>Supervise student staff and coordinate work during high-volume service periods.</li>
-                <li>Support staffing, onboarding, shift coverage, and daily team communication.</li>
+                <li>Built and maintained the conference website in JavaScript, HTML, and CSS for speaker details, schedules, and event information.</li>
+                <li>Used website analytics to improve navigation and keep the event site current as requirements changed.</li>
+                <li>Coordinated budgeting and website updates across programming, marketing, and logistics.</li>
               </ul>
             </div>
           </article>
@@ -551,46 +526,45 @@
         <div class="section-head section-head--compact">
           <div>
             <p class="eyebrow">About</p>
-            <h2>Building for the person using it.</h2>
+            <h2>About</h2>
           </div>
         </div>
 
         <div class="about-grid">
-          <article class="panel">
-            <h3>Learning from support</h3>
-            <p>I’ve worked in several customer-facing roles, including IT support. Seeing where people get stuck has shaped how I build software: clear interfaces, useful feedback, and fewer unnecessary steps.</p>
+          <article class="panel panel--story">
+            <p>I’ve spent a lot of time on the other side of software: helping someone whose laptop won’t cooperate, teaching a student who is stuck, or answering a question while the line keeps moving. Seeing where people get frustrated has shaped how I build software.</p>
           </article>
           <article class="panel">
-            <h3>Working across the stack</h3>
-            <p>I work across the stack when the product calls for it, from React interfaces to APIs, PostgreSQL, authentication, testing, and deployment.</p>
+            <h3>Across the stack</h3>
+            <p>These days I work across the stack, from React interfaces to APIs, PostgreSQL, authentication, testing, and deployment.</p>
           </article>
         </div>
       </section>
 
-      <section id="skills" class="container reveal">
+      <section id="tools" class="container reveal">
         <div class="section-head section-head--compact">
           <div>
-            <p class="eyebrow">Skills</p>
-            <h2>Tools I work with.</h2>
+            <p class="eyebrow">Tools</p>
+            <h2>Tools</h2>
           </div>
         </div>
 
         <div class="skills-list">
           <div class="skill-group">
+            <h3>Languages</h3>
+            <p>Python · JavaScript · TypeScript · SQL · Java</p>
+          </div>
+          <div class="skill-group">
             <h3>Frontend</h3>
-            <p>React · JavaScript · TypeScript · HTML · CSS · Responsive Design · Accessibility</p>
+            <p>React · Vite · Vitest · HTML5 · CSS3</p>
           </div>
           <div class="skill-group">
-            <h3>Backend & Data</h3>
-            <p>Python · PostgreSQL · Supabase · SQL · REST APIs · pandas · NumPy</p>
+            <h3>Backend / Data</h3>
+            <p>PostgreSQL · Supabase · REST APIs · GitHub Actions · Netlify · GitHub Pages</p>
           </div>
           <div class="skill-group">
-            <h3>ML & Prototyping</h3>
-            <p>BERT · scikit-learn · Streamlit · NLP · Model Evaluation</p>
-          </div>
-          <div class="skill-group">
-            <h3>Engineering</h3>
-            <p>Git · GitHub · GitHub Actions · Vitest · Unit Testing · Code Review · Agile Sprints</p>
+            <h3>ML / Research</h3>
+            <p>BERT · scikit-learn · pandas · Jupyter · model evaluation</p>
           </div>
         </div>
       </section>
@@ -600,14 +574,14 @@
           <div>
             <p class="eyebrow">Contact</p>
             <h2>Let’s talk.</h2>
-            <p>For software, a project here, or an opportunity, feel free to reach out.</p>
+            <p>Have a project, role, or interesting problem in mind? Feel free to reach out.</p>
           </div>
 
           <div class="contact-links">
             <a href="mailto:amg526@cornell.edu" target="_blank" rel="noopener noreferrer">Email <span>amg526@cornell.edu</span></a>
             <a href="https://github.com/amgazal" target="_blank" rel="noopener noreferrer">GitHub <span>github.com/amgazal ↗</span></a>
-            <a href="https://www.linkedin.com/in/abdallah-gazal-99b3a1333" target="_blank" rel="noopener noreferrer">LinkedIn <span>abdallah gazal ↗</span></a>
-            <a href="Abdallah%20Gazal%20Resume.pdf" title="Abdallah Gazal Resume (PDF)" target="_blank" rel="noopener noreferrer">Resume <span>Abdallah Gazal Resume ↗</span></a>
+            <a href="https://www.linkedin.com/in/abdallah-m-gazal" target="_blank" rel="noopener noreferrer">LinkedIn <span>linkedin.com/in/abdallah-m-gazal ↗</span></a>
+            <a href="Abdallah_Gazal_Resume.pdf" title="Abdallah Gazal Resume (PDF)" target="_blank" rel="noopener noreferrer">Resume <span>Abdallah Gazal Resume ↗</span></a>
           </div>
         </div>
       </section>
