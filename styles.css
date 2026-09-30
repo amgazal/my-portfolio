@@ -723,6 +723,19 @@ main > section + section {
   border-top: 1px solid var(--border-soft);
 }
 
+.experience-group-title {
+  margin: 2.4rem 0 0.9rem;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.experience-group-title--additional {
+  margin-top: 3rem;
+}
+
 .timeline-item {
   display: grid;
   grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
@@ -768,6 +781,25 @@ main > section + section {
   color: var(--accent);
 }
 
+.timeline-copy > p {
+  max-width: 58rem;
+  color: var(--text-secondary);
+}
+
+.timeline--additional .timeline-item {
+  grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+  padding: 1.1rem 0;
+}
+
+.timeline--additional .timeline-copy h3 {
+  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
+}
+
+.timeline--additional .timeline-copy > p {
+  font-size: 0.92rem;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
@@ -788,6 +820,7 @@ main > section + section {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 28%;
 }
 
 .profile-fallback {
