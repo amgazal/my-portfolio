@@ -1,464 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
-    <title>Abdallah Gazal | Software Engineer</title>
-    <meta
-      name="description"
-      content="Abdallah Gazal is a software engineer building products from the interface to the systems behind them."
-    />
-    <link rel="canonical" href="https://amgazal.com/" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://amgazal.com/" />
-    <meta property="og:title" content="Abdallah Gazal | Software Engineer" />
-    <meta
-      property="og:description"
-      content="Software engineer building thoughtful products across the stack."
-    />
-    <meta property="og:image" content="og-image.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#0c0d0f" />
-    <meta name="author" content="Abdallah Gazal" />
-    <meta property="og:site_name" content="Abdallah Gazal Portfolio" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
-
-    <div class="cinema-curtain" id="cinemaCurtain">
-      <div class="curtain-panel curtain-panel--left" id="curtainLeft" aria-hidden="true"></div>
-      <div class="curtain-panel curtain-panel--right" id="curtainRight" aria-hidden="true"></div>
-
-      <div class="curtain-content" id="curtainContent">
-        <p class="curtain-meta">Abdallah Gazal · Portfolio</p>
-        <button class="curtain-skip" id="curtainSkip" type="button">Skip intro</button>
-
-        <div class="curtain-welcome">
-          <h1 class="curtain-word" id="curtainWord">Welcome</h1>
-          <p class="curtain-line" id="curtainLine">I’m Abdallah. Thanks for stopping by.</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abdallah Gazal | Software Engineer</title>
+  <meta name="description" content="Abdallah Gazal, software engineer and Cornell Information Science student. Explore projects, experience, and the software I build around people.">
+  <link rel="canonical" href="https://amgazal.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amgazal.com/">
+  <meta property="og:title" content="Abdallah Gazal | Software Engineer">
+  <meta property="og:description" content="I build software around the people using it. Projects and experience from a Cornell Information Science student.">
+  <meta property="og:image" content="https://amgazal.com/og-image.jpg">
+  <meta property="og:image:alt" content="Layer, a weather and clothing recommendation project by Abdallah Gazal">
+  <meta property="og:site_name" content="Abdallah Gazal Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="author" content="Abdallah Gazal">
+  <meta name="theme-color" content="#f4f1ea">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    // Apply preference before paint; storage may be unavailable in private contexts.
+    (() => {
+      let theme;
+      try { theme = localStorage.getItem('portfolio-theme'); } catch (_) {}
+      if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="portfolio">
+    <header class="identity">
+      <div class="identity-top">
+        <div class="portrait">
+          <span class="portrait-fallback" aria-hidden="true">AG</span>
+          <img src="headshot.jpg" srcset="assets/headshot-small.jpg 300w, headshot.jpg 3024w" sizes="96px" alt="Abdallah Gazal" width="96" height="120" fetchpriority="high" onerror="this.hidden=true">
         </div>
-
-        <div class="curtain-prompt" aria-hidden="true">
-          <span>Scroll to enter</span>
-          <div class="curtain-track"><i id="curtainTrackFill"></i></div>
+        <h1>Abdallah Gazal</h1>
+        <p class="role">Software Engineer</p>
+        <div class="education"><p>Cornell University</p><p>Information Science · Class of 2028</p></div>
+        <p class="statement">I build software around<br class="desktop-break"> the people using it.</p>
+        <p class="supporting">From the interface to the systems behind it.</p>
+        <div class="primary-actions">
+          <a class="button button-primary" href="Abdallah_Gazal_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+          <a class="button" href="mailto:amg526@cornell.edu" target="_blank" rel="noopener noreferrer">Email</a>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/amgazal" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/abdallah-m-gazal" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
-    </div>
-
-    <header class="topbar">
-      <div class="container nav">
-        <a class="brand" href="#home" aria-label="Abdallah Gazal, home">
-          <span class="brand-name">Abdallah Gazal</span>
-        </a>
-
-        <button
-          class="menu-toggle"
-          id="menuToggle"
-          type="button"
-          aria-label="Open navigation"
-          aria-expanded="false"
-          aria-controls="navLinks"
-        >
-          Menu
-        </button>
-
-        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-          <a href="#work">Work</a>
+      <div class="identity-bottom"><p>Ithaca, NY</p><p>Cornell University</p></div>
+    </header>
+    <div class="content">
+      <div class="topbar">
+        <nav aria-label="Main navigation">
+          <a href="#work" aria-current="location">Work</a>
           <a href="#experience">Experience</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" hidden>
+          <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg>
+          <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+        </button>
       </div>
-    </header>
-
-    <main id="main">
-      <section class="cinema-intro" id="home" aria-labelledby="introTitle">
-        <div class="cinema-stage">
-          <div class="container cinema-stage-inner">
-            <div class="cinema-hero-copy">
-              <p class="cinema-overline">Cornell University · Information Science · 2028</p>
-              <h1 id="introTitle" tabindex="-1">ABDALLAH<br />GAZAL</h1>
-              <p class="cinema-role">Software Engineer</p>
-              <p class="cinema-lede">
-                I build software around the people using it, from the interface to the systems behind it.
-              </p>
-
-              <div class="cinema-actions">
-                <a class="button button-primary" href="#work">View work</a>
-                <a class="button button-secondary" href="https://github.com/amgazal" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a class="button button-secondary" href="https://www.linkedin.com/in/abdallah-m-gazal" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a class="button button-secondary" href="Abdallah_Gazal_Resume.pdf" title="Abdallah Gazal Resume (PDF)" target="_blank" rel="noopener noreferrer">Resume</a>
-              </div>
+      <main id="main" tabindex="-1">
+        <section id="work" aria-labelledby="work-title">
+          <h2 id="work-title">Selected work</h2>
+          <article class="featured" id="resolve">
+            <a class="project-image resolve-image" href="resolve.png" target="_blank" rel="noopener noreferrer" aria-label="View full Resolve screenshot">
+              <img src="resolve.png" alt="Resolve guides a user from an IT problem to a troubleshooting category" width="2856" height="1594" decoding="async">
+            </a>
+            <div class="project-heading"><h3>Resolve</h3><span class="meta">2026</span></div>
+            <p class="project-description">Guided troubleshooting that turns vague IT problems into technician-ready support tickets.</p>
+            <p class="project-context">Built after repeatedly seeing the same points of friction while helping people troubleshoot technology.</p>
+            <p class="tech">React · TypeScript · PostgreSQL · Supabase</p>
+            <div class="project-links">
+              <a href="https://resolve.amgazal.com/" target="_blank" rel="noopener noreferrer">Live demo</a>
+              <a href="https://github.com/amgazal/Resolve" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
+          </article>
+          <article class="featured" id="layer">
+            <a class="project-image layer-image" href="layer.png" target="_blank" rel="noopener noreferrer" aria-label="View full Layer screenshot">
+              <img src="layer.webp" alt="Layer pairs Ithaca weather and a comfort-adjusted temperature with clothing and outing recommendations" width="1600" height="900" loading="lazy" decoding="async">
+            </a>
+            <div class="project-heading"><h3>Layer</h3><span class="meta">2025</span></div>
+            <p class="project-description">Personalized clothing recommendations built around weather, comfort, and outing context.</p>
+            <p class="tech">React · JavaScript · PostgreSQL · Supabase</p>
+            <div class="project-links">
+              <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noopener noreferrer">Live</a>
+              <a href="https://github.com/amgazal/Layer" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
+          <div class="supporting-projects">
+            <article id="bridge">
+              <p class="project-label">Stellic Pathfinders Challenge</p>
+              <h3>Bridge</h3>
+              <p>Guided journeys for international students navigating unfamiliar university and administrative processes.</p>
+              <p class="tech">React · TypeScript · Vite</p>
+              <div class="project-links">
+                <a href="https://bridge-navigator.netlify.app/" target="_blank" rel="noopener noreferrer">Live</a>
+                <a href="https://github.com/amgazal/bridge" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </article>
+            <article>
+              <p class="project-label">Machine learning / NLP</p>
+              <h3>AI Tweet Detection</h3>
+              <p>Compared BERT, Random Forest, and Logistic Regression for classifying human- and AI-generated tweets.</p>
+              <p class="tech">Python · pandas · scikit-learn</p>
+              <div class="project-links">
+                <a href="https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app" target="_blank" rel="noopener noreferrer">Live</a>
+                <a href="https://github.com/amgazal/Machine-Learning-project-22D" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </article>
           </div>
-        </div>
-      </section>
-
-      <section id="work" class="container reveal">
-        <div class="section-head section-head--compact">
-          <div>
-            <p class="eyebrow">Products / engineering</p>
-            <h2>SELECTED WORK</h2>
+          <div class="more-work">
+            <h3>More work</h3>
+            <article class="work-row">
+              <div><h4>Future Civilisations</h4><p>Built and maintain a live conference website as event requirements evolve.</p></div>
+              <div class="project-links"><a href="https://futurecivilizations.com/" target="_blank" rel="noopener noreferrer">Live</a><a href="https://github.com/amgazal/Future-Civilisations-Conference-Apr-18" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </article>
+            <article class="work-row">
+              <div><h4>Color Model Converter</h4><p>A Python tool for converting and synchronizing RGB, CMYK, and HSV values.</p></div>
+            </article>
+            <article class="work-row">
+              <div><h4>Image Editor</h4><p>A Python image editor with cumulative filters and pixel-level transformations.</p></div>
+            </article>
           </div>
-        </div>
-
-        <div class="project-rows">
-          <article class="project-row" id="resolve">
-            <div class="project-row__meta">
-              <span>01</span>
-              <span>Full-stack product</span>
-              <span>2026</span>
-            </div>
-
-            <div class="project-row__content">
-              <div class="project-row__text">
-                <p class="project-kicker">Resolve</p>
-                <h3>Resolve</h3>
-                <p>Resolve turns vague IT problems into guided troubleshooting and technician-ready support tickets.</p>
-                <p class="project-context">Built from patterns I kept seeing while helping people troubleshoot technology.</p>
-                <ul>
-                  <li>Server-owned diagnostic flows with requester, technician, and admin roles.</li>
-                  <li>Supabase/PostgreSQL persistence with authentication, Row-Level Security, versioned workflows, and database tests.</li>
-                </ul>
-                <div class="project-tech">React · TypeScript · PostgreSQL · Supabase</div>
-                <div class="project-links">
-                  <a href="https://resolve.amgazal.com/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
-                  <a href="https://github.com/amgazal/Resolve" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                </div>
-              </div>
-
-              <div class="project-row__media">
-                <a href="resolve.png" target="_blank" rel="noopener noreferrer" aria-label="View full Resolve screenshot">
-                  <img src="resolve.png" alt="Resolve ticketing and troubleshooting interface" loading="lazy" decoding="async" />
-                </a>
-              </div>
-            </div>
+        </section>
+        <section id="experience" aria-labelledby="experience-title">
+          <h2 id="experience-title">Experience</h2>
+          <article class="experience-row">
+            <div class="experience-heading"><h3>Undergraduate Researcher</h3><p class="date">Aug 2026 — Present</p></div>
+            <p class="organization">Predictable Prose · Cornell University</p>
+            <p>Annotate and review detective-fiction passages for a study comparing how human readers and language models anticipate narrative turns.</p>
           </article>
-
-          <article class="project-row project-row--image-left" id="layer">
-            <div class="project-row__meta">
-              <span>02</span>
-              <span>Independent product</span>
-              <span>2025</span>
-            </div>
-
-            <div class="project-row__content">
-              <div class="project-row__media">
-                <a href="layer.png" target="_blank" rel="noopener noreferrer" aria-label="View full Layer screenshot">
-                  <img src="layer.png" alt="Layer weather and clothing recommendation interface" loading="lazy" decoding="async" />
-                </a>
-              </div>
-
-              <div class="project-row__text">
-                <p class="project-kicker">Layer</p>
-                <h3>Layer</h3>
-                <p>Layer turns live weather data into clothing recommendations based on a user’s comfort profile and outing context.</p>
-                <ul>
-                  <li>Built personalized recommendation logic around comfort, conditions, and outing context.</li>
-                  <li>Handled live data flow and user state with a clean frontend and reliable deployment.</li>
-                </ul>
-                <div class="project-tech">React · JavaScript · PostgreSQL · Supabase</div>
-                <div class="project-links">
-                  <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
-                  <a href="https://github.com/amgazal/Layer" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                </div>
-              </div>
-            </div>
+          <article class="experience-row">
+            <div class="experience-heading"><h3>IT Client Services Assistant</h3><p class="date">Jan 2026 — Present</p></div>
+            <p class="organization">Cornell SC Johnson College of Business</p>
+            <p>Support faculty and staff across hardware, software, accounts, connectivity, workstation deployment, and day-to-day troubleshooting.</p>
           </article>
-
-          <article class="project-row" id="bridge">
-            <div class="project-row__meta">
-              <span>03</span>
-              <span>Stellic Pathfinders Challenge</span>
-              <span>2026</span>
-            </div>
-
-            <div class="project-row__content">
-              <div class="project-row__text">
-                <p class="project-kicker">Bridge</p>
-                <h3>Bridge</h3>
-                <p>Bridge turns unfamiliar university and administrative processes into guided journeys for international students.</p>
-                <p class="project-context">It shows what to understand, what to prepare, what to complete, and what comes next.</p>
-                <ul>
-                  <li>Mapped multi-step processes into clearer student journeys and action sequences.</li>
-                  <li>Built with React and TypeScript for reusable workflow state and step-by-step navigation.</li>
-                </ul>
-                <div class="project-tech">React · TypeScript · Vite · Netlify</div>
-                <div class="project-links">
-                  <a href="https://bridge-navigator.netlify.app/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
-                  <a href="https://github.com/amgazal/bridge" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                </div>
-              </div>
-
-              <div class="project-row__media">
-                <a href="bridge.png" target="_blank" rel="noopener noreferrer" aria-label="View full Bridge screenshot">
-                  <img src="bridge.png" alt="Bridge student process guide and journey interface" loading="lazy" decoding="async" />
-                </a>
-              </div>
-            </div>
+          <article class="experience-row">
+            <div class="experience-heading"><h3>Software Engineer Intern</h3><p class="date">May 2025 — Aug 2025</p></div>
+            <p class="organization">Donyma Steel Complex</p>
+            <p>Worked on React interfaces, reusable UI components, REST API integration, and frontend performance.</p>
           </article>
-        </div>
-      </section>
-
-      <section id="technical" class="container reveal">
-        <div class="section-head section-head--compact">
-          <div>
-            <p class="eyebrow">Selected technical work</p>
-            <h2>SELECTED TECHNICAL WORK</h2>
+          <article class="experience-row">
+            <div class="experience-heading"><h3>Web Lead &amp; Financial Coordinator</h3><p class="date">Jan 2026 — Present</p></div>
+            <p class="organization">Future Civilisations Society</p>
+            <p>Build and maintain the conference website while coordinating changing event requirements and budgeting across teams.</p>
+          </article>
+          <div class="additional-experience">
+            <h3>Also</h3>
+            <article class="also-row"><div><h4>Cornell AI4ALL</h4><p>Selected Participant · AI/ML Program</p></div><p class="date">2026</p></article>
+            <article class="also-row"><div><h4>Cornell Dining</h4><p>Student Manager</p></div><p class="date">Feb 2025 — Present</p></article>
+            <article class="also-row"><div><h4>Programming Outreach</h4><p>Volunteer Programming Instructor</p></div><p class="date">May 2023 — Aug 2024</p></article>
           </div>
-        </div>
-
-        <div class="compact-grid">
-          <article class="compact-card">
-            <div class="compact-card__top">
-              <p>Live website</p>
-              <span>2026</span>
-            </div>
-            <h3>Future Civilisations</h3>
-            <p>Maintained a responsive conference website for event information, speakers, and schedule navigation as plans changed.</p>
-            <div class="project-tech">JavaScript · HTML · CSS · Responsive design</div>
-            <div class="project-links compact-links">
-              <a href="https://futurecivilizations.com/" target="_blank" rel="noopener noreferrer">Live site ↗</a>
-              <a href="https://github.com/amgazal/Future-Civilisations-Conference-Apr-18" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            </div>
-          </article>
-
-          <article class="compact-card">
-            <div class="compact-card__top">
-              <p>ML / NLP</p>
-              <span>2026</span>
-            </div>
-            <h3>AI Tweet Detection</h3>
-            <p>Compared BERT, Random Forest, and Logistic Regression to classify AI-generated tweets using a reproducible data pipeline.</p>
-            <div class="project-tech">BERT · Random Forest · Logistic Regression · pandas · scikit-learn · Streamlit</div>
-            <div class="project-links compact-links">
-              <a href="https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app" target="_blank" rel="noopener noreferrer">Live app ↗</a>
-              <a href="https://github.com/amgazal/Machine-Learning-project-22D" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="more-work" class="container reveal">
-        <div class="section-head section-head--compact">
-          <div>
-            <p class="eyebrow">More work</p>
-            <h2>MORE WORK</h2>
-          </div>
-        </div>
-
-        <div class="more-work-grid">
-          <article class="mini-work-card">
-            <h3>Color Model Converter</h3>
-            <p>Python tool that converts and synchronizes RGB, CMYK, and HSV values for visual exploration and conversion logic.</p>
-            <div class="project-tech">Python · color theory · numerical logic</div>
-            <div class="project-links compact-links">
-              <a href="https://github.com/amgazal/color-model-converter" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            </div>
-          </article>
-
-          <article class="mini-work-card">
-            <h3>Image Editor</h3>
-            <p>Python image editor with cumulative filters and pixel-level transformations for image manipulation experiments.</p>
-            <div class="project-tech">Python · image processing · OOP</div>
-            <div class="project-links compact-links">
-              <a href="https://github.com/amgazal/Image-editor-python" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="experience" class="container reveal">
-        <div class="section-head section-head--compact">
-          <div>
-            <p class="eyebrow">Experience</p>
-            <h2>EXPERIENCE</h2>
-          </div>
-        </div>
-
-        <h3 class="experience-group-title">Primary technical experience</h3>
-        <div class="timeline timeline--primary">
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>Jan 2026 — Present</p>
-              <span>Cornell SC Johnson College of Business</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>IT Client Services Assistant</h3>
-              <ul>
-                <li>Handle roughly 10–15 help-desk and walk-in requests per day across Windows/macOS, software, accounts, devices, and connectivity.</li>
-                <li>Configure workstations and support hardware, software, account access, and equipment deployment for faculty and staff.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>Fall 2026</p>
-              <span>Predictable Prose · Cornell University</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Undergraduate Researcher</h3>
-              <ul>
-                <li>Reviewed and annotated approximately 20 research dataset entries per week for a Cornell study comparing LLM and human predictions of plot turns and reveals in detective fiction from 1890–1920.</li>
-                <li>Supported analysis of narrative predictability and differences between human and model expectations.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>May 2025 — Aug 2025</p>
-              <span>Donyma Steel Complex</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Software Engineer Intern</h3>
-              <ul>
-                <li>Redesigned React dashboard navigation and reduced page-load time by approximately 20%.</li>
-                <li>Built 15+ reusable UI components and integrated REST APIs, normalizing server responses to fix incorrect rendering and data-flow issues.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>Jan 2026 — Present</p>
-              <span>Future Civilisations Society</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Web Lead &amp; Financial Coordinator</h3>
-              <ul>
-                <li>Build and maintain the conference website using JavaScript, HTML, and CSS.</li>
-                <li>Coordinate website and event requirements along with budgeting across programming, marketing, and logistics.</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-
-        <h3 class="experience-group-title experience-group-title--additional">Additional experience &amp; programs</h3>
-        <div class="timeline timeline--additional">
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>2026</p>
-              <span>Cornell AI4ALL</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Selected Participant · AI/ML Program</h3>
-              <p>Selected from approximately 4,000 applicants; completed introductory AI/ML training and industry mentorship, and contributed Python analysis/modeling to a team project classifying human- versus AI-generated tweets.</p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>Feb 2025 — Present</p>
-              <span>Cornell Dining</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Student Manager</h3>
-              <p>Promoted from Dining Associate to supervise around 15 student staff per shift across hiring, scheduling, onboarding, training, service, and food-safety standards.</p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-side">
-              <p>May 2023 — Aug 2024</p>
-              <span>Programming Outreach</span>
-            </div>
-            <div class="timeline-copy">
-              <h3>Volunteer Programming Instructor</h3>
-              <p>Taught introductory HTML, CSS, and JavaScript virtually to 50+ high-school students, creating exercises and providing individualized debugging support.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="about" class="container reveal">
-        <div class="section-head section-head--compact">
-          <div>
-            <p class="eyebrow">About</p>
-            <h2>ABOUT</h2>
-          </div>
-        </div>
-
-        <div class="about-grid">
-          <figure class="profile-figure">
-            <img
-              src="headshot.jpg"
-              alt="Portrait of Abdallah Gazal"
-              loading="lazy"
-              decoding="async"
-              onerror="this.style.display='none'; this.parentElement.classList.add('fallback-visible');"
-            />
-            <span class="profile-fallback" aria-hidden="true">AG</span>
-          </figure>
-
+        </section>
+        <section id="about" aria-labelledby="about-title">
+          <h2 id="about-title">About</h2>
           <div class="about-copy">
-            <p>I’ve spent a lot of time on the other side of software: helping someone whose laptop won’t cooperate, teaching a student who is stuck, or answering a question while the line keeps moving. Seeing where people get frustrated has shaped how I build software.</p>
-            <p>I work across the stack now, from React interfaces to APIs, PostgreSQL, authentication, testing, and deployment.</p>
+            <p>I’ve spent a lot of time helping people when something isn’t working: at an IT desk, while teaching, and in customer-facing jobs. That has made me notice the small points of friction that software often ignores.</p>
+            <p>I now work across the stack, from React interfaces to APIs, PostgreSQL, authentication, testing, and deployment.</p>
           </div>
-        </div>
-
-        <div class="tool-grid" aria-label="Technical skills">
-          <div>
-            <h3>Languages</h3>
-            <p>Python · Java · JavaScript · TypeScript · SQL</p>
+          <div class="skills">
+            <h3>Skills</h3>
+            <dl>
+              <div><dt>Languages</dt><dd>Python · Java · JavaScript · TypeScript · SQL</dd></div>
+              <div><dt>Frontend</dt><dd>React · HTML · CSS · Vite</dd></div>
+              <div><dt>Backend / Data</dt><dd>PostgreSQL · Supabase · REST APIs · pandas</dd></div>
+              <div><dt>Tools</dt><dd>Git · GitHub Actions · Vitest · Jupyter</dd></div>
+            </dl>
           </div>
-          <div>
-            <h3>Frontend</h3>
-            <p>React · HTML · CSS · Vite</p>
+        </section>
+        <section id="contact" aria-labelledby="contact-title">
+          <h2 id="contact-title">Let’s talk</h2>
+          <p>If you want to talk about a project, a role, or something interesting to build, send me a message.</p>
+          <a class="email-address" href="mailto:amg526@cornell.edu" target="_blank" rel="noopener noreferrer">amg526@cornell.edu</a>
+          <div class="contact-actions">
+            <a class="button button-primary" href="mailto:amg526@cornell.edu" target="_blank" rel="noopener noreferrer">Email</a>
+            <a href="https://www.linkedin.com/in/abdallah-m-gazal" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/amgazal" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="Abdallah_Gazal_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
           </div>
-          <div>
-            <h3>Backend / Data</h3>
-            <p>PostgreSQL · Supabase · REST APIs · pandas</p>
-          </div>
-          <div>
-            <h3>Tools</h3>
-            <p>Git · GitHub Actions · Vitest · Jupyter</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="container reveal">
-        <div class="contact-card">
-          <div>
-            <p class="eyebrow">Contact</p>
-            <h2>LET’S TALK</h2>
-            <p>If you want to talk software, a project here, or an opportunity, feel free to reach out.</p>
-          </div>
-
-          <div class="contact-links">
-            <a href="mailto:amg526@cornell.edu" target="_blank" rel="noopener noreferrer">Email <span>amg526@cornell.edu</span></a>
-            <a href="https://www.linkedin.com/in/abdallah-m-gazal" target="_blank" rel="noopener noreferrer">LinkedIn <span>linkedin.com/in/abdallah-m-gazal ↗</span></a>
-            <a href="https://github.com/amgazal" target="_blank" rel="noopener noreferrer">GitHub <span>github.com/amgazal ↗</span></a>
-            <a href="Abdallah_Gazal_Resume.pdf" title="Abdallah Gazal Resume (PDF)" target="_blank" rel="noopener noreferrer">Resume <span>Abdallah Gazal Resume ↗</span></a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer container">
-      <p>Built by Abdallah Gazal <span id="footerYear"></span>.</p>
-    </footer>
-
-    <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top of portfolio">
-      <span>Back to top</span><b aria-hidden="true">↑</b>
-    </button>
-
-    <script src="script.js"></script>
-  </body>
+        </section>
+      </main>
+      <footer>© <span id="footer-year">2026</span> Abdallah Gazal</footer>
+    </div>
+  </div>
+</body>
 </html>
