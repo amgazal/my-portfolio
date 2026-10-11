@@ -16,10 +16,10 @@ Open http://localhost:8000.
 - `styles.css`: warm light palette, intentional dark palette, sticky desktop identity rail, and single-column layouts at 900px and below.
 - `script.js`: persisted theme preference and active section navigation.
 - `headshot.jpg`: original portrait; `assets/headshot-small.jpg`: smaller responsive copy.
-- `resolve.png`, `layer.webp`: featured previews. Full-resolution originals remain available through the preview links.
+- `resolve.webp`, `layer.webp`: featured previews. Full-resolution originals remain available through the preview links.
 - `Abdallah_Gazal_Resume.pdf`: the only resume PDF; every Resume action uses this exact filename.
 - `CNAME`: existing custom domain, unchanged.
 
 The page is readable without JavaScript. Theme preference follows the system until a visitor makes a manual selection. Reduced motion disables smooth scrolling and hover movement. All navigation links remain visible on mobile.
 
-Changes remain local for owner review; nothing has been committed or published.
+The site is deployed through GitHub Pages at https://amgazal.com.

@@ -1,3 +1,0 @@
-# Internal development notes are excluded from GitHub Pages output.
-exclude:
-  - QA.md
