@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beyond the Crowds | Abdallah Gazal</title>
+  <meta name="description" content="Explore National Park Service visitation through annual trends, seasonal patterns, and park designation comparisons.">
+  <link rel="canonical" href="https://amgazal.com/projects/beyond-the-crowds/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amgazal.com/projects/beyond-the-crowds/">
+  <meta property="og:title" content="Beyond the Crowds | Abdallah Gazal">
+  <meta property="og:description" content="What can recreation visits tell us about national parks? An interactive exploration of official NPS data.">
+  <meta property="og:image" content="https://amgazal.com/og-image.jpg">
+  <meta property="og:image:alt" content="Abdallah Gazal — Software Engineer, Cornell University. Portfolio featuring Resolve and Layer.">
+  <meta property="og:site_name" content="Abdallah Gazal Portfolio">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="author" content="Abdallah Gazal">
+  <meta name="theme-color" content="#f4f1ea">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>
+    // Apply preference before paint; storage may be unavailable in private contexts.
+    (() => {
+      let theme;
+      try { theme = localStorage.getItem('portfolio-theme'); } catch (_) {}
+      if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
+  <link rel="stylesheet" href="analysis.css">
+  <script src="analysis.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="portfolio">
+    <header class="identity">
+      <div class="identity-top">
+        <div class="portrait">
+          <span class="portrait-fallback" aria-hidden="true">AG</span>
+          <img src="/headshot.jpg" srcset="/assets/headshot-small.jpg 300w, /headshot.jpg 3024w" sizes="96px" alt="Abdallah Gazal" width="96" height="120" fetchpriority="high" onerror="this.hidden=true">
+        </div>
+        <p class="identity-name"><a href="/">Abdallah Gazal</a></p>
+        <p class="role">Software Engineer</p>
+        <div class="education"><p>Cornell University</p><p>Information Science · Class of 2028</p></div>
+        <p class="statement">I build software around<br class="desktop-break"> the people using it.</p>
+        <p class="supporting">From the interface to the systems behind it.</p>
+        <div class="primary-actions">
+          <a class="button button-primary" href="/Abdallah_Gazal_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+          <a class="button" href="mailto:amg526@cornell.edu">Email</a>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/amgazal" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/abdallah-m-gazal" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+      <div class="identity-bottom"><p>Ithaca, NY</p></div>
+    </header>
+    <div class="content">
+      <div class="topbar">
+        <nav aria-label="Main navigation">
+          <a href="#trend" aria-current="location">Trend</a>
+          <a href="#season">Season</a>
+          <a href="#parks">Parks</a>
+          <a href="#notes">Notes</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" hidden>
+          <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg>
+          <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+        </button>
+      </div>
+      <main id="main" tabindex="-1" class="analysis-main">
+        <header class="analysis-intro">
+          <a class="back-link" href="/#work">← Selected work</a>
+          <p class="project-label">Data analysis · Python &amp; SQL</p>
+          <h1>Beyond the Crowds</h1>
+          <p class="analysis-deck">Exploring what drives national park visitation.</p>
+          <p>I enjoy visiting parks to observe nature. While staying with my aunt in the Bronx, I noticed how much park activity varied between the places I walked or took the bus to. I wanted to understand what might be behind those differences.</p>
+          <p class="annotation">Those were often NYC municipal parks. This analysis looks at National Park Service units nationwide—a different set of parks, connected by the same question.</p>
+          <div class="project-links"><a href="https://github.com/amgazal/national-parks-visitation-analysis" target="_blank" rel="noopener noreferrer">View the analysis on GitHub ↗</a></div>
+        </header>
+        <p id="load-error" class="annotation" hidden>Interactive charts could not load. The findings and data tables below remain available.</p>
+        <noscript><p class="annotation">Enable JavaScript to explore the charts. All findings and data tables are available below.</p></noscript>
+        <section id="trend" aria-labelledby="trend-title">
+          <p class="project-label">01 / Over time</p>
+          <h2 id="trend-title">A changing picture of visitation</h2>
+          <p>Reported recreation visits fell 27.6% in 2020. By 2025, the total was 323.0 million—2.7% below 2024.</p>
+          <figure class="analysis-figure" aria-labelledby="trend-title">
+            <div id="annual-chart" class="chart"><img src="/assets/beyond-the-crowds.svg" width="1000" height="560" alt="Reported NPS recreation visits, 1979–2025"></div>
+            <div class="chart-controls" id="annual-controls" hidden>
+              <div class="year-label"><label for="year">Explore a year</label><output id="year-label" for="year">2025</output></div>
+              <input id="year" type="range" min="1979" max="2025" value="2025" step="1" aria-describedby="annual-readout">
+            </div>
+            <p class="chart-readout" id="annual-readout" aria-live="polite">2025 · 323,014,305 recreation visits · 400 reporting codes</p>
+            <figcaption>1979–2025 · Reporting coverage grows from 271 to 400 codes. This is not a fixed set of parks. Hover, tap, or use the year slider.</figcaption>
+          </figure>
+          <details><summary>View annual data</summary><section class="table-scroll" aria-label="Annual data" tabindex="0"><!-- annual-table --><table><caption>Reported recreation visits, 1979–2025</caption><thead><tr><th scope="col">Year</th><th scope="col">Visits</th><th scope="col">Reporting codes</th></tr></thead><tbody><tr><th scope="row">1979</th><td>205,369,795</td><td>271</td></tr><tr><th scope="row">1980</th><td>220,463,211</td><td>275</td></tr><tr><th scope="row">1981</th><td>238,592,669</td><td>280</td></tr><tr><th scope="row">1982</th><td>244,924,579</td><td>290</td></tr><tr><th scope="row">1983</th><td>243,619,396</td><td>294</td></tr><tr><th scope="row">1984</th><td>248,785,509</td><td>296</td></tr><tr><th scope="row">1985</th><td>263,441,808</td><td>303</td></tr><tr><th scope="row">1986</th><td>281,094,850</td><td>304</td></tr><tr><th scope="row">1987</th><td>287,244,998</td><td>305</td></tr><tr><th scope="row">1988</th><td>282,451,441</td><td>309</td></tr><tr><th scope="row">1989</th><td>269,399,837</td><td>314</td></tr><tr><th scope="row">1990</th><td>255,581,467</td><td>316</td></tr><tr><th scope="row">1991</th><td>267,840,999</td><td>319</td></tr><tr><th scope="row">1992</th><td>274,694,549</td><td>324</td></tr><tr><th scope="row">1993</th><td>273,120,925</td><td>327</td></tr><tr><th scope="row">1994</th><td>268,636,169</td><td>327</td></tr><tr><th scope="row">1995</th><td>269,564,307</td><td>328</td></tr><tr><th scope="row">1996</th><td>265,796,163</td><td>329</td></tr><tr><th scope="row">1997</th><td>275,236,335</td><td>336</td></tr><tr><th scope="row">1998</th><td>286,762,265</td><td>342</td></tr><tr><th scope="row">1999</th><td>287,130,879</td><td>341</td></tr><tr><th scope="row">2000</th><td>285,891,275</td><td>344</td></tr><tr><th scope="row">2001</th><td>279,873,926</td><td>345</td></tr><tr><th scope="row">2002</th><td>277,320,211</td><td>349</td></tr><tr><th scope="row">2003</th><td>266,230,715</td><td>353</td></tr><tr><th scope="row">2004</th><td>276,908,376</td><td>356</td></tr><tr><th scope="row">2005</th><td>273,488,751</td><td>356</td></tr><tr><th scope="row">2006</th><td>272,623,980</td><td>359</td></tr><tr><th scope="row">2007</th><td>275,581,547</td><td>360</td></tr><tr><th scope="row">2008</th><td>274,852,949</td><td>360</td></tr><tr><th scope="row">2009</th><td>285,579,941</td><td>360</td></tr><tr><th scope="row">2010</th><td>281,303,769</td><td>363</td></tr><tr><th scope="row">2011</th><td>278,939,536</td><td>367</td></tr><tr><th scope="row">2012</th><td>282,765,682</td><td>367</td></tr><tr><th scope="row">2013</th><td>273,630,895</td><td>370</td></tr><tr><th scope="row">2014</th><td>292,800,082</td><td>370</td></tr><tr><th scope="row">2015</th><td>307,247,252</td><td>372</td></tr><tr><th scope="row">2016</th><td>330,971,689</td><td>376</td></tr><tr><th scope="row">2017</th><td>330,882,751</td><td>379</td></tr><tr><th scope="row">2018</th><td>318,211,833</td><td>379</td></tr><tr><th scope="row">2019</th><td>327,516,619</td><td>379</td></tr><tr><th scope="row">2020</th><td>237,064,332</td><td>383</td></tr><tr><th scope="row">2021</th><td>297,115,406</td><td>388</td></tr><tr><th scope="row">2022</th><td>311,985,998</td><td>389</td></tr><tr><th scope="row">2023</th><td>325,498,646</td><td>394</td></tr><tr><th scope="row">2024</th><td>331,863,358</td><td>398</td></tr><tr><th scope="row">2025</th><td>323,014,305</td><td>400</td></tr></tbody></table><!-- /annual-table --></section></details>
+        </section>
+        <section id="season" aria-labelledby="season-title">
+          <p class="project-label">02 / Through the year</p>
+          <h2 id="season-title">Summer leads, but weighting matters</h2>
+          <p>July averages 14.1% of a unit’s annual visits, followed by June and August. Giving every unit equal weight reveals a different profile from counting every visit equally.</p>
+          <div id="season-controls" hidden>
+            <fieldset class="weight-controls"><legend>Compare monthly shares</legend><label><input type="radio" name="weight" value="equal" checked> Equal weight per unit</label><label><input type="radio" name="weight" value="volume"> Weight by visit volume</label></fieldset>
+          </div>
+          <figure class="analysis-figure" aria-labelledby="season-title">
+            <div id="season-chart" class="chart"></div>
+            <p class="chart-readout" id="season-readout" aria-live="polite">July · 14.1% · Equal weight per unit</p>
+            <figcaption>2023–2025 · 392 units with complete, positive totals in all three years. Equal weighting averages each unit-year’s monthly proportions. Hover or tap a month; focus the chart and use arrow keys.</figcaption>
+          </figure>
+          <details><summary>View seasonal data</summary><section class="table-scroll" aria-label="Seasonal data" tabindex="0"><!-- seasonal-table --><table><caption>Monthly share of annual visits, 2023–2025; 392 units</caption><thead><tr><th scope="col">Month</th><th scope="col">Equal unit weight</th><th scope="col">Visit-volume weight</th></tr></thead><tbody><tr><th scope="row">1</th><td>4.01%</td><td>4.09%</td></tr><tr><th scope="row">2</th><td>4.73%</td><td>4.60%</td></tr><tr><th scope="row">3</th><td>7.31%</td><td>7.29%</td></tr><tr><th scope="row">4</th><td>7.94%</td><td>8.23%</td></tr><tr><th scope="row">5</th><td>9.94%</td><td>9.91%</td></tr><tr><th scope="row">6</th><td>12.39%</td><td>12.06%</td></tr><tr><th scope="row">7</th><td>14.08%</td><td>12.88%</td></tr><tr><th scope="row">8</th><td>11.88%</td><td>11.60%</td></tr><tr><th scope="row">9</th><td>9.78%</td><td>9.78%</td></tr><tr><th scope="row">10</th><td>7.63%</td><td>8.65%</td></tr><tr><th scope="row">11</th><td>5.33%</td><td>5.90%</td></tr><tr><th scope="row">12</th><td>4.97%</td><td>5.01%</td></tr></tbody></table><!-- /seasonal-table --></section></details>
+        </section>
+        <section id="parks" aria-labelledby="parks-title">
+          <p class="project-label">03 / Different kinds of places</p>
+          <h2 id="parks-title">Park designation carries information</h2>
+          <p>The median unit averaged 1.16 million annual visits among National Recreation Areas, compared with 792,493 among National Parks and 27,335 among National Historic Sites.</p>
+          <figure class="analysis-figure" aria-labelledby="parks-title">
+            <p class="chart-key">● Median <span aria-hidden="true">—</span> Line: middle 50% of unit averages</p>
+            <div id="designation-chart"></div>
+            <p class="chart-readout" id="designation-readout" aria-live="polite">Select a designation to see its values.</p>
+            <figcaption>2023–2025 annual averages · Log scale: equal spacing means a tenfold increase. Current API categories with at least five units are shown; all categories are in the table. These are not official counts of every park designation.</figcaption>
+          </figure>
+          <p class="annotation">Purpose, attractions, access, size, and counting practices differ across these places. This comparison does not show that a designation causes higher visitation.</p>
+          <details><summary>View all designation data</summary><section class="table-scroll" aria-label="Designation data" tabindex="0"><!-- designation-table --><table><caption>Unit means, 2023–2025; exact current API categories</caption><thead><tr><th scope="col">Designation</th><th scope="col">Units</th><th scope="col">Median visits</th><th scope="col">25th percentile</th><th scope="col">75th percentile</th></tr></thead><tbody><tr><th scope="row">Parkway</th><td>2</td><td>12,028,249</td><td>9,704,870</td><td>14,351,629</td></tr><tr><th scope="row">Memorial Parkway</th><td>1</td><td>6,968,970</td><td>6,968,970</td><td>6,968,970</td></tr><tr><th scope="row">National Seashore</th><td>10</td><td>2,226,613</td><td>535,602</td><td>2,657,405</td></tr><tr><th scope="row">National River</th><td>1</td><td>1,543,020</td><td>1,543,020</td><td>1,543,020</td></tr><tr><th scope="row">National Scenic Riverways</th><td>1</td><td>1,264,917</td><td>1,264,917</td><td>1,264,917</td></tr><tr><th scope="row">National Recreation Area</th><td>16</td><td>1,163,888</td><td>777,640</td><td>4,207,007</td></tr><tr><th scope="row">Ecological &amp; Historic Preserve</th><td>1</td><td>1,022,139</td><td>1,022,139</td><td>1,022,139</td></tr><tr><th scope="row">National Lakeshore</th><td>3</td><td>932,652</td><td>593,306</td><td>1,277,996</td></tr><tr><th scope="row">National Scenic Riverway</th><td>1</td><td>853,127</td><td>853,127</td><td>853,127</td></tr><tr><th scope="row">National Park</th><td>51</td><td>792,493</td><td>417,194</td><td>2,593,331</td></tr><tr><th scope="row">National and State Parks</th><td>1</td><td>744,823</td><td>744,823</td><td>744,823</td></tr><tr><th scope="row">National River &amp; Recreation Area</th><td>2</td><td>515,918</td><td>387,218</td><td>644,618</td></tr><tr><th scope="row">Memorial</th><td>2</td><td>398,749</td><td>252,286</td><td>545,213</td></tr><tr><th scope="row">National Military Park</th><td>9</td><td>385,539</td><td>192,414</td><td>738,048</td></tr><tr><th scope="row">Park</th><td>6</td><td>377,312</td><td>305,446</td><td>466,520</td></tr><tr><th scope="row">National Monument and Historic Shrine</th><td>1</td><td>369,056</td><td>369,056</td><td>369,056</td></tr><tr><th scope="row">National Battlefield Park</th><td>4</td><td>367,891</td><td>196,351</td><td>742,983</td></tr><tr><th scope="row">Scenic &amp; Recreational River</th><td>1</td><td>361,524</td><td>361,524</td><td>361,524</td></tr><tr><th scope="row">National Park &amp; Preserve</th><td>8</td><td>275,199</td><td>30,702</td><td>558,728</td></tr><tr><th scope="row">National Historical Park and Preserve</th><td>1</td><td>229,162</td><td>229,162</td><td>229,162</td></tr><tr><th scope="row">National Battlefield</th><td>10</td><td>178,264</td><td>132,807</td><td>279,744</td></tr><tr><th scope="row">National Recreational River</th><td>1</td><td>145,367</td><td>145,367</td><td>145,367</td></tr><tr><th scope="row">National Historical Park</th><td>59</td><td>112,576</td><td>36,933</td><td>412,013</td></tr><tr><th scope="row">National Reserve</th><td>1</td><td>90,969</td><td>90,969</td><td>90,969</td></tr><tr><th scope="row">National Memorial</th><td>15</td><td>85,969</td><td>33,136</td><td>165,822</td></tr><tr><th scope="row">National Preserve</th><td>9</td><td>81,051</td><td>14,013</td><td>724,569</td></tr><tr><th scope="row">National Monument</th><td>71</td><td>80,204</td><td>35,815</td><td>184,935</td></tr><tr><th scope="row">National Monument &amp; Preserve</th><td>3</td><td>63,470</td><td>31,841</td><td>170,424</td></tr><tr><th scope="row">National Scenic River</th><td>2</td><td>44,741</td><td>29,265</td><td>60,218</td></tr><tr><th scope="row">National Historic Site</th><td>70</td><td>27,335</td><td>12,591</td><td>98,994</td></tr><tr><th scope="row">International Historic Site</th><td>1</td><td>13,807</td><td>13,807</td><td>13,807</td></tr><tr><th scope="row">National Historical Park and Ecological Preserve</th><td>1</td><td>13,014</td><td>13,014</td><td>13,014</td></tr><tr><th scope="row">Wild River</th><td>1</td><td>295</td><td>295</td><td>295</td></tr><tr><th scope="row">Wild &amp; Scenic River</th><td>1</td><td>197</td><td>197</td><td>197</td></tr></tbody></table><!-- /designation-table --></section></details>
+        </section>
+        <section id="notes" aria-labelledby="notes-title">
+          <p class="project-label">04 / What I learned</p>
+          <h2 id="notes-title">Useful associations, unanswered questions</h2>
+          <p>A small regression benchmark tested designation and coordinates on 367 units, holding out whole units across 25 folds. Designation was more informative than coordinates alone.</p>
+          <dl class="model-results"><div><dt>Coordinates only</dt><dd>−0.005</dd></div><div><dt>Designation only</dt><dd>0.273</dd></div><div><dt>Both together</dt><dd>0.303</dd></div></dl>
+          <p class="annotation">Mean R² on log-transformed mean annual visits; the training-mean baseline scored −0.016. The combined score varied across folds (SD 0.103). These are prediction checks—not original visit-count explanatory power, causal effects, or crowding forecasts.</p>
+          <h3 class="notes-subtitle">What the counts leave out</h3>
+          <p>Recreation visits are not unique visitors, and annual totals cannot tell us how crowded a trail feels on a particular day. Reporting methods and coverage change; current metadata also misses some reporting codes.</p>
+          <p>Nearby population, accessibility, acreage, and historical designation changes remain unresolved. Local entrance counts, trail use, and visitor experience would be needed before suggesting staffing or access changes.</p>
+          <div class="project-links"><a href="https://github.com/amgazal/national-parks-visitation-analysis/blob/5f5bb2fe9fbf08d8a866f92c79e26dae2dac1f22/reports/findings.md" target="_blank" rel="noopener noreferrer">Methods &amp; limitations ↗</a><a href="data.v1.json" download>Download chart data</a></div>
+          <p class="source-note">Source: <a href="https://catalog.data.gov/dataset/nps-visitor-use-statistics-data-package-2025" target="_blank" rel="noopener noreferrer">NPS Visitor Use Statistics, 2025</a>, with current NPS API metadata. Analysis snapshot: October 2026, commit <a href="https://github.com/amgazal/national-parks-visitation-analysis/tree/5f5bb2fe9fbf08d8a866f92c79e26dae2dac1f22" target="_blank" rel="noopener noreferrer">5f5bb2f</a>. Four negative monthly records are quarantined and 15 partial unit-years flagged; historic totals sum available valid observations.</p>
+        </section>
+      </main>
+      <footer>© <span id="footer-year">2026</span> Abdallah Gazal · <a href="/#work">Back to selected work</a></footer>
+    </div>
+  </div>
+</body>
+</html>
