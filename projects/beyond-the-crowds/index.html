@@ -24,8 +24,7 @@
     (() => {
       let theme;
       try { theme = localStorage.getItem('portfolio-theme'); } catch (_) {}
-      if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      document.documentElement.dataset.theme = theme;
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +42,7 @@
       <div class="identity-top">
         <div class="portrait">
           <span class="portrait-fallback" aria-hidden="true">AG</span>
-          <img src="/headshot.jpg" srcset="/assets/headshot-small.jpg 300w, /headshot.jpg 3024w" sizes="96px" alt="Abdallah Gazal" width="96" height="120" fetchpriority="high" onerror="this.hidden=true">
+          <img src="/headshot.jpg" srcset="/assets/headshot-small.jpg 300w, /headshot.jpg 3024w" sizes="96px" alt="" width="96" height="120" fetchpriority="high" onerror="this.hidden=true">
         </div>
         <p class="identity-name"><a href="/">Abdallah Gazal</a></p>
         <p class="role">Software Engineer</p>
@@ -69,10 +68,13 @@
           <a href="#parks">Parks</a>
           <a href="#notes">Notes</a>
         </nav>
-        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" hidden>
-          <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg>
-          <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
-        </button>
+        <label class="appearance" hidden>Theme
+          <select id="appearance">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
       </div>
       <main id="main" tabindex="-1" class="analysis-main">
         <header class="analysis-intro">

@@ -24,8 +24,7 @@
     (() => {
       let theme;
       try { theme = localStorage.getItem('portfolio-theme'); } catch (_) {}
-      if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      document.documentElement.dataset.theme = theme;
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +40,7 @@
       <div class="identity-top">
         <div class="portrait">
           <span class="portrait-fallback" aria-hidden="true">AG</span>
-          <img src="headshot.jpg" srcset="assets/headshot-small.jpg 300w, headshot.jpg 3024w" sizes="96px" alt="Abdallah Gazal" width="96" height="120" fetchpriority="high" onerror="this.hidden=true">
+          <img src="headshot.jpg" srcset="assets/headshot-small.jpg 300w, headshot.jpg 3024w" sizes="96px" alt="" width="96" height="120" fetchpriority="high" onerror="this.hidden=true">
         </div>
         <h1>Abdallah Gazal</h1>
         <p class="role">Software Engineer</p>
@@ -67,14 +66,37 @@
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </nav>
-        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" hidden>
-          <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg>
-          <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
-        </button>
+        <label class="appearance" hidden>Theme
+          <select id="appearance">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
       </div>
       <main id="main" tabindex="-1">
         <section id="work" aria-labelledby="work-title">
           <h2 id="work-title">Selected work</h2>
+          <article class="featured" id="relay">
+            <div class="featured-copy">
+              <div class="project-heading"><h3>Relay</h3><span class="meta">2026</span></div>
+              <p class="project-description">A durable background job processing system built with Go and PostgreSQL, supporting concurrent execution, scheduled jobs, retries, and recovery from worker failures.</p>
+              <p class="project-context">I built Relay to handle background work reliably, even when workers crash. In a local four-worker crash-recovery test, all 10,003 accepted jobs were accounted for, with 10,002 succeeding and one intentionally exhausting its retry limit.</p>
+              <p class="tech">Go · PostgreSQL · Docker Compose · Prometheus</p>
+              <div class="project-links">
+                <a href="https://github.com/amgazal/relay-queue">Relay on GitHub</a>
+                <a href="https://github.com/amgazal/relay-queue/blob/f9330b949d47e9f7bba88e33e0ad3e82c3a2b1b8/docs/BENCHMARKS.md">Crash-test results</a>
+              </div>
+            </div>
+            <figure class="relay-flow">
+              <figcaption>How a job moves through Relay</figcaption>
+              <ol>
+                <li>REST API<span>Accepts a job or dispatches a scheduled run.</span></li>
+                <li>PostgreSQL<span>Stores the job and records each claim as a numbered attempt.</span></li>
+                <li>Go worker<span>Renews its lease while the handler runs, then records the outcome.</span></li>
+              </ol>
+            </figure>
+          </article>
           <article class="featured" id="resolve">
             <div class="featured-copy">
               <div class="project-heading"><h3>Resolve</h3><span class="meta">2026</span></div>
@@ -82,8 +104,8 @@
               <p class="project-context">I built Resolve after seeing how often getting technical help starts with the same problem: explaining what went wrong.</p>
               <p class="tech">React · TypeScript · PostgreSQL · Supabase</p>
               <div class="project-links">
-                <a href="https://resolve.amgazal.com/" target="_blank" rel="noopener noreferrer">Live demo</a>
-                <a href="https://github.com/amgazal/Resolve" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://resolve.amgazal.com/" target="_blank" rel="noopener noreferrer" aria-label="Live demo for Resolve">Live demo</a>
+                <a href="https://github.com/amgazal/Resolve" target="_blank" rel="noopener noreferrer" aria-label="GitHub for Resolve">GitHub</a>
               </div>
             </div>
             <a class="project-image resolve-image" href="resolve.png" target="_blank" rel="noopener noreferrer" aria-label="View full Resolve screenshot">
@@ -97,8 +119,8 @@
               <p class="project-context">I started Layer after realizing that the temperature alone doesn't always tell you what the weather will actually feel like.</p>
               <p class="tech">React · JavaScript · PostgreSQL · Supabase</p>
               <div class="project-links">
-                <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noopener noreferrer">Live</a>
-                <a href="https://github.com/amgazal/Layer" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://amgazal.github.io/Layer/" target="_blank" rel="noopener noreferrer" aria-label="Live for Layer">Live</a>
+                <a href="https://github.com/amgazal/Layer" target="_blank" rel="noopener noreferrer" aria-label="GitHub for Layer">GitHub</a>
               </div>
             </div>
             <a class="project-image layer-image" href="layer.png" target="_blank" rel="noopener noreferrer" aria-label="View full Layer screenshot">
@@ -113,7 +135,7 @@
               <p class="tech">Python · Pandas · DuckDB SQL · scikit-learn</p>
               <div class="project-links">
                 <a href="/projects/beyond-the-crowds/">Explore the analysis</a>
-                <a href="https://github.com/amgazal/national-parks-visitation-analysis" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://github.com/amgazal/national-parks-visitation-analysis" target="_blank" rel="noopener noreferrer" aria-label="GitHub for Beyond the Crowds">GitHub</a>
               </div>
             </div>
             <a class="project-image" href="/projects/beyond-the-crowds/" aria-label="Explore Beyond the Crowds visitation analysis">
@@ -128,8 +150,8 @@
               <p class="project-context">It grew out of how overwhelming routine forms and processes can feel when you are navigating a new university system for the first time.</p>
               <p class="tech">React · TypeScript · Vite</p>
               <div class="project-links">
-                <a href="https://bridge-navigator.netlify.app/" target="_blank" rel="noopener noreferrer">Live</a>
-                <a href="https://github.com/amgazal/bridge" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://bridge-navigator.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Live for Bridge">Live</a>
+                <a href="https://github.com/amgazal/bridge" target="_blank" rel="noopener noreferrer" aria-label="GitHub for Bridge">GitHub</a>
               </div>
             </article>
             <article>
@@ -139,8 +161,8 @@
               <p class="project-context">I compared BERT, Random Forest, and Logistic Regression to see where the models differed, not just which one produced the highest score.</p>
               <p class="tech">Python · pandas · scikit-learn</p>
               <div class="project-links">
-                <a href="https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app" target="_blank" rel="noopener noreferrer">Live</a>
-                <a href="https://github.com/amgazal/Machine-Learning-project-22D" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://machine-learning-project-22d-atu8bhkcttbebpd44xntd2.streamlit.app" target="_blank" rel="noopener noreferrer" aria-label="Live for AI Tweet Detection">Live</a>
+                <a href="https://github.com/amgazal/Machine-Learning-project-22D" target="_blank" rel="noopener noreferrer" aria-label="GitHub for AI Tweet Detection">GitHub</a>
               </div>
             </article>
           </div>
@@ -148,7 +170,7 @@
             <h3>More work</h3>
             <article class="work-row">
               <div><h4>Future Civilisations</h4><p>A live conference website I maintain as speakers, schedules, and event requirements change.</p></div>
-              <div class="project-links"><a href="https://futurecivilizations.com/" target="_blank" rel="noopener noreferrer">Live</a><a href="https://github.com/amgazal/Future-Civilisations-Conference-Apr-18" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <div class="project-links"><a href="https://futurecivilizations.com/" target="_blank" rel="noopener noreferrer" aria-label="Live for Future Civilisations">Live</a><a href="https://github.com/amgazal/Future-Civilisations-Conference-Apr-18" target="_blank" rel="noopener noreferrer" aria-label="GitHub for Future Civilisations">GitHub</a></div>
             </article>
             <article class="work-row">
               <div><h4>Color Model Converter</h4><p>A Python tool for exploring how colors translate across RGB, CMYK, and HSV models.</p></div>
@@ -196,10 +218,12 @@
           <div class="skills">
             <h3>Skills</h3>
             <dl>
-              <div><dt>Languages</dt><dd>Python · Java · JavaScript · TypeScript · SQL</dd></div>
+              <div><dt>Languages</dt><dd>Python · Go · Java · JavaScript · TypeScript · SQL</dd></div>
               <div><dt>Frontend</dt><dd>React · HTML · CSS · Vite</dd></div>
-              <div><dt>Backend / Data</dt><dd>PostgreSQL · Supabase · REST APIs · pandas</dd></div>
-              <div><dt>Tools</dt><dd>Git · GitHub Actions · Vitest · Jupyter</dd></div>
+              <div><dt>Data</dt><dd>PostgreSQL · Supabase · pandas</dd></div>
+              <div><dt>Backend</dt><dd>REST APIs · Concurrent job processing · Database transactions · Signed webhooks</dd></div>
+              <div><dt>Tools</dt><dd>Git · GitHub Actions · Docker Compose · Prometheus · Jupyter</dd></div>
+              <div><dt>Testing</dt><dd>Vitest · Automated integration tests</dd></div>
             </dl>
           </div>
         </section>

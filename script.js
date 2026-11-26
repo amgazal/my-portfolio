@@ -2,29 +2,23 @@
   'use strict';
 
   const root = document.documentElement;
-  const toggle = document.querySelector('.theme-toggle');
-  const systemTheme = matchMedia('(prefers-color-scheme: dark)');
-  let manualTheme = false;
-  try { manualTheme = ['light', 'dark'].includes(localStorage.getItem('portfolio-theme')); } catch (_) {}
+  const control = document.querySelector('#appearance');
+  const system = matchMedia('(prefers-color-scheme: dark)');
+  control.value = root.dataset.theme || 'system';
 
-  function applyTheme(theme) {
-    root.dataset.theme = theme;
-    const label = `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`;
-    toggle.setAttribute('aria-label', label);
-    toggle.title = label;
-    document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#111214' : '#f4f1ea';
+  function updateBrowserColor() {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : system.matches;
+    document.querySelector('meta[name="theme-color"]').content = dark ? '#111214' : '#f4f1ea';
   }
-  applyTheme(root.dataset.theme);
-  toggle.hidden = false;
-  toggle.addEventListener('click', () => {
-    const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    manualTheme = true;
-    applyTheme(theme);
-    try { localStorage.setItem('portfolio-theme', theme); } catch (_) {}
+  control.addEventListener('change', () => {
+    if (control.value === 'system') delete root.dataset.theme;
+    else root.dataset.theme = control.value;
+    try { localStorage.setItem('portfolio-theme', control.value); } catch (_) {}
+    updateBrowserColor();
   });
-  systemTheme.addEventListener('change', event => {
-    if (!manualTheme) applyTheme(event.matches ? 'dark' : 'light');
-  });
+  control.parentElement.hidden = false;
+  system.addEventListener('change', updateBrowserColor);
+  updateBrowserColor();
 
   const links = [...document.querySelectorAll('nav a')];
   const sections = links.map(link => document.querySelector(link.hash));
